@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/title"
+        android:layout_marginLeft="10dp"
+        />
+    <EditText
+        android:id="@+id/etTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/title_example"
+        android:layout_below="@id/tvTitle"
+        android:layout_marginLeft="10dp"
+        />
+    <TextView
+        android:id="@+id/tvUrl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/url"
+        android:layout_below="@id/etTitle"
+        android:paddingTop="20dp"
+        android:layout_marginLeft="10dp"
+        />
+    <EditText
+        android:id="@+id/etUrl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/url_example"
+        android:layout_below="@+id/tvUrl"
+        android:layout_marginLeft="10dp"
+        />
+    <TextView
+        android:id="@+id/tvDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/description"
+        android:layout_below="@id/etUrl"
+        android:paddingTop="20dp"
+        android:layout_marginLeft="10dp"
+        />
+    <EditText
+        android:id="@+id/etDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:gravity="top|left"
+        android:lines="3"
+        android:minLines="3"
+        android:hint="@string/description_example"
+        android:layout_below="@+id/tvDescription"
+        android:layout_marginLeft="10dp"
+        />
+
+</RelativeLayout>

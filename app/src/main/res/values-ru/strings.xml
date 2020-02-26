@@ -1,0 +1,170 @@
+<resources>
+    <string name="app_name">PaCons2</string>
+    <string name="title_activity_menu">MenuActivity</string>
+    <string name="navigation_drawer_open">Открыть навигацию</string>
+    <string name="navigation_drawer_close">Закрыть навигацию</string>
+    <string name="title_activity_patient_selection">PatientSelectionActivity</string>
+
+    <!-- Patienten -->
+    <string name="edit_patient">Исправить пациента</string>
+    <string name="create_patient">Создать нового пациента</string>
+    <string name="name">Фамилия</string>
+    <string name="gender">Обращение</string>
+    <string name="mrs">Госпожа</string>
+    <string name="mr">Господин</string>
+    <string name="please_add_name">Введите номер пациента</string>
+    <string name="please_select_gender">Выберите обращение </string>
+    <string name="edit">Исправить</string>
+
+    <!-- Übersicht, Navigation -->
+    <string name="overview">Обзор</string>
+    <string name="notes">Пометки</string>
+    <string name="models">3D визуализация</string>
+    <string name="collections">Медиа</string>
+    <string name="drugs">Медикаменты</string>
+    <string name="diagnosis">Диагнозы</string>
+    <string name="exercises">Упражнения</string>
+    <string name="paindetails">Информация о болях</string>
+    <string name="psychosocial"> Факторы психосоциального контекста</string>
+    <string name="diagnosis_and_therapy"> Анамнез, диагноз и терапия </string>
+    <string name="tools">Средства</string>
+    <string name="translator"> Переводчик языка </string>
+    <string name="recognizer">Замечания по результатам</string>
+    <string name="inputs">Ввод</string>
+    <string name="cancel">Прервать</string>
+
+    <!-- Medikamente -->
+    <string name="dosisForDrug">Дозирование препарата</string>
+    <string name="dosis">Дозировка</string>
+    <string name="amount">Количество</string>
+    <string name="add">Добавить</string>
+    <string name="amountExample">(например 50mg)</string>
+    <string name="dosisExample">(например 1010)</string>
+    <string name="add_new_drug">Создать новый медикамент</string>
+    <string name="edit_drugtype">Исправить медикамент</string>
+    <string name="drug_name_example">(например Naproxen)</string>
+    <string name="drug_description_example">(например Naproxen нестероидное противовоспалительное средство...)</string>
+
+    <!-- Notizen -->
+    <string name="save">Сохранить</string>
+    <string name="save_template"> Сохранить как шаблон</string>
+    <string name="new_note">Новая страница</string>
+    <string name="open_template">Открыть шаблон</string>
+    <string name="rubber">Стирка</string>
+    <string name="pen">Ручка</string>
+    <string name="saved">Сохранено</string>
+
+    <!-- Diagnosen -->
+    <string name="additionalInformation">Дополнительная информация</string>
+    <string name="diagnosisDetails">Детали диагноза</string>
+    <string name="add_new_diagnosis">Создать новый диагноз</string>
+    <string name="edit_diagnosistype">Исправить диагноз</string>
+    <string name="type">Классификация</string>
+    <string name="name_example">(например Смещение переднего диска)</string>
+    <string name="type_example">(например Челюстной сустав)</string>
+    <string name="diagnosis_description_example">(например Смещение хрящевого диска в височно-нижнечелюстном суставе)</string>
+
+    <!-- Übungen -->
+    <string name="exercise_observation">Самонаблююдение</string>
+    <string name="exercise_massage_temple">Массаж височных мышц</string>
+    <string name="exercise_massage_cheek">Массаж щёковых мышц</string>
+    <string name="exercise_muscle_elongation">Растяжение мышц</string>
+    <string name="exercise_medication_patch">Лечебный пластырь</string>
+
+    <string name="delete">Удалить</string>
+    <string name="select_deselect">Выбрать/Убрать</string>
+    <string name="open">Открыть</string>
+
+
+    <!-- 3D Modelle, Überbegriffe -->
+    <string name="bruxism">Бруксизм</string>
+    <string name="mastication">Жевание</string>
+    <string name="sensitive_teeth">Чувствительность зубы</string>
+    <string name="tooth_erosion">Стирание зубов</string>
+    <string name="tooth_cavity">Дырки в зубах</string>
+    <string name="migraine">Мигрени</string>
+    <string name="damaged_myelin_sheath">Повреждение миелиновой оболочки</string>
+    <string name="nervous_system">Нервная система</string>
+    <string name="peripheral_neuropathy"> Периферийная невропатия</string>
+    <string name="tooth_cross_section"> Сечение зуба </string>
+
+    <string name="jaw_joint">Челюстной сустав</string>
+    <string name="teeth">Зубы</string>
+    <string name="nerves">Нервы</string>
+
+    <!-- Psychosoziale Kontextfaktoren -->
+    <string name="before_therapy">До лечения</string>
+    <string name="after_therapy">После лечения</string>
+
+    <string name="pain">Боль</string>
+    <string name="family">Семья</string>
+    <string name="financial">Финансовое положение</string>
+    <string name="work">Работа</string>
+    <string name="event">События</string>
+
+    <string name="improvement_reason">Причина улучшения</string>
+    <string name="awareness">Необходимая понимание</string>
+    <string name="other_reasons">Другие причины</string>
+
+    <!-- Medien -->
+    <string name="gallery">Галерея</string>
+    <string name="videos">Видео</string>
+    <string name="documents">Документы</string>
+    <string name="websites">Страницы в интернете</string>
+
+    <string name="title">Название</string>
+    <string name="url">URL</string>
+    <string name="description">Описание</string>
+    <string name="title_example">(например Google)</string>
+    <string name="url_example">(например www.google.ch)</string>
+    <string name="description_example">(например Google это поисковая машина …)</string>
+    <string name="add_website">Добавить страницу в интернете</string>
+
+    <!-- Schmerzdetails -->
+    <string name="beginning">В начале</string>
+    <string name="current">Сейчас</string>
+
+    <string name="pain_quality">Тип боли</string>
+    <string name="pain_location">Расположение боли</string>
+    <string name="pain_intensity">Интенсивность боли</string>
+    <string name="pain_pattern">Закономерность боли</string>
+
+    <string name="dull">тупая</string>
+    <string name="pulling">тянущая</string>
+    <string name="pulsating">пульсирующая</string>
+    <string name="stinging">колющая</string>
+    <string name="burning">жгучая</string>
+    <string name="pinsandneedles">мурашки по коже</string>
+    <string name="tingling">зудящая</string>
+    <string name="numb">онемелость</string>
+
+    <string name="no_pain">без боли</string>
+    <string name="unbearable_pain">невыносимая боль</string>
+
+    <!-- Zusammenfassung -->
+    <string name="conclusion">Завершить</string>
+    <string name="download_summary">Скачать общий документ</string>
+
+    <!-- Sprachen -->
+    <string name="change_language">Выбрать язык</string>
+    <string name="english">Английский</string>
+    <string name="german">Немецкий</string>
+    <string name="french">Французский</string>
+    <string name="russian">русский</string>
+    <string name="open_google_translate">открыть Google Translate</string>
+
+    <string name="login">Login</string>
+    <string name="incorrect_attempts">Anzahl Fehlversuche</string>
+    <string name="sign_in">Anmelden</string>
+    <string name="password">Passwort</string>
+    <string name="username">Username</string>
+
+    <string name="morning">Утро</string>
+    <string name="lunch">полдень</string>
+    <string name="evening">вечер</string>
+    <string name="night">ночь</string>
+    <string name="anomalous_medical">Anomalous Medical</string>
+    <string name="diagnosis_priorization">Приоритизация выбранных диагнозов</string>
+    <string name="diagnosen_priorisierung">Diagnosen-Priorisierung</string>
+
+</resources>

@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+
+
+        <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:gravity="center_horizontal"
+                android:text="@string/tools"
+                android:textColor="@color/colorDarkGreen"
+                android:textSize="24dp" />
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/btnModel"
+                    android:layout_width="220dp"
+                    android:layout_height="100dp"
+                    android:layout_marginVertical="15dp"
+                    android:layout_marginHorizontal="7dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_style_tools"
+                    android:drawableTop="@drawable/ic_model"
+                    android:onClick="openClickedFragment"
+                    android:padding="20dp"
+                    android:text="@string/models"
+                    android:textAllCaps="false" />
+
+                <Button
+                    android:id="@+id/btnNotes"
+                    android:layout_width="220dp"
+                    android:layout_height="100dp"
+                    android:layout_marginVertical="15dp"
+                    android:layout_marginHorizontal="7dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_style_tools"
+                    android:drawableTop="@drawable/ic_pen"
+                    android:onClick="openClickedFragment"
+                    android:padding="20dp"
+                    android:text="@string/notes"
+                    android:textAllCaps="false" />
+
+                <Button
+                    android:id="@+id/btnCollections"
+                    android:layout_width="220dp"
+                    android:layout_height="100dp"
+                    android:layout_marginVertical="15dp"
+                    android:layout_marginHorizontal="7dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_style_tools"
+                    android:drawableTop="@drawable/ic_collections"
+                    android:onClick="openClickedFragment"
+                    android:padding="20dp"
+                    android:text="@string/collections"
+                    android:textAllCaps="false" />
+
+                <Button
+                    android:id="@+id/btnPsychosocial"
+                    android:layout_width="220dp"
+                    android:layout_height="100dp"
+                    android:layout_marginHorizontal="7.5dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_style_tools"
+                    android:drawableTop="@drawable/ic_psychosocial"
+                    android:onClick="openClickedFragment"
+                    android:padding="20dp"
+                    android:text="@string/psychosocial"
+                    android:textAllCaps="false" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+                <Button
+                    android:id="@+id/btnTranslator"
+                    android:layout_width="220dp"
+                    android:layout_height="100dp"
+                    android:layout_marginHorizontal="7dp"
+                    android:background="@drawable/button_style_tools"
+                    android:drawableTop="@drawable/ic_translator"
+                    android:onClick="openClickedFragment"
+                    android:padding="20dp"
+                    android:text="@string/translator"
+                    android:textAllCaps="false" />
+                <Button
+                    android:id="@+id/btnSummary"
+                    android:layout_width="220dp"
+                    android:layout_height="100dp"
+                    android:layout_marginHorizontal="7dp"
+                    android:background="@drawable/button_style_tools"
+                    android:drawableTop="@drawable/ic_summary"
+                    android:padding="20dp"
+                    android:text="@string/download_summary"
+                    android:textAllCaps="false"
+                    android:onClick="openClickedFragment"/>
+
+            </TableRow>
+
+            <TextView
+                android:gravity="center_horizontal"
+                android:paddingTop="30dp"
+                android:paddingBottom="15dp"
+                android:text="@string/inputs"
+                android:textColor="@color/colorDarkBlue"
+                android:textSize="24dp" />
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/btnPain"
+                    android:layout_width="220dp"
+                    android:layout_height="100dp"
+                    android:layout_marginHorizontal="7dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_style"
+                    android:drawableTop="@drawable/ic_pain"
+                    android:padding="20dp"
+                    android:text="@string/paindetails"
+                    android:textAllCaps="false"
+                    android:onClick="openClickedFragment"/>
+
+                <Button
+                    android:id="@+id/btnDiagnosis"
+                    android:layout_width="220dp"
+                    android:layout_height="100dp"
+                    android:layout_marginHorizontal="7dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_style"
+                    android:drawableTop="@drawable/ic_diagnosis"
+                    android:padding="20dp"
+                    android:text="@string/diagnosis"
+                    android:textAllCaps="false"
+                    android:onClick="openClickedFragment"/>
+
+                <Button
+                    android:id="@+id/btnDrugs"
+                    android:layout_width="220dp"
+                    android:layout_height="100dp"
+                    android:layout_marginHorizontal="7dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_style"
+                    android:drawableTop="@drawable/ic_medication"
+                    android:padding="20dp"
+                    android:text="@string/drugs"
+                    android:textAllCaps="false"
+                    android:onClick="openClickedFragment"/>
+                <Button
+                    android:id="@+id/btnExercises"
+                    android:layout_width="220dp"
+                    android:layout_height="100dp"
+                    android:layout_marginHorizontal="7dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_style"
+                    android:drawableTop="@drawable/ic_exercises"
+                    android:padding="20dp"
+                    android:text="@string/exercises"
+                    android:textAllCaps="false"
+                    android:onClick="openClickedFragment"/>
+            </TableRow>
+
+        </TableLayout>
+    </LinearLayout>
+
+</RelativeLayout>

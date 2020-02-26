@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_overview"
+            android:icon="@drawable/ic_view"
+            android:title="@string/overview" />
+        <item android:title="@string/tools">
+            <menu>
+                <group
+                    android:id="@+id/menu_top"
+                    android:checkableBehavior="single">
+                    <item
+                        android:id="@+id/nav_models"
+                        android:icon="@drawable/ic_model"
+                        android:title="@string/models" />
+                    <item
+                        android:id="@+id/nav_pen"
+                        android:icon="@drawable/ic_pen"
+                        android:title="@string/notes" />
+                    <item
+                        android:id="@+id/nav_collections"
+                        android:icon="@drawable/ic_collections"
+                        android:title="@string/collections" />
+                    <item
+                        android:id="@+id/nav_psychosocial"
+                        android:icon="@drawable/ic_psychosocial"
+                        android:title="@string/psychosocial" />
+                    <!--
+                    <item
+                        android:id="@+id/nav_recognizer"
+                        android:icon="@drawable/ic_recognizer"
+                        android:title="@string/recognizer" />
+                    -->
+                    <item
+                        android:id="@+id/nav_translator"
+                        android:icon="@drawable/ic_translator"
+                        android:title="@string/translator" />
+                </group>
+            </menu>
+        </item>
+        <item android:title="@string/inputs">
+            <menu>
+                <group
+                    android:id="@+id/menu_bot"
+                    android:checkableBehavior="single">
+                    <item
+                        android:id="@+id/nav_pain"
+                        android:icon="@drawable/ic_pain"
+                        android:title="@string/paindetails" />
+                    <item
+                        android:id="@+id/nav_diagnosis"
+                        android:icon="@drawable/ic_diagnosis"
+                        android:title="@string/diagnosis" />
+                    <item
+                        android:id="@+id/nav_drugs"
+                        android:icon="@drawable/ic_medication"
+                        android:title="@string/drugs" />
+                    <item
+                        android:id="@+id/nav_exercises"
+                        android:icon="@drawable/ic_exercises"
+                        android:title="@string/exercises"/>
+                </group>
+            </menu>
+        </item>
+
+    </group>
+    <item android:title="@string/conclusion">
+        <menu>
+            <item
+                android:id="@+id/nav_pdf"
+                android:icon="@drawable/ic_summary"
+                android:title="@string/download_summary" />
+        </menu>
+    </item>
+</menu>

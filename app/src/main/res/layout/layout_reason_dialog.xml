@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <CheckBox
+        android:id="@+id/cbDrugs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/drugs"
+        android:layout_marginLeft="10dp"
+        >
+    </CheckBox>
+    <CheckBox
+        android:id="@+id/cbExercises"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/exercises"
+        android:layout_below="@id/cbDrugs"
+        android:layout_marginLeft="10dp"
+        >
+    </CheckBox>
+    <CheckBox
+        android:id="@+id/cbAwareness"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/awareness"
+        android:layout_below="@id/cbExercises"
+        android:layout_marginLeft="10dp"
+        >
+    </CheckBox>
+    <CheckBox
+        android:id="@+id/cbOthers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/other_reasons"
+        android:layout_below="@id/cbAwareness"
+        android:layout_marginLeft="10dp"
+
+        >
+    </CheckBox>
+
+    <EditText
+        android:id="@+id/etOtherReason"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cbOthers"
+        android:layout_marginLeft="40dp"
+        android:visibility="invisible"
+
+        />
+</RelativeLayout>

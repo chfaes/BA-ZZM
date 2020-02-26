@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/rubber"
+        android:checkable="true"
+        android:checked="false"
+        android:icon="@drawable/ic_rubber"
+        android:title="@string/rubber"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/save"
+        android:icon="@drawable/ic_save"
+        android:title="@string/save"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/template_open"
+        android:icon="@drawable/ic_open_template"
+        android:title="@string/open_template"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/template_save"
+        android:icon="@drawable/ic_save_template"
+        android:title="@string/save_template"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/clear"
+        android:icon="@drawable/ic_new_note"
+        android:title="@string/new_note"
+        app:showAsAction="ifRoom" />
+
+
+</menu>

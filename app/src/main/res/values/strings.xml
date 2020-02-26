@@ -1,0 +1,168 @@
+<resources>
+    <string name="app_name">PaCons2</string>
+    <string name="title_activity_menu">MenuActivity</string>
+    <string name="navigation_drawer_open">Navigation öffnen</string>
+    <string name="navigation_drawer_close">Navigation schliessen</string>
+    <string name="title_activity_patient_selection">PatientSelectionActivity</string>
+
+    <!-- Patienten -->
+    <string name="edit_patient">Patienten bearbeiten</string>
+    <string name="create_patient">Neuen Patienten erfassen</string>
+    <string name="name">Name</string>
+    <string name="gender">Anrede</string>
+    <string name="mrs">Frau</string>
+    <string name="mr">Herr</string>
+    <string name="please_add_name">Bitte geben Sie den Patientennamen ein</string>
+    <string name="please_select_gender">Bitte wählen Sie die Anrede aus</string>
+    <string name="edit">Bearbeiten</string>
+
+    <!-- Übersicht, Navigation -->
+    <string name="overview">Übersicht</string>
+    <string name="notes">Notizen</string>
+    <string name="models">3D Visualisierungen</string>
+    <string name="collections">Medien</string>
+    <string name="drugs">Medikamente</string>
+    <string name="diagnosis">Diagnosen</string>
+    <string name="exercises">Übungen</string>
+    <string name="paindetails">Schmerzdetails</string>
+    <string name="psychosocial">Psychosoziale Kontextfaktoren</string>
+    <string name="diagnosis_and_therapy">Anamnese, Diagnose und Therapie</string>
+    <string name="tools">Tools</string>
+    <string name="translator">Sprachübersetzer</string>
+    <string name="recognizer">Befundnotizen</string>
+    <string name="inputs">Eingaben</string>
+    <string name="cancel">Abbrechen</string>
+
+    <!-- Medikamente -->
+    <string name="dosisForDrug">Dosierung für das Medikament</string>
+    <string name="dosis">Dosierung</string>
+    <string name="amount">Menge</string>
+    <string name="add">Hinzufügen</string>
+    <string name="amountExample">(z.B. 50mg)</string>
+    <string name="dosisExample">(z.B. 1010)</string>
+    <string name="add_new_drug">Neues Medikament erstellen</string>
+    <string name="edit_drugtype">Medikament bearbeiten</string>
+    <string name="drug_name_example">(z.B. Naproxen)</string>
+    <string name="drug_description_example">(z.B. Naproxen ist ein nicht-steroidaler Entzündungshemmer...)</string>
+
+    <!-- Notizen -->
+    <string name="save">Speichern</string>
+    <string name="save_template">Als Vorlage speichern</string>
+    <string name="new_note">Neue Seite</string>
+    <string name="open_template">Vorlage öffnen</string>
+    <string name="rubber">Radierer</string>
+    <string name="pen">Stift</string>
+    <string name="saved">Gespeichert</string>
+
+    <!-- Diagnosen -->
+    <string name="additionalInformation">Zusatzinformation</string>
+    <string name="diagnosisDetails">Diagnosedetails</string>
+    <string name="add_new_diagnosis">Neue Diagnose erstellen</string>
+    <string name="edit_diagnosistype">Diagnose bearbeiten</string>
+    <string name="type">Klassifikation</string>
+    <string name="name_example">(z.B. Anteriore Diskusverlagerung)</string>
+    <string name="type_example">(z.B. Kiefergelenk)</string>
+    <string name="diagnosis_description_example">(z.B. Verlagerungen der Knorpelscheibe im Kiefergelenk)</string>
+
+    <!-- Übungen -->
+    <string name="exercise_observation">Entsp. Unterkieferhaltung</string>
+    <string name="exercise_massage_temple">Massage der Schläfenmuskulatur</string>
+    <string name="exercise_massage_cheek">Massage der Wangenmuskulatur</string>
+    <string name="exercise_muscle_elongation">Muskeldehnung</string>
+    <string name="exercise_medication_patch">Medikamentenpflaster</string>
+
+    <string name="delete">Löschen</string>
+    <string name="select_deselect">Auswählen/Abwählen</string>
+    <string name="open">Öffnen</string>
+
+
+    <!-- 3D Modelle, Überbegriffe -->
+    <string name="bruxism">Bruxismus</string>
+    <string name="mastication">Mastikation</string>
+    <string name="sensitive_teeth">Empfindliche Zähne</string>
+    <string name="tooth_erosion">Zahnerosion</string>
+    <string name="tooth_cavity">Zahnhöhlen</string>
+    <string name="migraine">Migräne</string>
+    <string name="damaged_myelin_sheath">Verletzung der Myelinscheide</string>
+    <string name="nervous_system">Nervensystem</string>
+    <string name="peripheral_neuropathy">Periphere Neuropathie</string>
+    <string name="tooth_cross_section">Zahnquerschnitt</string>
+
+    <string name="jaw_joint">Kiefergelenk</string>
+    <string name="teeth">Zähne</string>
+    <string name="nerves">Nerven</string>
+
+    <!-- Psychosoziale Kontextfaktoren -->
+    <string name="before_therapy">Vor der Behandlung</string>
+    <string name="after_therapy">Nach der Behandlung</string>
+
+    <string name="pain">Schmerz</string>
+    <string name="family">Familie</string>
+    <string name="financial">Finanziell</string>
+    <string name="work">Arbeit</string>
+    <string name="event">Ereignis</string>
+
+    <string name="improvement_reason">Grund für Besserung</string>
+    <string name="awareness">Gefördetes Bewusstsein</string>
+    <string name="other_reasons">Andere Gründe</string>
+
+    <!-- Medien -->
+    <string name="gallery">Galerie</string>
+    <string name="videos">Videos</string>
+    <string name="documents">Dokumente</string>
+    <string name="websites">Webseiten</string>
+
+    <string name="title">Titel</string>
+    <string name="url">URL</string>
+    <string name="description">Beschreibung</string>
+    <string name="title_example">(z.B. Google)</string>
+    <string name="url_example">(z.B. www.google.ch)</string>
+    <string name="description_example">(z.B. Google ist eine Internet-Suchmaschine …)</string>
+    <string name="add_website">Webseite hinzufügen</string>
+
+    <!-- Schmerzdetails -->
+    <string name="beginning">Anfang</string>
+    <string name="current">Aktuell</string>
+
+    <string name="pain_quality">Schmerzart</string>
+    <string name="pain_location">Schmerzlokalisation</string>
+    <string name="pain_intensity">Schmerzintensität</string>
+    <string name="pain_pattern">Schmerzmuster</string>
+
+    <string name="dull">dumpf</string>
+    <string name="pulling">ziehend</string>
+    <string name="pulsating">pulsierend</string>
+    <string name="stinging">stechend</string>
+    <string name="burning">brennend</string>
+    <string name="pinsandneedles">kribbelnd</string>
+    <string name="tingling">prickelnd</string>
+    <string name="numb">taub</string>
+
+    <string name="no_pain">Kein Schmerz</string>
+    <string name="unbearable_pain">Unerträglicher Schmerz</string>
+
+    <!-- Zusammenfassung -->
+    <string name="conclusion">Abschluss</string>
+    <string name="download_summary">Zusammenfassung herunterladen</string>
+
+    <!-- Sprachen -->
+    <string name="change_language">Sprache ändern</string>
+    <string name="english">Englisch</string>
+    <string name="german">Deutsch</string>
+    <string name="french">Französisch</string>
+    <string name="russian">Russisch</string>
+    <string name="open_google_translate">Google Translate öffnen</string>
+    <string name="login">Login</string>
+    <string name="incorrect_attempts">Anzahl Fehlversuche</string>
+    <string name="sign_in">Anmelden</string>
+    <string name="password">Passwort</string>
+    <string name="username">Username</string>
+    <string name="morning">morgens</string>
+    <string name="lunch">mittags</string>
+    <string name="evening">abends</string>
+    <string name="night">nachts</string>
+    <string name="anomalous_medical">Anomalous Medical</string>
+    <string name="diagnosis_priorization">Priorisierung der ausgewählten Diagnosen</string>
+    <string name="diagnosen_priorisierung">Diagnosen-Priorisierung</string>
+
+</resources>

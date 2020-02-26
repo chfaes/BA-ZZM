@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBlue"
+    android:orientation="horizontal"
+    android:padding="10dp">
+
+    <LinearLayout
+        android:id="@+id/llBefore"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:gravity="center"
+            android:paddingVertical="15dp"
+            android:text="@string/before_therapy"
+            android:textSize="25sp" />
+
+        <RelativeLayout
+            android:id="@+id/rlBefore"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/psychosoz_background">
+
+            <Button
+                android:id="@+id/btnFamilyBefore"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginLeft="90dp"
+                android:background="@drawable/roundedbutton_green"
+                android:drawableBottom="@drawable/ic_family"
+                android:padding="10dp"
+                android:text="@string/family"
+                android:textSize="9sp" />
+
+            <Button
+                android:id="@+id/btnWorkBefore"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginLeft="170dp"
+                android:background="@drawable/roundedbutton_green"
+                android:drawableBottom="@drawable/ic_work"
+                android:padding="10dp"
+                android:text="@string/work"
+                android:textSize="9sp" />
+
+
+            <Button
+                android:id="@+id/btnFinancialBefore"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginLeft="330dp"
+                android:background="@drawable/roundedbutton_green"
+                android:drawableBottom="@drawable/ic_financial"
+                android:padding="10dp"
+                android:text="@string/financial"
+                android:textSize="9sp" />
+
+            <Button
+                android:id="@+id/btnEventBefore"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginLeft="410dp"
+                android:background="@drawable/roundedbutton_green"
+                android:drawableBottom="@drawable/ic_event"
+                android:padding="10dp"
+                android:text="@string/event"
+                android:textSize="9sp" />
+
+            <Button
+                android:id="@+id/btnPainBefore"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginLeft="250dp"
+                android:background="@drawable/roundedbutton_red"
+                android:drawableBottom="@drawable/ic_pain"
+                android:padding="10dp"
+                android:text="@string/pain"
+                android:textSize="9sp" />
+        </RelativeLayout>
+    </LinearLayout>
+
+
+    <ImageView
+        android:id="@+id/btnReason"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/roundedbutton_reason_blue"
+        android:src="@drawable/ic_forward"
+        android:layout_margin="2dp"
+        />
+
+
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:gravity="center"
+            android:paddingVertical="15dp"
+            android:text="@string/after_therapy"
+            android:textSize="25sp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/rlAfter"
+            android:background="@drawable/psychosoz_background">
+
+            <Button
+                android:id="@+id/btnFamilyAfter"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginLeft="90dp"
+                android:background="@drawable/roundedbutton_green"
+                android:drawableBottom="@drawable/ic_family"
+                android:padding="10dp"
+                android:text="@string/family"
+                android:textSize="9sp" />
+
+            <Button
+                android:id="@+id/btnWorkAfter"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginLeft="170dp"
+                android:background="@drawable/roundedbutton_green"
+                android:drawableBottom="@drawable/ic_work"
+                android:padding="10dp"
+                android:text="@string/work"
+                android:textSize="9sp" />
+
+
+            <Button
+                android:id="@+id/btnFinancialAfter"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginLeft="330dp"
+                android:background="@drawable/roundedbutton_green"
+                android:drawableBottom="@drawable/ic_financial"
+                android:padding="10dp"
+                android:text="@string/financial"
+                android:textSize="9sp" />
+
+            <Button
+                android:id="@+id/btnEventAfter"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginLeft="410dp"
+                android:background="@drawable/roundedbutton_green"
+                android:drawableBottom="@drawable/ic_event"
+                android:padding="10dp"
+                android:text="@string/event"
+                android:textSize="9sp" />
+
+            <Button
+                android:id="@+id/btnPainAfter"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginLeft="250dp"
+                android:background="@drawable/roundedbutton_red"
+                android:drawableBottom="@drawable/ic_pain"
+                android:padding="10dp"
+                android:text="@string/pain"
+                android:textSize="9sp" />
+        </RelativeLayout>
+    </LinearLayout>
+
+
+</LinearLayout>
