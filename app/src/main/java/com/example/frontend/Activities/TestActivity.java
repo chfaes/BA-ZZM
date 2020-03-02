@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.example.frontend.R;
 
+import org.rajawali3d.loader.IParser;
+
 
 public class TestActivity extends AppCompatActivity {
 
