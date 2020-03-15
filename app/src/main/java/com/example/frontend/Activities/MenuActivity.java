@@ -140,13 +140,6 @@ public class MenuActivity extends AppCompatActivity {
     private List<WebsiteType> allWebsiteTypes = new ArrayList<>();
     private Chunk newLineChunk = new Chunk("\n");
 
-    /* Only used for Heroku Database
-    Retrofit retrofit = new Retrofit.Builder().baseUrl("https://consapp.herokuapp.com/api/v1/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build();
-
-    JsonPlaceHolderApi jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

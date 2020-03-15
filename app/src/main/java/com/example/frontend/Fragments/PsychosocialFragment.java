@@ -74,14 +74,6 @@ public class PsychosocialFragment extends Fragment implements ReasonDialog.Reaso
     private boolean initialSetUpBeforeDone = false;
     private boolean initialSetUpAfterDone = false;
 
-    /* Only used for Heruoku Database
-    Retrofit retrofit = new Retrofit.Builder().baseUrl("https://consapp.herokuapp.com/api/v1/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build();
-
-    JsonPlaceHolderApi jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
-    */
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         patientId = getArguments().getInt("patientId");

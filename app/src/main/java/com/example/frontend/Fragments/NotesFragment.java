@@ -81,15 +81,6 @@ public class NotesFragment extends Fragment {
     int lastNoteId;
     Context context;
 
-     /*Only used for Heruoku Database
-
-    Retrofit retrofit = new Retrofit.Builder().baseUrl("https://consapp.herokuapp.com/api/v1/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build();
-
-    JsonPlaceHolderApi jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class); */
-
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

@@ -34,14 +34,6 @@ public class ReasonDialog extends AppCompatDialogFragment {
     private EditText etOthers;
     DatabaseHelper db;
 
-    /* Only used for Heruoku Database
-    Retrofit retrofit = new Retrofit.Builder().baseUrl("https://consapp.herokuapp.com/api/v1/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build();
-
-    JsonPlaceHolderApi jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
-    */
-
     public interface ReasonDialogListener {
         void applyTexts(boolean drugsReason, boolean exercisesReason, boolean awarenessReason, boolean otherReasons, String otherReasonsText);
     }

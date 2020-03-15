@@ -99,14 +99,6 @@ public class CollectionsFragment extends Fragment implements WebsiteDialog.Websi
     ColorStateList defaultTextColor;
     ImageView btnAddWebsite;
 
-    /*Only used for Heruoku Database
-    Retrofit retrofit = new Retrofit.Builder().baseUrl("https://consapp.herokuapp.com/api/v1/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build();
-
-    JsonPlaceHolderApi jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
-    */
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         patientId = getArguments().getInt("patientId");

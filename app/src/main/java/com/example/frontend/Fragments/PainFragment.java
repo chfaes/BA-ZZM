@@ -179,13 +179,6 @@ public class PainFragment extends Fragment {
         }
     };
 
-    /*Only used for Heruoku Database
-    Retrofit retrofit = new Retrofit.Builder().baseUrl("https://consapp.herokuapp.com/api/v1/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build();
-
-    JsonPlaceHolderApi jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class); */
-
     @Override
     public void onDestroyView() {
         if (rgBeginningCurrent.getCheckedRadioButtonId() == R.id.rbBeginning) {
@@ -338,35 +331,6 @@ public class PainFragment extends Fragment {
             ivLocationFaceLeft.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.face_left));
             ivLocationFaceRight.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.face_right));
         }
-
-        /*Only used for Heruoku Database
-
-        Call<Boolean> call = jsonPlaceHolderApi.existsPainBeginning(patientId);
-        call.enqueue(new Callback<Boolean>() {
-            @Override
-            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                if (!response.isSuccessful()) {
-                    return;
-                } else {
-                    boolean PainBeginningExists = response.body();
-                    if (PainBeginningExists) {
-                        setUpAllViewsBeginning();
-                    } else {
-                        deselectAllQualityButtons();
-                        deselectPattern();
-                        seekBar.setProgress(0);
-                        ivLocationTeeth.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.teeth));
-                        ivLocationFaceLeft.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.face_left));
-                        ivLocationFaceRight.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.face_right));
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Boolean> call, Throwable t) {
-                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        }); */
     }
 
     private void setCurrentViewsIfExist() {
@@ -382,35 +346,6 @@ public class PainFragment extends Fragment {
             ivLocationFaceLeft.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.face_left));
             ivLocationFaceRight.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.face_right));
         }
-
-        /*Only used for Heruoku Database
-
-        Call<Boolean> call = jsonPlaceHolderApi.existsPainCurrent(patientId);
-        call.enqueue(new Callback<Boolean>() {
-            @Override
-            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                if (!response.isSuccessful()) {
-                    return;
-                } else {
-                    boolean PainBeginningExists = response.body();
-                    if (PainBeginningExists) {
-                        setUpAllViewsCurrent();
-                    } else {
-                        deselectAllQualityButtons();
-                        deselectPattern();
-                        seekBar.setProgress(0);
-                        ivLocationTeeth.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.teeth));
-                        ivLocationFaceLeft.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.face_left));
-                        ivLocationFaceRight.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.face_right));
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Boolean> call, Throwable t) {
-                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        }); */
     }
 
     private void initializePainsOfPatient() {
@@ -816,76 +751,6 @@ public class PainFragment extends Fragment {
         if (painOfPatientBeginning.isNumb()) {
             selectDeselectView(btnNumb);
         }
-        /*Only used for Heruoku Database
-
-        Call<PainBeginning> call = jsonPlaceHolderApi.getPainBeginning(patientId);
-        call.enqueue(new Callback<PainBeginning>() {
-            @Override
-            public void onResponse(Call<PainBeginning> call, Response<PainBeginning> response) {
-                if (!response.isSuccessful()) {
-                    return;
-                } else {
-                    painOfPatientBeginning = response.body();
-                    Bitmap bmTeeth = BitmapFactory.decodeByteArray(painOfPatientBeginning.getLocation_teeth(), 0, painOfPatientBeginning.getLocation_teeth().length);
-                    Bitmap bmFaceLeft = BitmapFactory.decodeByteArray(painOfPatientBeginning.getLocation_face_left(), 0, painOfPatientBeginning.getLocation_face_left().length);
-                    Bitmap bmFaceRight = BitmapFactory.decodeByteArray(painOfPatientBeginning.getLocation_face_right(), 0, painOfPatientBeginning.getLocation_face_right().length);
-                    ivLocationTeeth.setImageBitmap(bmTeeth);
-                    ivLocationFaceLeft.setImageBitmap(bmFaceLeft);
-                    ivLocationFaceRight.setImageBitmap(bmFaceRight);
-                    seekBar.setProgress(painOfPatientBeginning.getIntensity());
-
-                    deselectPattern();
-                    if (painOfPatientBeginning.getPain_pattern() != null && !painOfPatientBeginning.getPain_pattern().isEmpty()) {
-                        switch (painOfPatientBeginning.getPain_pattern()) {
-                            case "PermSlightFluc":
-                                selectPattern(ivPermSlightFluc);
-                                break;
-                            case "PermStrongFluc":
-                                selectPattern(ivPermStrongFluc);
-                                break;
-                            case "AttFreeInt":
-                                selectPattern(ivAttFreeInt);
-                                break;
-                            case "AttNoFreeInt":
-                                selectPattern(ivAttNoFreeInt);
-                                break;
-                        }
-                    }
-
-
-                    deselectAllQualityButtons();
-                    if (painOfPatientBeginning.isDull()) {
-                        selectDeselectView(btnDull);
-                    }
-                    if (painOfPatientBeginning.isPulling()) {
-                        selectDeselectView(btnPulling);
-                    }
-                    if (painOfPatientBeginning.isPulsating()) {
-                        selectDeselectView(btnPulsating);
-                    }
-                    if (painOfPatientBeginning.isPinsneedles()) {
-                        selectDeselectView(btnPinsandneedles);
-                    }
-                    if (painOfPatientBeginning.isTingling()) {
-                        selectDeselectView(btnTingling);
-                    }
-                    if (painOfPatientBeginning.isBurning()) {
-                        selectDeselectView(btnBurning);
-                    }
-                    if (painOfPatientBeginning.isStinging()) {
-                        selectDeselectView(btnStinging);
-                    }
-                    if (painOfPatientBeginning.isNumb()) {
-                        selectDeselectView(btnNumb);
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<PainBeginning> call, Throwable t) {
-                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        }); */
     }
 
     private void setUpAllViewsCurrent() {
@@ -943,75 +808,6 @@ public class PainFragment extends Fragment {
             selectDeselectView(btnNumb);
         }
         initialSetUpBeginningDone = true;
-        /*Only used for Heruoku Database
-
-        Call<PainCurrent> call = jsonPlaceHolderApi.getPainCurrent(patientId);
-        call.enqueue(new Callback<PainCurrent>() {
-            @Override
-            public void onResponse(Call<PainCurrent> call, Response<PainCurrent> response) {
-                if (!response.isSuccessful()) {
-                    return;
-                } else {
-                    painOfPatientCurrent = response.body();
-                    Bitmap bmTeeth = BitmapFactory.decodeByteArray(painOfPatientCurrent.getLocation_teeth(), 0, painOfPatientCurrent.getLocation_teeth().length);
-                    Bitmap bmFaceLeft = BitmapFactory.decodeByteArray(painOfPatientCurrent.getLocation_face_left(), 0, painOfPatientCurrent.getLocation_face_left().length);
-                    Bitmap bmFaceRight = BitmapFactory.decodeByteArray(painOfPatientCurrent.getLocation_face_right(), 0, painOfPatientCurrent.getLocation_face_right().length);
-                    ivLocationTeeth.setImageBitmap(bmTeeth);
-                    ivLocationFaceLeft.setImageBitmap(bmFaceLeft);
-                    ivLocationFaceRight.setImageBitmap(bmFaceRight);
-                    seekBar.setProgress(painOfPatientCurrent.getIntensity());
-
-                    deselectPattern();
-                    if (painOfPatientCurrent.getPain_pattern() != null && !painOfPatientCurrent.getPain_pattern().isEmpty()) {
-                        switch (painOfPatientCurrent.getPain_pattern()) {
-                            case "PermSlightFluc":
-                                selectPattern(ivPermSlightFluc);
-                                break;
-                            case "PermStrongFluc":
-                                selectPattern(ivPermStrongFluc);
-                                break;
-                            case "AttFreeInt":
-                                selectPattern(ivAttFreeInt);
-                                break;
-                            case "AttNoFreeInt":
-                                selectPattern(ivAttNoFreeInt);
-                                break;
-                        }
-                    }
-
-                    deselectAllQualityButtons();
-                    if (painOfPatientCurrent.isDull()) {
-                        selectDeselectView(btnDull);
-                    }
-                    if (painOfPatientCurrent.isPulling()) {
-                        selectDeselectView(btnPulling);
-                    }
-                    if (painOfPatientCurrent.isPulsating()) {
-                        selectDeselectView(btnPulsating);
-                    }
-                    if (painOfPatientCurrent.isPinsneedles()) {
-                        selectDeselectView(btnPinsandneedles);
-                    }
-                    if (painOfPatientCurrent.isTingling()) {
-                        selectDeselectView(btnTingling);
-                    }
-                    if (painOfPatientCurrent.isBurning()) {
-                        selectDeselectView(btnBurning);
-                    }
-                    if (painOfPatientCurrent.isStinging()) {
-                        selectDeselectView(btnStinging);
-                    }
-                    if (painOfPatientCurrent.isNumb()) {
-                        selectDeselectView(btnNumb);
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<PainCurrent> call, Throwable t) {
-                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        }); */
     }
 
     private void deselectAllQualityButtons() {
