@@ -20,7 +20,7 @@ public class TestActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
-
+    /*
         final RajawaliSurfaceView surface = new RajawaliSurfaceView(this);
         surface.setFrameRate(60.0);
         surface.setRenderMode(IRajawaliSurface.RENDERMODE_WHEN_DIRTY);
@@ -29,7 +29,7 @@ public class TestActivity extends AppCompatActivity {
         addContentView(surface, new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT));
 
         renderer = new Renderer(this);
-        surface.setSurfaceRenderer(renderer);
+        surface.setSurfaceRenderer(renderer);*/
     }
 }
 

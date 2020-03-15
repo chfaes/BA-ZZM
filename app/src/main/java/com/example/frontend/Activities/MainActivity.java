@@ -82,8 +82,8 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         if (!userFound){
-            counter--;
-            tvAttemptsInfo.setText("Anzahl übriger Versuche: " + counter);
+            //counter--;
+            tvAttemptsInfo.setText("Anzahl übriger Versuche: " + counter + ". Momentan gibts unendlich viele Versuche. Siehe MainActivity.java.");
             if (counter == 0) {
                 btnLogin.setEnabled(false);
             }
