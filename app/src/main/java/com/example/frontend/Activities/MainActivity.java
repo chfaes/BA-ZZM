@@ -79,9 +79,16 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }else{
                 userFound = false;
+                //Zitrone: Dieser Block ermöglicht den schnellen Login während der Testphase.
+                Globals g = Globals.getInstance();
+                g.setUser(user);
+                Intent intent = new Intent(MainActivity.this, PatientSelectionActivity.class);
+                intent.putExtra("usernameKey", etUsername.getText().toString());
+                startActivity(intent);
             }
         }
         if (!userFound){
+            //Zitrone: counter auskommentiert. Ggf. ganz entfernen.
             //counter--;
             tvAttemptsInfo.setText("Anzahl übriger Versuche: " + counter + ". Momentan gibts unendlich viele Versuche. Siehe MainActivity.java.");
             if (counter == 0) {

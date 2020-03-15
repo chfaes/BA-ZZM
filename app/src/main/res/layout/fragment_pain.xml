@@ -50,61 +50,97 @@
         android:orientation="horizontal"
         android:paddingBottom="15dp">
 
-        <LinearLayout
+        <android.support.constraint.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.7"
-            android:orientation="vertical">
+            android:layout_weight="0.7">
 
             <TextView
+                android:id="@+id/textView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="20dp"
                 android:paddingBottom="10dp"
                 android:text="@string/pain_location"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.00999999" />
 
-            <LinearLayout
+            <ImageView
+                android:id="@+id/ivLocationTeeth"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:weightSum="3">
+                android:layout_marginTop="16dp"
+                android:adjustViewBounds="true"
+                android:background="@color/colorVeryLightBlue"
+                android:padding="1dp"
+                android:src="@drawable/teeth"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivLocationFaceRight"
+                app:layout_constraintVertical_bias="0.0"
+                tools:layout_editor_absoluteX="0dp" />
 
-                <ImageView
-                    android:id="@+id/ivLocationTeeth"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_weight="1"
-                    android:adjustViewBounds="true"
-                    android:background="@color/colorVeryLightBlue"
-                    android:padding="1dp"
-                    android:src="@drawable/teeth" />
+            <pl.droidsonroids.gif.GifImageView
+                android:id="@+id/fragment_pain_gif01"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:adjustViewBounds="true"
+                android:background="@android:color/transparent"
+                android:padding="1dp"
+                android:src="@drawable/test_gif_01"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivLocationTeeth"
+                app:layout_constraintVertical_bias="0.0"
+                tools:layout_editor_absoluteX="0dp" />
 
-                <ImageView
-                    android:id="@+id/ivLocationFaceRight"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_weight="1"
-                    android:adjustViewBounds="true"
-                    android:background="@color/colorVeryLightBlue"
-                    android:padding="1dp"
-                    android:src="@drawable/face_right" />
+            <pl.droidsonroids.gif.GifImageView
+                android:id="@+id/fragment_pain_gif02"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:adjustViewBounds="true"
+                android:background="@android:color/transparent"
+                android:padding="1dp"
+                android:src="@drawable/test_gif_02"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivLocationTeeth"
+                app:layout_constraintVertical_bias="0.0"
+                tools:layout_editor_absoluteX="0dp" />
 
-                <ImageView
-                    android:id="@+id/ivLocationFaceLeft"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:adjustViewBounds="true"
-                    android:background="@color/colorVeryLightBlue"
-                    android:padding="1dp"
-                    android:src="@drawable/face_left" />
-            </LinearLayout>
+            <ImageView
+                android:id="@+id/ivLocationFaceRight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:adjustViewBounds="true"
+                android:background="@color/colorVeryLightBlue"
+                android:padding="1dp"
+                android:src="@drawable/face_right"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView2"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <ImageView
+                android:id="@+id/ivLocationFaceLeft"
+                android:layout_width="4dp"
+                android:layout_height="4dp"
+                android:layout_marginBottom="1dp"
+                android:adjustViewBounds="true"
+                android:background="@color/colorVeryLightBlue"
+                android:padding="1dp"
+                android:src="@drawable/face_left"
+                app:layout_constraintBottom_toTopOf="@+id/textView2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
 
-        </LinearLayout>
+        </android.support.constraint.ConstraintLayout>
 
         <LinearLayout
             android:layout_width="0dp"
@@ -281,6 +317,7 @@
                             android:text="@string/unbearable_pain"
                             android:textSize="10sp" />
                     </RelativeLayout>
+
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -381,6 +418,5 @@
 
         </LinearLayout>
     </LinearLayout>
-
 
 </LinearLayout>
