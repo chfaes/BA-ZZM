@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, PatientSelectionActivity.class);
                 intent.putExtra("usernameKey", etUsername.getText().toString());
                 startActivity(intent);
-            }else{
+            } else {
                 userFound = false;
                 //Zitrone: Dieser Block ermöglicht den schnellen Login während der Testphase.
                 Globals g = Globals.getInstance();
