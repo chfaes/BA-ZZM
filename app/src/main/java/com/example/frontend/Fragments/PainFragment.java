@@ -34,6 +34,7 @@ import com.example.frontend.Service.DatabaseHelper;
 import com.example.frontend.Service.JsonPlaceHolderApi;
 
 import java.io.ByteArrayOutputStream;
+import java.io.Serializable;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -49,6 +50,7 @@ public class PainFragment extends Fragment {
     private ImageView ivLocationTeeth;
     private ImageView ivLocationFaceLeft;
     private ImageView ivLocationFaceRight;
+    private pl.droidsonroids.gif.GifImageView test_gif;
     private int openedLocationImage;
     RadioGroup rgBeginningCurrent;
     RadioButton rbBeginning;
@@ -169,6 +171,7 @@ public class PainFragment extends Fragment {
                         break;
                 }
             }
+            updatePainGif(painOfPatientBeginning);
         }
     };
 
@@ -199,6 +202,7 @@ public class PainFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
+        test_gif = view.findViewById(R.id.fragment_pain_gif01);
         db = new DatabaseHelper(getContext());
         etComment = view.findViewById(R.id.etComment);
         etComment.addTextChangedListener(new TextWatcher() {
@@ -306,6 +310,13 @@ public class PainFragment extends Fragment {
 
         initializePainsOfPatient();
         setUpSelectedViews();
+
+    }
+
+    private void updatePainGif(PainBeginning painObject){
+        if (painObject.isDull()){
+            test_gif.setImageResource(R.drawable.test_gif_03);
+        }
 
     }
 
