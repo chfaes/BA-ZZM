@@ -4,7 +4,7 @@ import android.util.Base64;
 
 import java.io.Serializable;
 
-public class PainBeginning implements Serializable {
+public class PainBeginning extends PainSuperclass {
     private int patient_id;
     private int intensity;
     private String location_teeth;

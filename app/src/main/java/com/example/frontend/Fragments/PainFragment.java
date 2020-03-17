@@ -29,6 +29,7 @@ import android.widget.Toast;
 
 import com.example.frontend.Models.PainBeginning;
 import com.example.frontend.Models.PainCurrent;
+import com.example.frontend.Models.PainSuperclass;
 import com.example.frontend.R;
 import com.example.frontend.Service.DatabaseHelper;
 import com.example.frontend.Service.JsonPlaceHolderApi;
@@ -143,6 +144,7 @@ public class PainFragment extends Fragment {
                         painOfPatientBeginning.setNumb(!painOfPatientBeginning.isNumb());
                         break;
                 }
+                updatePainDisplay(painOfPatientBeginning);
             } else if (rgBeginningCurrent.getCheckedRadioButtonId() == R.id.rbCurrent){
                 switch (view.getId()) {
                     case R.id.btnDull:
@@ -170,8 +172,8 @@ public class PainFragment extends Fragment {
                         painOfPatientCurrent.setNumb(!painOfPatientCurrent.isNumb());
                         break;
                 }
+                updatePainDisplay(painOfPatientCurrent);
             }
-            updatePainGif(painOfPatientBeginning);
         }
     };
 
@@ -202,7 +204,7 @@ public class PainFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
-        test_gif = view.findViewById(R.id.fragment_pain_gif01);
+
         db = new DatabaseHelper(getContext());
         etComment = view.findViewById(R.id.etComment);
         etComment.addTextChangedListener(new TextWatcher() {
@@ -233,6 +235,7 @@ public class PainFragment extends Fragment {
         btnTingling = view.findViewById(R.id.btnTingling);
         btnPinsandneedles = view.findViewById(R.id.btnPinsandneedles);
         btnNumb = view.findViewById(R.id.btnNumb);
+        test_gif = view.findViewById(R.id.fragment_pain_gif01);
 
         btnDull.setOnClickListener(onQualityClickListener);
         btnPulling.setOnClickListener(onQualityClickListener);
@@ -313,9 +316,11 @@ public class PainFragment extends Fragment {
 
     }
 
-    private void updatePainGif(PainBeginning painObject){
+    private void updatePainDisplay(PainSuperclass painObject){
         if (painObject.isDull()){
             test_gif.setImageResource(R.drawable.test_gif_03);
+        } else {
+            test_gif.setImageResource(R.drawable.test_gif_01);
         }
 
     }
@@ -570,38 +575,10 @@ public class PainFragment extends Fragment {
 
     public void addNewPainBeginning(PainBeginning painBeginning) {
         db.addPainBeginning(painBeginning);
-
-        /*Only used for Heruoku Database
-
-        Call<ResponseBody> call = jsonPlaceHolderApi.createPainBeginning(painBeginning);
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(getActivity(), "create PainBeginning NOT successful", Toast.LENGTH_SHORT).show();
-            }
-        }); */
     }
 
     public void updatePainBeginning(final PainBeginning updatedPainBeginning) {
         db.updatePainBeginning(patientId, updatedPainBeginning);
-
-        /*Only used for Heruoku Database
-
-        Call<ResponseBody> call = jsonPlaceHolderApi.updatePainBeginning(patientId, updatedPainBeginning);
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(getActivity(), "update PainBeginning NOT successful", Toast.LENGTH_SHORT).show();
-            }
-        }); */
     }
 
     public void savePainBeginning() {
@@ -612,30 +589,6 @@ public class PainFragment extends Fragment {
         } else {
             addNewPainBeginning(painOfPatientBeginning);
         }
-
-        /*Only used for Heruoku Database
-
-        Call<Boolean> call = jsonPlaceHolderApi.existsPainBeginning(patientId);
-        call.enqueue(new Callback<Boolean>() {
-            @Override
-            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                if (!response.isSuccessful()) {
-                    return;
-                } else {
-                    boolean PainBeginningExists = response.body();
-                    if (PainBeginningExists) {
-                        updatePainBeginning(painOfPatientBeginning);
-                    } else {
-                        addNewPainBeginning(painOfPatientBeginning);
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Boolean> call, Throwable t) {
-                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        }); */
     }
 
     public void addNewPainCurrent(PainCurrent painCurrent) {
@@ -762,6 +715,7 @@ public class PainFragment extends Fragment {
         if (painOfPatientBeginning.isNumb()) {
             selectDeselectView(btnNumb);
         }
+        updatePainDisplay(painOfPatientBeginning);
     }
 
     private void setUpAllViewsCurrent() {
@@ -818,6 +772,7 @@ public class PainFragment extends Fragment {
         if (painOfPatientCurrent.isNumb()) {
             selectDeselectView(btnNumb);
         }
+        updatePainDisplay(painOfPatientCurrent);
         initialSetUpBeginningDone = true;
     }
 
