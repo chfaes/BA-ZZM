@@ -32,6 +32,8 @@
     <string name="recognizer">Замечания по результатам</string>
     <string name="inputs">Ввод</string>
     <string name="cancel">Прервать</string>
+    <string name="consultation">приём</string>
+    <string name="other">дальне́йший</string>
 
     <!-- Medikamente -->
     <string name="dosisForDrug">Дозирование препарата</string>

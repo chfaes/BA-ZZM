@@ -32,6 +32,8 @@
     <string name="recognizer">Reconnaissance de la parole</string>
     <string name="inputs">Saisie de données</string>
     <string name="cancel">Annuler</string>
+    <string name="consultation">Consultation</string>
+    <string name="other">Divers</string>
     <string name="dosisForDrug">Le dosage du médicaments</string>
     <string name="dosis">Dosage</string>
     <string name="amount">Quantité</string>

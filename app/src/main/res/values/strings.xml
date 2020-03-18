@@ -32,6 +32,8 @@
     <string name="recognizer">Befundnotizen</string>
     <string name="inputs">Eingaben</string>
     <string name="cancel">Abbrechen</string>
+    <string name="consultation">Sprechstunde</string>
+    <string name="other">Anderes</string>
 
     <!-- Medikamente -->
     <string name="dosisForDrug">Dosierung für das Medikament</string>

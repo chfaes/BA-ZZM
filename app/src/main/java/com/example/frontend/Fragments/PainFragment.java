@@ -51,7 +51,13 @@ public class PainFragment extends Fragment {
     private ImageView ivLocationTeeth;
     private ImageView ivLocationFaceLeft;
     private ImageView ivLocationFaceRight;
-    private pl.droidsonroids.gif.GifImageView test_gif;
+    private pl.droidsonroids.gif.GifImageView pain_gif_01;
+    private pl.droidsonroids.gif.GifImageView pain_gif_02;
+    private pl.droidsonroids.gif.GifImageView pain_gif_03;
+    private pl.droidsonroids.gif.GifImageView pain_gif_04;
+    private pl.droidsonroids.gif.GifImageView pain_gif_05;
+    private pl.droidsonroids.gif.GifImageView pain_gif_06;
+    private pl.droidsonroids.gif.GifImageView pain_gif_08;
     private int openedLocationImage;
     RadioGroup rgBeginningCurrent;
     RadioButton rbBeginning;
@@ -235,7 +241,13 @@ public class PainFragment extends Fragment {
         btnTingling = view.findViewById(R.id.btnTingling);
         btnPinsandneedles = view.findViewById(R.id.btnPinsandneedles);
         btnNumb = view.findViewById(R.id.btnNumb);
-        test_gif = view.findViewById(R.id.fragment_pain_gif01);
+        pain_gif_01 = view.findViewById(R.id.fragment_pain_gif01);
+        pain_gif_02 = view.findViewById(R.id.fragment_pain_gif02);
+        pain_gif_03 = view.findViewById(R.id.fragment_pain_gif03);
+        pain_gif_04 = view.findViewById(R.id.fragment_pain_gif04);
+        pain_gif_05 = view.findViewById(R.id.fragment_pain_gif05);
+        pain_gif_06 = view.findViewById(R.id.fragment_pain_gif06);
+        pain_gif_08 = view.findViewById(R.id.fragment_pain_gif08);
 
         btnDull.setOnClickListener(onQualityClickListener);
         btnPulling.setOnClickListener(onQualityClickListener);
@@ -317,10 +329,37 @@ public class PainFragment extends Fragment {
     }
 
     private void updatePainDisplay(PainSuperclass painObject){
-        if (painObject.isDull()){
-            test_gif.setImageResource(R.drawable.test_gif_03);
-        } else {
-            test_gif.setImageResource(R.drawable.test_gif_01);
+        //Updates the gifs to match the current selection of pain qualities. Note that
+        //there is no distinction between "pins and needles" and "tingling" (both equal
+        //to gif06).
+        pain_gif_01.setImageResource(R.drawable.pain_gif_empty);
+        pain_gif_02.setImageResource(R.drawable.pain_gif_empty);
+        pain_gif_03.setImageResource(R.drawable.pain_gif_empty);
+        pain_gif_04.setImageResource(R.drawable.pain_gif_empty);
+        pain_gif_05.setImageResource(R.drawable.pain_gif_empty);
+        pain_gif_06.setImageResource(R.drawable.pain_gif_empty);
+        //pain gif 07 is missing - currently, there is no distinction between tingling and needles.
+        pain_gif_08.setImageResource(R.drawable.pain_gif_empty);
+        if (painObject.isPulsating()) {
+            pain_gif_01.setImageResource(R.drawable.pain_gif_01);
+        }
+        if (painObject.isPulling()) {
+            pain_gif_02.setImageResource(R.drawable.pain_gif_02);
+        }
+        if (painObject.isDull()) {
+            pain_gif_03.setImageResource(R.drawable.pain_gif_03);
+        }
+        if (painObject.isStinging()) {
+            pain_gif_04.setImageResource(R.drawable.pain_gif_04);
+        }
+        if (painObject.isBurning()) {
+            pain_gif_05.setImageResource(R.drawable.pain_gif_05);
+        }
+        if (painObject.isPinsneedles() | painObject.isTingling()) {
+            pain_gif_06.setImageResource(R.drawable.pain_gif_06);
+        }
+        if (painObject.isNumb()) {
+            pain_gif_08.setImageResource(R.drawable.pain_gif_08);
         }
 
     }
@@ -572,7 +611,6 @@ public class PainFragment extends Fragment {
         myDialog.show();
     }
 
-
     public void addNewPainBeginning(PainBeginning painBeginning) {
         db.addPainBeginning(painBeginning);
     }
@@ -593,38 +631,10 @@ public class PainFragment extends Fragment {
 
     public void addNewPainCurrent(PainCurrent painCurrent) {
         db.addPainCurrent(painCurrent);
-
-        /*Only used for Heruoku Database
-
-        Call<ResponseBody> call = jsonPlaceHolderApi.createPainCurrent(painCurrent);
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(getActivity(), "create PainCurrent NOT successful", Toast.LENGTH_SHORT).show();
-            }
-        }); */
     }
 
     public void updatePainCurrent(final PainCurrent updatedPainCurrent) {
         db.updatePainCurrent(patientId, updatedPainCurrent);
-
-        /*Only used for Heruoku Database
-
-        Call<ResponseBody> call = jsonPlaceHolderApi.updatePainCurrent(patientId, updatedPainCurrent);
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(getActivity(), "update PainBCurrent NOT successful", Toast.LENGTH_SHORT).show();
-            }
-        }); */
     }
 
     public void savePainCurrent() {
@@ -635,30 +645,6 @@ public class PainFragment extends Fragment {
         } else {
             addNewPainCurrent(painOfPatientCurrent);
         }
-
-        /*Only used for Heruoku Database
-
-        Call<Boolean> call = jsonPlaceHolderApi.existsPainCurrent(patientId);
-        call.enqueue(new Callback<Boolean>() {
-            @Override
-            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                if (!response.isSuccessful()) {
-                    return;
-                } else {
-                    boolean PainCurrentExists = response.body();
-                    if (PainCurrentExists) {
-                        updatePainCurrent(painOfPatientCurrent);
-                    } else {
-                        addNewPainCurrent(painOfPatientCurrent);
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Boolean> call, Throwable t) {
-                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        }); */
     }
 
     private void setUpAllViewsBeginning() {

@@ -32,6 +32,8 @@
     <string name="recognizer">Speechrecognizer</string>
     <string name="inputs">Data Entry</string>
     <string name="cancel">Cancel</string>
+    <string name="consultation">Consultation</string>
+    <string name="other">Other</string>
     <string name="dosisForDrug">Drug Dosage</string>
     <string name="dosis">Dosage</string>
     <string name="amount">Amount</string>
