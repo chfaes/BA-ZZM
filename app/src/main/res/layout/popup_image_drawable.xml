@@ -11,9 +11,8 @@
 
     <ImageView
         android:id="@+id/ivDisplay"
-        android:layout_width="400dp"
-        android:layout_height="275dp"
-        />
+        android:layout_width="721dp"
+        android:layout_height="275dp" />
 
     <RelativeLayout
         android:layout_width="match_parent"

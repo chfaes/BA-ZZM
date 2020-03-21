@@ -25,19 +25,19 @@
             android:orientation="vertical"
             android:layout_height="wrap_content"
             android:padding="20dp">
+
             <Button
+                android:id="@+id/btnAnomalous"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/anomalous_medical"
-                android:id="@+id/btnAnomalous"
                 android:layout_gravity="center"
-                android:paddingHorizontal="30dp"
+                android:layout_marginBottom="20dp"
                 android:background="@drawable/button_selector_effect"
                 android:drawableLeft="@drawable/ic_model"
                 android:drawablePadding="10dp"
-                android:textAllCaps="false"
-                android:layout_marginBottom="20dp"
-                />
+                android:paddingHorizontal="30dp"
+                android:text="@string/EMB3D"
+                android:textAllCaps="false" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

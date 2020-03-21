@@ -128,7 +128,7 @@ public class ModelsFragment extends Fragment {
             public void onClick(View view) {
                 Intent i = getActivity()
                         .getPackageManager()
-                        .getLaunchIntentForPackage("com.anomalousmedical.android");
+                        .getLaunchIntentForPackage("com.transformandlighting.emb3d");
                 startActivity(i);
             }
         });

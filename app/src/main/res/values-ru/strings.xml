@@ -166,6 +166,7 @@
     <string name="evening">вечер</string>
     <string name="night">ночь</string>
     <string name="anomalous_medical">Anomalous Medical</string>
+    <string name="EMB3D">EMB3D</string>
     <string name="diagnosis_priorization">Приоритизация выбранных диагнозов</string>
     <string name="diagnosen_priorisierung">Diagnosen-Priorisierung</string>
 

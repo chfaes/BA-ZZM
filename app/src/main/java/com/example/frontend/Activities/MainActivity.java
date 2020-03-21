@@ -57,14 +57,10 @@ public class MainActivity extends AppCompatActivity {
         btnTest.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, TestActivity.class));
+                //Testactivity: Un-comment to open testing page
+                //startActivity(new Intent(MainActivity.this, TestActivity.class));
             }
         });
-
-        //jump to Menu for faster testing puroposes
-        //Intent intent = new Intent(MainActivity.this, PatientSelectionActivity.class);
-        //intent.putExtra("usernameKey", "Admin");
-        //startActivity(intent);
     }
 
 

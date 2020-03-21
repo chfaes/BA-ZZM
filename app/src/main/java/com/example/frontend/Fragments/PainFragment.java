@@ -88,8 +88,8 @@ public class PainFragment extends Fragment {
 
     SeekBar seekBar;
 
-    Bitmap alteredBitmap = Bitmap.createBitmap(425, 300, Bitmap.Config.ARGB_8888);
-    Bitmap bmp = Bitmap.createBitmap(425, 300, Bitmap.Config.ARGB_8888);
+    Bitmap alteredBitmap = Bitmap.createBitmap(450, 300, Bitmap.Config.ARGB_8888);
+    Bitmap bmp = Bitmap.createBitmap(450, 300, Bitmap.Config.ARGB_8888);
     Canvas canvas;
     Paint paint;
     float downx = 0;
