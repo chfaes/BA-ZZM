@@ -143,6 +143,8 @@
     <string name="no_pain">Kein Schmerz</string>
     <string name="unbearable_pain">Unerträglicher Schmerz</string>
 
+    <string name="add_pain">Schmerz hinzufügen</string>
+
     <!-- Zusammenfassung -->
     <string name="conclusion">Abschluss</string>
     <string name="download_summary">Zusammenfassung herunterladen</string>

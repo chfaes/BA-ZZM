@@ -15,12 +15,14 @@ import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
@@ -33,6 +35,7 @@ import com.example.frontend.Models.PainSuperclass;
 import com.example.frontend.R;
 import com.example.frontend.Service.DatabaseHelper;
 import com.example.frontend.Service.JsonPlaceHolderApi;
+import com.github.chrisbanes.photoview.PhotoView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
@@ -51,6 +54,7 @@ public class PainFragment extends Fragment {
     private ImageView ivLocationTeeth;
     private ImageView ivLocationFaceLeft;
     private ImageView ivLocationFaceRight;
+    private ImageView fragment_pain_png_base;
     private pl.droidsonroids.gif.GifImageView pain_gif_01;
     private pl.droidsonroids.gif.GifImageView pain_gif_02;
     private pl.droidsonroids.gif.GifImageView pain_gif_03;
@@ -105,18 +109,27 @@ public class PainFragment extends Fragment {
                 case R.id.ivLocationTeeth:
                     bmp = ((BitmapDrawable) ivLocationTeeth.getDrawable()).getBitmap();
                     openedLocationImage = R.id.ivLocationTeeth;
+                    showImagePopup();
                     break;
                 case R.id.ivLocationFaceLeft:
                     bmp = ((BitmapDrawable) ivLocationFaceLeft.getDrawable()).getBitmap();
                     openedLocationImage = R.id.ivLocationFaceLeft;
+                    showImagePopup();
                     break;
                 case R.id.ivLocationFaceRight:
                     bmp = ((BitmapDrawable) ivLocationFaceRight.getDrawable()).getBitmap();
                     openedLocationImage = R.id.ivLocationFaceRight;
+                    showImagePopup();
                     break;
+                case R.id.fragment_pain_png_base:
+                    bmp = ((BitmapDrawable) fragment_pain_png_base.getDrawable()).getBitmap();
+                    openedLocationImage = R.id.fragment_pain_png_base;
+                    showPainPopup();
+                    break;
+
             }
             //bmp = resize(bmp, 400, 300);
-            showImagePopup();
+
         }
     };
     private Button.OnClickListener onQualityClickListener = new Button.OnClickListener() {
@@ -274,6 +287,8 @@ public class PainFragment extends Fragment {
         ivLocationFaceLeft.setOnClickListener(onClickLocationImage);
         ivLocationFaceRight = view.findViewById(R.id.ivLocationFaceRight);
         ivLocationFaceRight.setOnClickListener(onClickLocationImage);
+        fragment_pain_png_base = view.findViewById(R.id.fragment_pain_png_base);
+        fragment_pain_png_base.setOnClickListener(onClickLocationImage);
         myDialog = new Dialog(getActivity());
         myDialog.setCanceledOnTouchOutside(false);
 
@@ -554,6 +569,9 @@ public class PainFragment extends Fragment {
                     case R.id.ivLocationFaceRight:
                         bmp = BitmapFactory.decodeResource(getResources(), R.drawable.face_right);
                         break;
+                    case R.id.fragment_pain_png_base:
+                        bmp = BitmapFactory.decodeResource(getResources(), R.drawable.pain_base_skull);
+                        break;
                 }
                 //bmp = resize(bmp, 400, 275);
                 setUpCanvas(imageView);
@@ -608,6 +626,38 @@ public class PainFragment extends Fragment {
         });
         //bmp = resize(bmp, 400, 300);
         setUpCanvas(imageView);
+        myDialog.show();
+    }
+
+    private void showPainPopup() {
+        //This function expands the picture of the human skull with all the pain animations;
+        //it also sets up Cancel, Save and the Popup Menu for pain selection.
+        myDialog.setContentView(R.layout.popup_image_pain_positions);
+        TextView btnClose;
+        TextView btnAddPain;
+        btnClose = (TextView) myDialog.findViewById(R.id.btnCancel);
+        btnAddPain = myDialog.findViewById(R.id.btnAddPain);
+        btnClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                myDialog.dismiss();
+            }
+        });
+        btnAddPain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PopupMenu popupMenu = new PopupMenu(getActivity(), view);
+                popupMenu.getMenuInflater().inflate(R.menu.pain_popup_menu, popupMenu.getMenu());
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        Toast.makeText(getActivity(), "Item: "+ menuItem.getTitle(), Toast.LENGTH_SHORT).show();
+                        return true;
+                    }
+                });
+                popupMenu.show();
+            }
+        });
         myDialog.show();
     }
 

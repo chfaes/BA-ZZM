@@ -57,8 +57,8 @@ public class MainActivity extends AppCompatActivity {
         btnTest.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                //Testactivity: Un-comment to open testing page
-                //startActivity(new Intent(MainActivity.this, TestActivity.class));
+                //Zitrone: Testactivity: Open testing page
+                startActivity(new Intent(MainActivity.this, TestActivity.class));
             }
         });
     }

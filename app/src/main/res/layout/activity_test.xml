@@ -44,4 +44,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/activity_test_coord_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nada"
+        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintEnd_toEndOf="@+id/gifImageView1"
+        app:layout_constraintStart_toStartOf="@+id/gifImageView1"
+        app:layout_constraintTop_toTopOf="@+id/gifImageView1"
+        app:layout_constraintVertical_bias="0.199" />
+
 </android.support.constraint.ConstraintLayout>

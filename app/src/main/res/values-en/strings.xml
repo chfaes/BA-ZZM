@@ -128,6 +128,8 @@
     <string name="no_pain">No Pain</string>
     <string name="unbearable_pain">Unbearable Pain</string>
 
+    <string name="add_pain">Add Pain</string>
+
     <!-- Zusammenfassung -->
     <string name="conclusion">Conclusion</string>
     <string name="download_summary">Download Summary</string>

@@ -124,6 +124,8 @@
     <string name="no_pain">Aucune douleur</string>
     <string name="unbearable_pain">Douleur insupportable</string>
 
+    <string name="add_pain">Ajouter douleur</string>
+
     <!-- Zusammenfassung -->
     <string name="conclusion">Conclusion</string>
     <string name="download_summary">Télécharger le résumé</string>

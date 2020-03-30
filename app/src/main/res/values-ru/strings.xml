@@ -143,6 +143,8 @@
     <string name="no_pain">без боли</string>
     <string name="unbearable_pain">невыносимая боль</string>
 
+    <string name="add_pain">причинять боль</string>
+
     <!-- Zusammenfassung -->
     <string name="conclusion">Завершить</string>
     <string name="download_summary">Скачать общий документ</string>
