@@ -14,6 +14,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -63,6 +64,7 @@ public class PainFragment extends Fragment {
     private pl.droidsonroids.gif.GifImageView pain_gif_06;
     private pl.droidsonroids.gif.GifImageView pain_gif_08;
     private int openedLocationImage;
+    private int addPainItem;
     RadioGroup rgBeginningCurrent;
     RadioButton rbBeginning;
     RadioButton rbCurrent;
@@ -291,6 +293,7 @@ public class PainFragment extends Fragment {
         fragment_pain_png_base.setOnClickListener(onClickLocationImage);
         myDialog = new Dialog(getActivity());
         myDialog.setCanceledOnTouchOutside(false);
+        addPainItem = 0;
 
         rbBeginning = view.findViewById(R.id.rbBeginning);
         rbCurrent = view.findViewById(R.id.rbCurrent);
@@ -632,10 +635,13 @@ public class PainFragment extends Fragment {
     private void showPainPopup() {
         //This function expands the picture of the human skull with all the pain animations;
         //it also sets up Cancel, Save and the Popup Menu for pain selection.
+        //Once an Item from Popup Menu is selected, "addPain" is set to true
+        //and any click on the surface will set the coordinates for the selected pain item.
+        addPainItem = 0;
         myDialog.setContentView(R.layout.popup_image_pain_positions);
         TextView btnClose;
         TextView btnAddPain;
-        btnClose = (TextView) myDialog.findViewById(R.id.btnCancel);
+        btnClose = myDialog.findViewById(R.id.btnCancel);
         btnAddPain = myDialog.findViewById(R.id.btnAddPain);
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -652,12 +658,30 @@ public class PainFragment extends Fragment {
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
                         Toast.makeText(getActivity(), "Item: "+ menuItem.getTitle(), Toast.LENGTH_SHORT).show();
+                        addPainItem = Integer.parseInt(menuItem.getTitle().toString());
                         return true;
                     }
                 });
                 popupMenu.show();
             }
         });
+        myDialog.findViewById(R.id.ivDisplay).setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                int action = motionEvent.getAction();
+                switch(action){
+                    case(MotionEvent.ACTION_DOWN):
+                        float x = motionEvent.getX();
+                        float y = motionEvent.getY();
+                        Log.d("Log", "x-Achse:" + Float.toString(x) + " y-Achse:"+ Float.toString(x) + " Nummer:" + Integer.toString(addPainItem));
+                        //Log.d("Log", Integer.toString(painOfPatientBeginning.getTestInteger()));
+                        //painOfPatientBeginning.setTestInteger(9);
+                        addPainItem = 0;
+                }
+                return true;
+            }
+        });
+
         myDialog.show();
     }
 
