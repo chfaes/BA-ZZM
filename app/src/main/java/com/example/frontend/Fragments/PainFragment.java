@@ -673,9 +673,11 @@ public class PainFragment extends Fragment {
                     case(MotionEvent.ACTION_DOWN):
                         float x = motionEvent.getX();
                         float y = motionEvent.getY();
-                        Log.d("Log", "x-Achse:" + Float.toString(x) + " y-Achse:"+ Float.toString(x) + " Nummer:" + Integer.toString(addPainItem));
-                        //Log.d("Log", Integer.toString(painOfPatientBeginning.getTestInteger()));
-                        //painOfPatientBeginning.setTestInteger(9);
+                        Log.d("Log", "x-Achse:"  + Float.toString(x) + " y-Achse:"+ Float.toString(y) + " Nummer:" + Integer.toString(addPainItem));
+                        //Log.d("Log", "pain coord:" + painOfPatientBeginning.getCoordinates("dull"));
+                        Log.d("Log", "Testinteger:" + painOfPatientBeginning.getTestString());
+                        painOfPatientBeginning.setTestString("42!!OMG");
+
                         addPainItem = 0;
                 }
                 return true;

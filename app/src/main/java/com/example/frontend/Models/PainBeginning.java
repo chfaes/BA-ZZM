@@ -4,6 +4,7 @@ import android.util.Base64;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class PainBeginning extends PainSuperclass {
     private int patient_id;
@@ -21,13 +22,12 @@ public class PainBeginning extends PainSuperclass {
     private boolean tingling;
     private boolean numb;
     private String comment;
-    private PainSpatialDistribution painSpatialDistribution;
-    private int testInteger; //Zitrone
+    private String testString; //Zitrone
 
     public PainBeginning() {
     }
 
-    public PainBeginning(int patient_id, int intensity, String location_teeth, String location_face_left, String location_face_right, String pain_pattern, boolean dull, boolean pulling, boolean stinging, boolean pulsating, boolean burning, boolean pinsneedles, boolean tingling, boolean numb, String comment, PainSpatialDistribution painSpatialDistribution) {
+    public PainBeginning(int patient_id, int intensity, String location_teeth, String location_face_left, String location_face_right, String pain_pattern, boolean dull, boolean pulling, boolean stinging, boolean pulsating, boolean burning, boolean pinsneedles, boolean tingling, boolean numb, String comment) {
         this.patient_id = patient_id;
         this.intensity = intensity;
         this.location_teeth = location_teeth;
@@ -43,8 +43,6 @@ public class PainBeginning extends PainSuperclass {
         this.tingling = tingling;
         this.numb = numb;
         this.comment = comment;
-        this.painSpatialDistribution = painSpatialDistribution;
-        this.testInteger = 0; //Zitrone
     }
 
     public int getPatient_id() {
@@ -173,23 +171,11 @@ public class PainBeginning extends PainSuperclass {
         this.comment = comment;
     }
 
-    public void setPainCoordinates(Float x, Float y, Float z, String painType){
-        painSpatialDistribution.setPain(x, y, z, painType);
+    public void setTestString(String testString){
+        this.testString = testString; //Zitrone
     }
 
-    public ArrayList getCoordinates(String painType) {
-        return painSpatialDistribution.getCoordinates(painType);
-    }
-
-    public boolean painIsSet(String painType){
-        return painSpatialDistribution.painIsSet(painType);
-    }
-
-    public void setTestInteger(int testint){
-        testInteger = testint; //Zitrone
-    }
-
-    public int getTestInteger(){
-        return testInteger; //Zitrone
+    public String getTestString(){
+        return testString; //Zitrone
     }
 }
