@@ -1,6 +1,7 @@
 package com.example.frontend.Models;
 
 import android.util.Base64;
+import android.util.Log;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -15,10 +16,10 @@ import java.util.Map;
 public abstract class PainSuperclass implements Serializable {
     //This class is here to encompass PainBeginning and PainCurrent such that
     //objects of either type can be passed as "PainSuperclass" arguments to functions.
-    //Implements the pain coordinates.
 
     private Map<String, ArrayList<Float>> values = new HashMap();
-    public String values_encoded;
+    private String values_encoded;
+    private String testString; //Zitrone
 
     public abstract int getPatient_id();
 
@@ -80,6 +81,14 @@ public abstract class PainSuperclass implements Serializable {
 
     public abstract void setComment(String comment);
 
+    public void setTestString(String testString){
+        this.testString = testString; //Zitrone
+    }
+
+    public String getTestString(){
+        return testString; //Zitrone
+    }
+
     public void setPainCoordinates(Float x, Float y, Float z, String painType){
         //Stores the x, y and z coordinates of a pain type in the hashmap.
         ArrayList<Float> templist = new ArrayList<>(Arrays.asList(x, y, z));
@@ -103,6 +112,14 @@ public abstract class PainSuperclass implements Serializable {
         return values.get(painType) != null;
     }
 
+    public String getValues_encoded(){
+        return values_encoded;
+    }
+
+    public void setValues_encoded(String str){
+        values_encoded = str;
+    }
+
     private void encoding(){
         //writes "values" to "values_encoded".
         try {
@@ -110,7 +127,7 @@ public abstract class PainSuperclass implements Serializable {
             ObjectOutputStream so = new ObjectOutputStream(bo);
             so.writeObject(values);
             so.flush();
-            values_encoded = bo.toString();
+            values_encoded = Base64.encodeToString(bo.toByteArray(), Base64.NO_WRAP);
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -119,7 +136,7 @@ public abstract class PainSuperclass implements Serializable {
     private void decoding(){
         //updates "values" from "values_encoded"
         try {
-            byte b[] = values_encoded.getBytes();
+            byte[] b = Base64.decode(values_encoded, Base64.NO_WRAP);
             ByteArrayInputStream bi = new ByteArrayInputStream(b);
             ObjectInputStream si = new ObjectInputStream(bi);
             Map obj = (Map) si.readObject();
@@ -128,5 +145,7 @@ public abstract class PainSuperclass implements Serializable {
             System.out.println(e);
         }
     }
+
+
 
 }

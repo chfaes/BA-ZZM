@@ -306,6 +306,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "    numb boolean, " +
                 "    comment text," +
                 "    test_string string, " +
+                "    spatial_information string, " +
                 "    FOREIGN KEY (patient_id) REFERENCES Patient (id) ON DELETE CASCADE " +
                 ")");
         db.execSQL("CREATE TABLE PainCurrent " +
@@ -326,6 +327,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "    numb boolean," +
                 "    comment text, " +
                 "    test_string string, " +
+                "    spatial_information string, " +
                 "    FOREIGN KEY (patient_id) REFERENCES Patient (id) ON DELETE CASCADE " +
                 ")");
     }
@@ -1765,6 +1767,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put("numb", painBeginning.isNumb());
         values.put("comment", painBeginning.getComment());
         values.put("test_string", painBeginning.getTestString());
+        values.put("spatial_information", painBeginning.getValues_encoded());
 
         // Inserting Row
         db.insert("PainBeginning", null, values);
@@ -1798,6 +1801,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         painBeginning.setNumb(cursor.getInt(13) > 0);
         painBeginning.setComment(cursor.getString(14));
         painBeginning.setTestString(cursor.getString(15));
+        painBeginning.setValues_encoded(cursor.getString(16));
         // return painBeginning
         return painBeginning;
     }
@@ -1830,6 +1834,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 painBeginning.setNumb(cursor.getInt(13) > 0);
                 painBeginning.setComment(cursor.getString(14));
                 painBeginning.setTestString(cursor.getString(15));
+                painBeginning.setValues_encoded(cursor.getString(16));
                 // Adding painBeginning to list
                 painBeginningList.add(painBeginning);
             } while (cursor.moveToNext());
@@ -1858,6 +1863,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put("numb", painBeginning.isNumb());
         values.put("comment", painBeginning.getComment());
         values.put("test_string", painBeginning.getTestString());
+        values.put("spatial_information", painBeginning.getValues_encoded());
 
         // updating row
         return db.update("PainBeginning", values, "patient_id = ?",
@@ -1906,6 +1912,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put("numb", painCurrent.isNumb());
         values.put("comment", painCurrent.getComment());
         values.put("test_string", painCurrent.getTestString());
+        values.put("spatial_information", painCurrent.getValues_encoded());
 
         // Inserting Row
         db.insert("PainCurrent", null, values);
@@ -1939,6 +1946,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         painCurrent.setNumb(cursor.getInt(13) > 0);
         painCurrent.setComment(cursor.getString(14));
         painCurrent.setTestString(cursor.getString(15));
+        painCurrent.setValues_encoded(cursor.getString(16));
         // return painCurrent
         return painCurrent;
     }
@@ -1971,6 +1979,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 painCurrent.setNumb(cursor.getInt(13) > 0);
                 painCurrent.setComment(cursor.getString(14));
                 painCurrent.setTestString(cursor.getString(15));
+                painCurrent.setValues_encoded(cursor.getString(16));
                 // Adding painCurrent to list
                 painCurrentList.add(painCurrent);
             } while (cursor.moveToNext());
@@ -1999,6 +2008,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put("numb", painCurrent.isNumb());
         values.put("comment", painCurrent.getComment());
         values.put("test_string", painCurrent.getTestString());
+        values.put("spatial_information", painCurrent.getValues_encoded());
 
         // updating row
         return db.update("PainCurrent", values, "patient_id = ?",

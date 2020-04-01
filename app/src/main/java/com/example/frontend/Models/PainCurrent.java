@@ -21,7 +21,7 @@ public class PainCurrent extends PainSuperclass {
     private boolean tingling;
     private boolean numb;
     private String comment;
-    private String testString; //Zitrone
+
 
     public PainCurrent() {
     }
@@ -170,12 +170,6 @@ public class PainCurrent extends PainSuperclass {
         this.comment = comment;
     }
 
-    public void setTestString(String testString){
-        this.testString = testString; //Zitrone
-    }
 
-    public String getTestString(){
-        return testString; //Zitrone
-    }
 
 }
