@@ -170,7 +170,7 @@ public class PainBeginning extends PainSuperclass {
     public void setComment(String comment) {
         this.comment = comment;
     }
-    
+
     public void setTestString(String testString){
         this.testString = testString; //Zitrone
     }
@@ -178,4 +178,5 @@ public class PainBeginning extends PainSuperclass {
     public String getTestString(){
         return testString; //Zitrone
     }
+
 }
