@@ -11,6 +11,8 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
+import android.support.constraint.ConstraintSet;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -64,7 +66,7 @@ public class PainFragment extends Fragment {
     private pl.droidsonroids.gif.GifImageView pain_gif_06;
     private pl.droidsonroids.gif.GifImageView pain_gif_08;
     private int openedLocationImage;
-    private int addPainItem;
+    private String addPainItem;
     RadioGroup rgBeginningCurrent;
     RadioButton rbBeginning;
     RadioButton rbCurrent;
@@ -293,7 +295,7 @@ public class PainFragment extends Fragment {
         fragment_pain_png_base.setOnClickListener(onClickLocationImage);
         myDialog = new Dialog(getActivity());
         myDialog.setCanceledOnTouchOutside(false);
-        addPainItem = 0;
+        addPainItem = "none";
 
         rbBeginning = view.findViewById(R.id.rbBeginning);
         rbCurrent = view.findViewById(R.id.rbCurrent);
@@ -635,20 +637,23 @@ public class PainFragment extends Fragment {
     private void showPainPopup() {
         //This function expands the picture of the human skull with all the pain animations;
         //it also sets up Cancel, Save and the Popup Menu for pain selection.
-        //Once an Item from Popup Menu is selected, "addPain" is set to true
+        //Once an Item from Popup Menu is selected, "addPainItem" is set to the item title
         //and any click on the surface will set the coordinates for the selected pain item.
-        addPainItem = 0;
         myDialog.setContentView(R.layout.popup_image_pain_positions);
+        pl.droidsonroids.gif.GifImageView popup_gif_01 = myDialog.findViewById(R.id.popup_pain_gif01);
+        addPainItem = "none";
         TextView btnClose;
         TextView btnAddPain;
         btnClose = myDialog.findViewById(R.id.btnCancel);
         btnAddPain = myDialog.findViewById(R.id.btnAddPain);
+
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 myDialog.dismiss();
             }
         });
+
         btnAddPain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -657,33 +662,41 @@ public class PainFragment extends Fragment {
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem menuItem) {
-                        Toast.makeText(getActivity(), "Item: "+ menuItem.getTitle(), Toast.LENGTH_SHORT).show();
-                        addPainItem = Integer.parseInt(menuItem.getTitle().toString());
+                        Toast.makeText(getActivity(), menuItem.getTitle().toString(), Toast.LENGTH_SHORT).show();
+                        addPainItem = menuItem.getTitle().toString();
                         return true;
                     }
                 });
                 popupMenu.show();
             }
         });
+
         myDialog.findViewById(R.id.ivDisplay).setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 int action = motionEvent.getAction();
                 switch(action){
                     case(MotionEvent.ACTION_DOWN):
-                        float x = motionEvent.getX();
-                        float y = motionEvent.getY();
-                        Log.d("Log", "x-Achse:"  + Float.toString(x) + " y-Achse:"+ Float.toString(y) + " Nummer:" + Integer.toString(addPainItem));
-                        Log.d("Log", "pain coord:" + painOfPatientBeginning.getPainCoordinates("dull").get(0).toString());
-                        painOfPatientBeginning.setPainCoordinates(x, y, 0.0f, "dull");
-
-                        addPainItem = 0;
+                        if (!addPainItem.equals("none")){
+                            //Log.d("Log", "x-Achse:"  + Float.toString(x) + " y-Achse:"+ Float.toString(y) + " Nummer:" + addPainItem);
+                            //Log.d("Log", "pain coord:" + painOfPatientBeginning.getPainCoordinates("dull").get(0).toString());
+                            painOfPatientBeginning.setPainCoordinates(motionEvent.getX(), motionEvent.getY(), 0.0f, addPainItem);
+                            updatePainPopup(popup_gif_01, motionEvent.getX(), motionEvent.getY());
+                            addPainItem = "none";
+                        }
                 }
                 return true;
             }
         });
 
         myDialog.show();
+    }
+
+    private void updatePainPopup(pl.droidsonroids.gif.GifImageView view, float x, float y){
+        //Resets the Coordinates of a gif view. If a coordinate is = -1.0, it will by default not be updated.
+        ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) view.getLayoutParams();
+        params.setMargins(Math.round(x),Math.round(y),0,0);
+        view.setLayoutParams(params);
     }
 
     public void addNewPainBeginning(PainBeginning painBeginning) {
