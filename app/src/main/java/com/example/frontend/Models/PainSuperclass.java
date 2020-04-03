@@ -91,7 +91,7 @@ public abstract class PainSuperclass implements Serializable {
 
     public void setPainCoordinates(Float x, Float y, Float z, String painType){
         //Stores the x, y and z coordinates of a pain type in the hashmap.
-        ArrayList<Float> templist = new ArrayList<>(Arrays.asList(x, y, z));
+        ArrayList<Float> templist = new ArrayList<>(Arrays.asList((float) x, y, z));
         values.put(painType, templist);
         encoding();
     }
@@ -99,7 +99,7 @@ public abstract class PainSuperclass implements Serializable {
     public ArrayList getPainCoordinates(String painType){
         //returns [-1.0, -1.0, -1.0] if painType does not exist in the hashmap.
         decoding();
-        ArrayList<Float> templist = new ArrayList(Arrays.asList(-1.0f, -1.0f, -1.0f));
+        ArrayList<Float> templist = new ArrayList<>(Arrays.asList((float) -1.0f, -1.0f, -1.0f));
         if (values.get(painType) != null ){
             templist.clear();
             templist = values.get(painType);

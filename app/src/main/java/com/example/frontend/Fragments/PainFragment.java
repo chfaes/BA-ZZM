@@ -688,6 +688,9 @@ public class PainFragment extends Fragment {
                 return true;
             }
         });
+        //Zitrone: Exemplarisch wird die x-Koordinate von "Dull" geholt und damit das gif 01 neu platziert.
+        float x = Float.parseFloat(painOfPatientBeginning.getPainCoordinates("dull").get(0).toString());
+        updatePainPopup(popup_gif_01, x, 0.1f);
 
         myDialog.show();
     }
