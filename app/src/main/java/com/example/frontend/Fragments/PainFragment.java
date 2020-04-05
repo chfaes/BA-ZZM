@@ -42,6 +42,8 @@ import com.github.chrisbanes.photoview.PhotoView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -639,9 +641,22 @@ public class PainFragment extends Fragment {
         //it also sets up Cancel, Save and the Popup Menu for pain selection.
         //Once an Item from Popup Menu is selected, "addPainItem" is set to the item title
         //and any click on the surface will set the coordinates for the selected pain item.
+        //Note that "both_pain_types" is used to have a simple way of accessing both beginning and current pain.
         myDialog.setContentView(R.layout.popup_image_pain_positions);
         pl.droidsonroids.gif.GifImageView popup_gif_01 = myDialog.findViewById(R.id.popup_pain_gif01);
+        pl.droidsonroids.gif.GifImageView popup_gif_02 = myDialog.findViewById(R.id.popup_pain_gif02);
+        pl.droidsonroids.gif.GifImageView popup_gif_03 = myDialog.findViewById(R.id.popup_pain_gif03);
+        pl.droidsonroids.gif.GifImageView popup_gif_04 = myDialog.findViewById(R.id.popup_pain_gif04);
+        pl.droidsonroids.gif.GifImageView popup_gif_05 = myDialog.findViewById(R.id.popup_pain_gif05);
+        pl.droidsonroids.gif.GifImageView popup_gif_06 = myDialog.findViewById(R.id.popup_pain_gif06);
+        pl.droidsonroids.gif.GifImageView popup_gif_07 = myDialog.findViewById(R.id.popup_pain_gif07);
+        pl.droidsonroids.gif.GifImageView popup_gif_08 = myDialog.findViewById(R.id.popup_pain_gif08);
+        ArrayList<pl.droidsonroids.gif.GifImageView> popup_gif_list = new ArrayList<>(Arrays.asList(
+                popup_gif_01, popup_gif_02, popup_gif_03, popup_gif_04, popup_gif_05, popup_gif_06,
+                popup_gif_07, popup_gif_08));
         addPainItem = "none";
+        ArrayList<PainSuperclass> both_pain_types = new ArrayList<>(Arrays.asList(painOfPatientBeginning, painOfPatientCurrent));
+
         TextView btnClose;
         TextView btnAddPain;
         btnClose = myDialog.findViewById(R.id.btnCancel);
@@ -677,29 +692,48 @@ public class PainFragment extends Fragment {
                 int action = motionEvent.getAction();
                 switch(action){
                     case(MotionEvent.ACTION_DOWN):
+                        // Touching the screen sets new coordinates for the selected pain.
                         if (!addPainItem.equals("none")){
-                            //Log.d("Log", "x-Achse:"  + Float.toString(x) + " y-Achse:"+ Float.toString(y) + " Nummer:" + addPainItem);
-                            //Log.d("Log", "pain coord:" + painOfPatientBeginning.getPainCoordinates("dull").get(0).toString());
-                            painOfPatientBeginning.setPainCoordinates(motionEvent.getX(), motionEvent.getY(), 0.0f, addPainItem);
-                            updatePainPopup(popup_gif_01, motionEvent.getX(), motionEvent.getY());
+                            int index = 1;
+                            if (rgBeginningCurrent.getCheckedRadioButtonId() == R.id.rbBeginning){index = 0;}
+
+                            both_pain_types.get(index).setPainCoordinates(motionEvent.getX(), motionEvent.getY(), 0.0f, addPainItem);
+                            updatePainPopup(popup_gif_list.get(both_pain_types.get(index).getPainList().indexOf(addPainItem)),
+                                    motionEvent.getX(), motionEvent.getY(), addPainItem, both_pain_types.get(index));
+
                             addPainItem = "none";
                         }
                 }
                 return true;
             }
         });
-        //Zitrone: Exemplarisch wird die x-Koordinate von "Dull" geholt und damit das gif 01 neu platziert.
-        float x = Float.parseFloat(painOfPatientBeginning.getPainCoordinates("dull").get(0).toString());
-        updatePainPopup(popup_gif_01, x, 0.1f);
+
+        // Update all view coordinates before opening the popup
+        int index = 1;
+        if (rgBeginningCurrent.getCheckedRadioButtonId() == R.id.rbBeginning){index = 0;}
+        ArrayList temp = both_pain_types.get(index).getPainList();
+        for (int i = 0; i < temp.size(); i++) {
+            float x = Float.parseFloat(both_pain_types.get(index).getPainCoordinates(temp.get(i).toString()).get(0).toString());
+            float y = Float.parseFloat(both_pain_types.get(index).getPainCoordinates(temp.get(i).toString()).get(1).toString());
+            updatePainPopup(popup_gif_list.get(i), x, y, temp.get(i).toString(), both_pain_types.get(index));
+        }
 
         myDialog.show();
     }
 
-    private void updatePainPopup(pl.droidsonroids.gif.GifImageView view, float x, float y){
+    private void updatePainPopup(pl.droidsonroids.gif.GifImageView view, float x, float y, String name, PainSuperclass pain_type){
         //Resets the Coordinates of a gif view. If a coordinate is = -1.0, it will by default not be updated.
-        ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) view.getLayoutParams();
-        params.setMargins(Math.round(x),Math.round(y),0,0);
-        view.setLayoutParams(params);
+        //If the pain does not exist yet, the gif is set to invisible.
+        //40 and 120 is arbitrary, it adjusts the gif's position a bit to the upper left.
+        if (pain_type.painIsSet(name)){
+            view.setVisibility(View.VISIBLE);
+            ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) view.getLayoutParams();
+            params.setMargins(Math.round(x)-120,Math.round(y)-40,0,0);
+            view.setLayoutParams(params);
+        } else {
+            view.setVisibility(View.INVISIBLE);
+        }
+
     }
 
     public void addNewPainBeginning(PainBeginning painBeginning) {

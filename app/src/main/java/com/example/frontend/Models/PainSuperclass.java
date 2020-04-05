@@ -20,6 +20,7 @@ public abstract class PainSuperclass implements Serializable {
     private Map<String, ArrayList<Float>> values = new HashMap();
     private String values_encoded;
     private String testString; //Zitrone
+    private  ArrayList<String> pain_list = new ArrayList<String>(Arrays.asList("pulsating", "pulling", "numb", "stinging", "burning", "pinsandneedles", "tingling", "dull"));
 
     public abstract int getPatient_id();
 
@@ -120,6 +121,8 @@ public abstract class PainSuperclass implements Serializable {
         values_encoded = str;
     }
 
+    public ArrayList getPainList(){return pain_list;}
+
     private void encoding(){
         //writes "values" to "values_encoded".
         try {
@@ -145,7 +148,5 @@ public abstract class PainSuperclass implements Serializable {
             System.out.println(e);
         }
     }
-
-
 
 }
