@@ -85,6 +85,12 @@
                 android:padding="10dp"
                 android:text="@string/pain"
                 android:textSize="9sp" />
+
+            <Button
+                android:id="@+id/psy_social_btn_01"
+                android:layout_width="90dp"
+                android:layout_height="70dp"
+                android:text="Button" />
         </RelativeLayout>
     </LinearLayout>
 

@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 
@@ -36,6 +38,7 @@ public class PsychosocialFragment extends Fragment implements ReasonDialog.Reaso
     private Button btnWorkBefore;
     private Button btnFinancialBefore;
     private Button btnEventBefore;
+    private Button btnCreateBefore;
 
     private Button btnPainAfter;
     private Button btnFamilyAfter;
@@ -99,6 +102,8 @@ public class PsychosocialFragment extends Fragment implements ReasonDialog.Reaso
         btnFinancialBefore.setOnTouchListener(new ChoiceTouchListener());
         btnEventBefore = view.findViewById(R.id.btnEventBefore);
         btnEventBefore.setOnTouchListener(new ChoiceTouchListener());
+        btnCreateBefore = view.findViewById(R.id.psy_social_btn_01);
+        btnCreateBefore.setOnClickListener(new onClickCreateListener());
 
         btnPainAfter = view.findViewById(R.id.btnPainAfter);
         btnPainAfter.setOnTouchListener(new ChoiceTouchListener());
@@ -195,6 +200,18 @@ public class PsychosocialFragment extends Fragment implements ReasonDialog.Reaso
         }
     }
 
+    private class onClickCreateListener implements View.OnClickListener{
+        @Override
+        public void onClick(View view) {
+            Log.d("Log", "Jap");
+            /*LinearLayout ll = (LinearLayout)getActivity().findViewById(R.id.llBefore);
+            Button btn = new Button(getContext());
+            btn.setText("Manual Add");
+            btn.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            ll.addView(btn);*/
+        }
+    }
+
     public void openReasonDialog() {
         ReasonDialog reasonDialog = new ReasonDialog();
         Bundle args = new Bundle();
@@ -218,38 +235,10 @@ public class PsychosocialFragment extends Fragment implements ReasonDialog.Reaso
 
     public void addNewImprovementReason(ImprovementReason improvementReason) {
         db.addImprovementReason(improvementReason);
-
-        /* Only used for Heruoku Database
-
-        Call<ResponseBody> call = jsonPlaceHolderApi.createImprovementReason(improvementReason);
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(getActivity(), "createNote NOT successful", Toast.LENGTH_SHORT).show();
-            }
-        }); */
     }
 
     public void updateImprovementReason(final ImprovementReason updatedImprovementReason) {
         db.updateImprovementReason(patientId, updatedImprovementReason);
-
-        /* Only used for Heruoku Database
-
-        Call<ResponseBody> call = jsonPlaceHolderApi.updateImprovementReason(patientId, updatedImprovementReason);
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(getActivity(), "createImprovementReason NOT successful", Toast.LENGTH_SHORT).show();
-            }
-        }); */
     }
 
     public void setImprovementReason() {
@@ -259,68 +248,15 @@ public class PsychosocialFragment extends Fragment implements ReasonDialog.Reaso
         } else {
             addNewImprovementReason(improvementReasonOfPatient);
         }
-
-        /* Only used for Heruoku Database
-
-        Call<Boolean> call = jsonPlaceHolderApi.existsImprovementReason(patientId);
-        call.enqueue(new Callback<Boolean>() {
-            @Override
-            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                if (!response.isSuccessful()) {
-                    Toast.makeText(getActivity(), "Get improvement reason not successful", Toast.LENGTH_SHORT).show();
-                    return;
-                } else {
-                    boolean improvementReasonExists = response.body();
-                    if (improvementReasonExists) {
-                        updateImprovementReason(improvementReasonOfPatient);
-                    } else {
-                        addNewImprovementReason(improvementReasonOfPatient);
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Boolean> call, Throwable t) {
-                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        }); */
     }
 
 
     public void addNewPsychoSocialBefore(PsychoSocialBefore psychoSocialBefore) {
         db.addPsychoSocialBefore(psychoSocialBefore);
-
-        /* Only used for Heruoku Database
-
-        Call<ResponseBody> call = jsonPlaceHolderApi.createPsychoSocialBefore(psychoSocialBefore);
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(getActivity(), "createNote NOT successful", Toast.LENGTH_SHORT).show();
-            }
-        }); */
     }
 
     public void updatePsychoSocialBefore(final PsychoSocialBefore updatedPsychoSocialBefore) {
         db.updatePsychoSocialBefore(patientId, updatedPsychoSocialBefore);
-
-        /* Only used for Heruoku Database
-
-        Call<ResponseBody> call = jsonPlaceHolderApi.updatePsychoSocialBefore(patientId, updatedPsychoSocialBefore);
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(getActivity(), "createPsychoSocialBefore NOT successful", Toast.LENGTH_SHORT).show();
-            }
-        }); */
     }
 
     public void setPsychoSocialBefore() {
@@ -341,76 +277,14 @@ public class PsychosocialFragment extends Fragment implements ReasonDialog.Reaso
                 initialSetUpBeforeDone = true;
             }
         }
-
-        /* Only used for Heruoku Database
-
-        Call<Boolean> call = jsonPlaceHolderApi.existsPsychoSocialBefore(patientId);
-        call.enqueue(new Callback<Boolean>() {
-            @Override
-            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                if (!response.isSuccessful()) {
-                    return;
-                } else {
-                    boolean PsychoSocialBeforeExists = response.body();
-
-                    if (PsychoSocialBeforeExists) {
-                        if(!initialSetUpBeforeDone){
-                            setUpPositionsBefore();
-                            initialSetUpBeforeDone = true;
-                        }else{
-                            updatePsychoSocialBefore(psychoSocialBeforeOfPatient);
-                        }
-                    } else {
-                        if(initialSetUpBeforeDone){
-                            addNewPsychoSocialBefore(psychoSocialBeforeOfPatient);
-                        }else{
-                            initialSetUpBeforeDone = true;
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Boolean> call, Throwable t) {
-                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        }); */
     }
 
     public void addNewPsychoSocialAfter(PsychoSocialAfter psychoSocialAfter) {
         db.addPsychoSocialAfter(psychoSocialAfter);
-
-        /* Only used for Heruoku Database
-
-        Call<ResponseBody> call = jsonPlaceHolderApi.createPsychoSocialAfter(psychoSocialAfter);
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(getActivity(), "createNote NOT successful", Toast.LENGTH_SHORT).show();
-            }
-        }); */
     }
 
     public void updatePsychoSocialAfter(final PsychoSocialAfter updatedPsychoSocialAfter) {
         db.updatePsychoSocialAfter(patientId, updatedPsychoSocialAfter);
-
-        /* Only used for Heruoku Database
-
-        Call<ResponseBody> call = jsonPlaceHolderApi.updatePsychoSocialAfter(patientId, updatedPsychoSocialAfter);
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(getActivity(), "createPsychoSocialAfter NOT successful", Toast.LENGTH_SHORT).show();
-            }
-        }); */
     }
 
     public void setPsychoSocialAfter() {
@@ -432,40 +306,6 @@ public class PsychosocialFragment extends Fragment implements ReasonDialog.Reaso
                 initialSetUpAfterDone = true;
             }
         }
-
-        /* Only used for Heruoku Database
-
-        Call<Boolean> call = jsonPlaceHolderApi.existsPsychoSocialAfter(patientId);
-        call.enqueue(new Callback<Boolean>() {
-            @Override
-            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                if (!response.isSuccessful()) {
-                    return;
-                } else {
-                    boolean PsychoSocialAfterExists = response.body();
-
-                    if (PsychoSocialAfterExists) {
-                        if(!initialSetUpAfterDone){
-                            setUpPositionsAfter();
-                            initialSetUpAfterDone = true;
-                        }else{
-                            updatePsychoSocialAfter(psychoSocialAfterOfPatient);
-                        }
-                    } else {
-                        if(initialSetUpAfterDone) {
-                            addNewPsychoSocialAfter(psychoSocialAfterOfPatient);
-                        }else{
-                            initialSetUpAfterDone = true;
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Boolean> call, Throwable t) {
-                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        }); */
     }
 
     private void savePositions() {
@@ -553,50 +393,6 @@ public class PsychosocialFragment extends Fragment implements ReasonDialog.Reaso
         btnEventBefore.setLayoutParams(lpEventBefore);
         setButtonSize(btnEventBefore, psychoSocialBeforeOfPatient.getEvent_size());
         setButtonColor(btnEventBefore, psychoSocialBeforeOfPatient.getEvent_color());
-
-        /* Only used for Heruoku Database
-
-        Call<PsychoSocialBefore> call = jsonPlaceHolderApi.getPsychoSocialBefore(patientId);
-        call.enqueue(new Callback<PsychoSocialBefore>() {
-            @Override
-            public void onResponse(Call<PsychoSocialBefore> call, Response<PsychoSocialBefore> response) {
-                if (!response.isSuccessful()) {
-                    return;
-                } else {
-                    PsychoSocialBefore psychoSocialBefore = response.body();
-
-                    lpPainBefore = (RelativeLayout.LayoutParams) btnPainBefore.getLayoutParams();
-                    lpPainBefore.leftMargin = psychoSocialBefore.getPain_xpos();
-                    lpPainBefore.topMargin = psychoSocialBefore.getPain_ypos();
-                    btnPainBefore.setLayoutParams(lpPainBefore);
-
-                    lpFamilyBefore = (RelativeLayout.LayoutParams) btnFamilyBefore.getLayoutParams();
-                    lpFamilyBefore.leftMargin = psychoSocialBefore.getFamily_xpos();
-                    lpFamilyBefore.topMargin = psychoSocialBefore.getFamily_ypos();
-                    btnFamilyBefore.setLayoutParams(lpFamilyBefore);
-
-                    lpWorkBefore = (RelativeLayout.LayoutParams) btnWorkBefore.getLayoutParams();
-                    lpWorkBefore.leftMargin = psychoSocialBefore.getWork_xpos();
-                    lpWorkBefore.topMargin = psychoSocialBefore.getWork_ypos();
-                    btnWorkBefore.setLayoutParams(lpWorkBefore);
-
-                    lpFinancialBefore = (RelativeLayout.LayoutParams) btnFinancialBefore.getLayoutParams();
-                    lpFinancialBefore.leftMargin = psychoSocialBefore.getFinance_xpos();
-                    lpFinancialBefore.topMargin = psychoSocialBefore.getFinance_ypos();
-                    btnFinancialBefore.setLayoutParams(lpFinancialBefore);
-
-                    lpEventBefore = (RelativeLayout.LayoutParams) btnEventBefore.getLayoutParams();
-                    lpEventBefore.leftMargin = psychoSocialBefore.getEvent_xpos();
-                    lpEventBefore.topMargin = psychoSocialBefore.getEvent_ypos();
-                    btnEventBefore.setLayoutParams(lpEventBefore);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<PsychoSocialBefore> call, Throwable t) {
-                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        }); */
     }
 
     private void setButtonColor(Button btn, int color) {
@@ -662,50 +458,6 @@ public class PsychosocialFragment extends Fragment implements ReasonDialog.Reaso
         btnEventAfter.setLayoutParams(lpEventAfter);
         setButtonSize(btnEventAfter, psychoSocialAfterOfPatient.getEvent_size());
         setButtonColor(btnEventAfter, psychoSocialAfterOfPatient.getEvent_color());
-
-        /* Only used for Heruoku Database
-
-        Call<PsychoSocialAfter> call = jsonPlaceHolderApi.getPsychoSocialAfter(patientId);
-        call.enqueue(new Callback<PsychoSocialAfter>() {
-            @Override
-            public void onResponse(Call<PsychoSocialAfter> call, Response<PsychoSocialAfter> response) {
-                if (!response.isSuccessful()) {
-                    return;
-                } else {
-                    PsychoSocialAfter psychoSocialAfter = response.body();
-
-                    lpPainAfter = (RelativeLayout.LayoutParams) btnPainAfter.getLayoutParams();
-                    lpPainAfter.leftMargin = psychoSocialAfter.getPain_xpos();
-                    lpPainAfter.topMargin = psychoSocialAfter.getPain_ypos();
-                    btnPainAfter.setLayoutParams(lpPainAfter);
-
-                    lpFamilyAfter = (RelativeLayout.LayoutParams) btnFamilyAfter.getLayoutParams();
-                    lpFamilyAfter.leftMargin = psychoSocialAfter.getFamily_xpos();
-                    lpFamilyAfter.topMargin = psychoSocialAfter.getFamily_ypos();
-                    btnFamilyAfter.setLayoutParams(lpFamilyAfter);
-
-                    lpWorkAfter = (RelativeLayout.LayoutParams) btnWorkAfter.getLayoutParams();
-                    lpWorkAfter.leftMargin = psychoSocialAfter.getWork_xpos();
-                    lpWorkAfter.topMargin = psychoSocialAfter.getWork_ypos();
-                    btnWorkAfter.setLayoutParams(lpWorkAfter);
-
-                    lpFinancialAfter = (RelativeLayout.LayoutParams) btnFinancialAfter.getLayoutParams();
-                    lpFinancialAfter.leftMargin = psychoSocialAfter.getFinance_xpos();
-                    lpFinancialAfter.topMargin = psychoSocialAfter.getFinance_ypos();
-                    btnFinancialAfter.setLayoutParams(lpFinancialAfter);
-
-                    lpEventAfter = (RelativeLayout.LayoutParams) btnEventAfter.getLayoutParams();
-                    lpEventAfter.leftMargin = psychoSocialAfter.getEvent_xpos();
-                    lpEventAfter.topMargin = psychoSocialAfter.getEvent_ypos();
-                    btnEventAfter.setLayoutParams(lpEventAfter);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<PsychoSocialAfter> call, Throwable t) {
-                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        }); */
     }
 
     public PopupWindow popupDisplay(final View clickedItem, final MotionEvent event) {
