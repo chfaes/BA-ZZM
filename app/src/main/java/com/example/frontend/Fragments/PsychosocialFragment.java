@@ -50,6 +50,8 @@ public class PsychosocialFragment extends Fragment implements ReasonDialog.Reaso
 
     private ImageView btnReason;
 
+    private RelativeLayout relativeLayout = null;
+
     private int xDelta;
     private int yDelta;
     private RelativeLayout rlBefore;
@@ -80,8 +82,6 @@ public class PsychosocialFragment extends Fragment implements ReasonDialog.Reaso
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         patientId = getArguments().getInt("patientId");
-
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_psychosocial, container, false);
     }
 
@@ -127,6 +127,20 @@ public class PsychosocialFragment extends Fragment implements ReasonDialog.Reaso
 
         setPsychoSocialBefore();
         setPsychoSocialAfter();
+
+        relativeLayout = (RelativeLayout) view.findViewById(R.id.rlBefore);
+
+        Button Test = (Button)view.findViewById(R.id.psy_social_btn_01);
+        Test.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//Create your Controls(UI widget, Button,TextView) and add into layout
+                Button btn = new Button(getActivity());
+                btn.setText("Manual Add");
+                btn.setLayoutParams(new RelativeLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT));
+                relativeLayout.addView(btn);
+            }
+        });
 
     }
 
@@ -204,11 +218,6 @@ public class PsychosocialFragment extends Fragment implements ReasonDialog.Reaso
         @Override
         public void onClick(View view) {
             Log.d("Log", "Jap");
-            /*LinearLayout ll = (LinearLayout)getActivity().findViewById(R.id.llBefore);
-            Button btn = new Button(getContext());
-            btn.setText("Manual Add");
-            btn.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-            ll.addView(btn);*/
         }
     }
 
