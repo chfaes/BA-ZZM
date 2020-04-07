@@ -16,7 +16,6 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 
@@ -103,7 +102,6 @@ public class PsychosocialFragment extends Fragment implements ReasonDialog.Reaso
         btnEventBefore = view.findViewById(R.id.btnEventBefore);
         btnEventBefore.setOnTouchListener(new ChoiceTouchListener());
         btnCreateBefore = view.findViewById(R.id.psy_social_btn_01);
-        btnCreateBefore.setOnClickListener(new onClickCreateListener());
 
         btnPainAfter = view.findViewById(R.id.btnPainAfter);
         btnPainAfter.setOnTouchListener(new ChoiceTouchListener());
@@ -125,22 +123,34 @@ public class PsychosocialFragment extends Fragment implements ReasonDialog.Reaso
             }
         });
 
-        setPsychoSocialBefore();
-        setPsychoSocialAfter();
-
+        //Initializes the button to create new Context Factors.
+        //
         relativeLayout = (RelativeLayout) view.findViewById(R.id.rlBefore);
-
-        Button Test = (Button)view.findViewById(R.id.psy_social_btn_01);
-        Test.setOnClickListener(new View.OnClickListener() {
+        btnCreateBefore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//Create your Controls(UI widget, Button,TextView) and add into layout
+                //Button to create new Context Factors.
+                Log.d("Log", "Ananas" + psychoSocialBeforeOfPatient.getValues().toString());
                 Button btn = new Button(getActivity());
-                btn.setText("Manual Add");
-                btn.setLayoutParams(new RelativeLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT));
+                btn.setText("New");
+                btn.setTag(psychoSocialBeforeOfPatient.getNextTag());
+                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams
+                        (RelativeLayout.LayoutParams.WRAP_CONTENT,
+                                RelativeLayout.LayoutParams.WRAP_CONTENT);
+                float factor = btn.getContext().getResources().getDisplayMetrics().density;
+                params.width = (int) (70*factor);
+                params.height = (int) (70*factor);
+                params.setMargins(200,0,0,0);
+                btn.setLayoutParams(params);
+                btn.setBackgroundResource(R.drawable.roundedbutton_green);
+                btn.setOnTouchListener(new ChoiceTouchListener());
                 relativeLayout.addView(btn);
+                psychoSocialBeforeOfPatient.setValues(btn, (int) btn.getX(), (int) btn.getY(), 1, 0);
             }
         });
+
+        setPsychoSocialBefore();
+        setPsychoSocialAfter();
 
     }
 
@@ -211,13 +221,6 @@ public class PsychosocialFragment extends Fragment implements ReasonDialog.Reaso
             rlBefore.invalidate();
 
             return true;
-        }
-    }
-
-    private class onClickCreateListener implements View.OnClickListener{
-        @Override
-        public void onClick(View view) {
-            Log.d("Log", "Jap");
         }
     }
 

@@ -2,7 +2,7 @@ package com.example.frontend.Models;
 
 import java.io.Serializable;
 
-public class PsychoSocialAfter implements Serializable {
+public class PsychoSocialAfter extends PsychoSocialSuperclass {
 
     private int patient_id;
 
