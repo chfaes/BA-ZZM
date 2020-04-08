@@ -130,22 +130,7 @@ public class PsychosocialFragment extends Fragment implements ReasonDialog.Reaso
             @Override
             public void onClick(View view) {
                 //Button to create new Context Factors.
-                Log.d("Log", "Ananas" + psychoSocialBeforeOfPatient.getValues().toString());
-                Button btn = new Button(getActivity());
-                btn.setText("New");
-                btn.setTag(psychoSocialBeforeOfPatient.getNextTag());
-                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams
-                        (RelativeLayout.LayoutParams.WRAP_CONTENT,
-                                RelativeLayout.LayoutParams.WRAP_CONTENT);
-                float factor = btn.getContext().getResources().getDisplayMetrics().density;
-                params.width = (int) (70*factor);
-                params.height = (int) (70*factor);
-                params.setMargins(200,0,0,0);
-                btn.setLayoutParams(params);
-                btn.setBackgroundResource(R.drawable.roundedbutton_green);
-                btn.setOnTouchListener(new ChoiceTouchListener());
-                relativeLayout.addView(btn);
-                psychoSocialBeforeOfPatient.setValues(btn, (int) btn.getX(), (int) btn.getY(), 1, 0);
+                createBtn(view, 42, 142, 2, 1, "NEW");
             }
         });
 
@@ -159,6 +144,28 @@ public class PsychosocialFragment extends Fragment implements ReasonDialog.Reaso
     long startTime;
     /* variable for calculating the total time*/
     long duration;
+
+    public void createBtn(View view, int x, int y, int size, int colour, String text){
+        Log.d("Log", "Ananas" + psychoSocialBeforeOfPatient.getValues().toString());
+        Button btn = new Button(getActivity());
+        btn.setText(text);
+        btn.setTag(psychoSocialBeforeOfPatient.getNextTag());
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams
+                (RelativeLayout.LayoutParams.WRAP_CONTENT,
+                        RelativeLayout.LayoutParams.WRAP_CONTENT);
+        float factor = btn.getContext().getResources().getDisplayMetrics().density;
+        params.width = params.height = (int) ((70 + ((size-1)*20))*factor);
+        params.setMargins(x, y, 0, 0);
+        btn.setLayoutParams(params);
+        if(colour==1){
+            btn.setBackgroundResource(R.drawable.roundedbutton_red);
+        } else {
+            btn.setBackgroundResource(R.drawable.roundedbutton_green);
+        }
+        btn.setOnTouchListener(new ChoiceTouchListener());
+        relativeLayout.addView(btn);
+        psychoSocialBeforeOfPatient.setValues(btn, (int) btn.getX(), (int) btn.getY(), size, colour);
+    }
 
     /* constant for defining the time duration between the click that can be considered as double-tap */
     private final class ChoiceTouchListener implements View.OnTouchListener {
@@ -180,6 +187,8 @@ public class PsychosocialFragment extends Fragment implements ReasonDialog.Reaso
                     } else if (clickCount == 2) {
                         long duration = System.currentTimeMillis() - startTime;
                         if (duration <= 500) {
+                            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
+                            Log.d("Log", "Zitrone: " + String.valueOf(view.getTag()) + ":" + String.valueOf(layoutParams.leftMargin));
                             PopupWindow popupwindow_obj = popupDisplay(view, motionEvent);
                             popupwindow_obj.setBackgroundDrawable(new BitmapDrawable());
                             popupwindow_obj.showAsDropDown(view, -60, 15);
@@ -194,6 +203,7 @@ public class PsychosocialFragment extends Fragment implements ReasonDialog.Reaso
 
                     break;
                 case MotionEvent.ACTION_UP:
+                    //Zitrone: Todo: Hier Farbe, Koordinaten etc. Updaten, dann abspeichern
                     savePositions();
                     setPsychoSocialBefore();
                     setPsychoSocialAfter();
@@ -261,7 +271,6 @@ public class PsychosocialFragment extends Fragment implements ReasonDialog.Reaso
             addNewImprovementReason(improvementReasonOfPatient);
         }
     }
-
 
     public void addNewPsychoSocialBefore(PsychoSocialBefore psychoSocialBefore) {
         db.addPsychoSocialBefore(psychoSocialBefore);
