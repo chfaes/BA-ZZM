@@ -22,12 +22,53 @@ public abstract class PsychoSocialSuperclass implements Serializable {
     private Map<String, String> texts = new HashMap<>();
     private String values_encoded;
 
-    public void setValues(Button btn, int x, int y, int size, int colour){
+    public void setValues(String tag, int x, int y, int size, int colour){
+        //Notice the structure: Indices 0 and 1 for coordinates, 2 for size, 3 for colour.
         ArrayList<Integer> templist = new ArrayList<>(Arrays.asList(x, y, size, colour));
-        values.put(String.valueOf(btn.getTag()), templist);
-        texts.put(String.valueOf(btn.getTag()), btn.getText().toString());
+        values.put(tag, templist);
         encoding();
+    }
 
+    public void setText(String tag, String text){
+        texts.put(tag, text);
+    }
+
+    public void setCoordinates(String tag, int x, int y){
+        //Smaller function used after a button has been moved. Sets x, y for a certain tag.
+        decoding();
+        ArrayList<Integer> templist = values.get(tag);
+        templist.set(0, x);
+        templist.set(1, y);
+        values.put(tag, templist);
+        encoding();
+    }
+
+    public void flipColour(String tag){
+        //Turns color 1 (red) to 0 (green); turns 0 to 1.
+        decoding();
+        ArrayList<Integer> templist = values.get(tag);
+        if (templist.get(3) == 0){
+            templist.set(3, 1);
+        } else {
+            templist.set(3, 0);
+        }
+        values.put(tag, templist);
+        encoding();
+    }
+
+    public int getByTagAndIndex(String tag, int idx){
+        //0 for x, 1 for y, 2 for size and 3 for colour.
+        decoding();
+        return (int) values.get(tag).get(idx);
+    }
+
+    public void setSize(String tag, int size){
+        //Index 2: Here, the size is stored.
+        decoding();
+        ArrayList<Integer> templist = values.get(tag);
+        templist.set(2, size);
+        values.put(tag, templist);
+        encoding();
     }
 
     public int getNextTag(){
