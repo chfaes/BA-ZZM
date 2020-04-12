@@ -21,31 +21,38 @@ public abstract class PsychoSocialSuperclass implements Serializable {
     private Map<String, ArrayList<Integer>> values = new HashMap<>();
     private Map<String, String> texts = new HashMap<>();
     private String values_encoded;
+    private String texts_encoded;
 
     public void setValues(String tag, int x, int y, int size, int colour){
         //Notice the structure: Indices 0 and 1 for coordinates, 2 for size, 3 for colour.
         ArrayList<Integer> templist = new ArrayList<>(Arrays.asList(x, y, size, colour));
         values.put(tag, templist);
-        encoding();
+        encoding(0);
     }
 
     public void setText(String tag, String text){
         texts.put(tag, text);
+        encoding(1);
+    }
+
+    public String getText(String tag){
+        decoding(1);
+        return texts.get(tag).toString();
     }
 
     public void setCoordinates(String tag, int x, int y){
         //Smaller function used after a button has been moved. Sets x, y for a certain tag.
-        decoding();
+        decoding(0);
         ArrayList<Integer> templist = values.get(tag);
         templist.set(0, x);
         templist.set(1, y);
         values.put(tag, templist);
-        encoding();
+        encoding(0);
     }
 
     public void flipColour(String tag){
         //Turns color 1 (red) to 0 (green); turns 0 to 1.
-        decoding();
+        decoding(0);
         ArrayList<Integer> templist = values.get(tag);
         if (templist.get(3) == 0){
             templist.set(3, 1);
@@ -53,27 +60,27 @@ public abstract class PsychoSocialSuperclass implements Serializable {
             templist.set(3, 0);
         }
         values.put(tag, templist);
-        encoding();
+        encoding(0);
     }
 
     public int getByTagAndIndex(String tag, int idx){
         //0 for x, 1 for y, 2 for size and 3 for colour.
-        decoding();
+        decoding(0);
         return (int) values.get(tag).get(idx);
     }
 
     public void setSize(String tag, int size){
         //Index 2: Here, the size is stored.
-        decoding();
+        decoding(0);
         ArrayList<Integer> templist = values.get(tag);
         templist.set(2, size);
         values.put(tag, templist);
-        encoding();
+        encoding(0);
     }
 
     public int getNextTag(){
         //Searches values for the highest tag; returns tag+1.
-        decoding();
+        decoding(0);
         int tag = 0;
         Iterator it = values.entrySet().iterator();
         while (it.hasNext()) {
@@ -88,7 +95,7 @@ public abstract class PsychoSocialSuperclass implements Serializable {
     }
 
     public Map getValues(){
-        decoding();
+        decoding(0);
         return values;
     }
 
@@ -100,27 +107,58 @@ public abstract class PsychoSocialSuperclass implements Serializable {
         values_encoded = str;
     }
 
-    private void encoding(){
-        //writes "values" to "values_encoded".
+    public String getTexts_encoded(){
+        return texts_encoded;
+    }
+
+    public void setTexts_encoded(String str){
+        texts_encoded = str;
+    }
+
+    private void encoding(int type){
+        //type = 0: writes "values" to "values_encoded".
+        //type = 1: writes "texts" to "texts_encoded".
         try {
             ByteArrayOutputStream bo = new ByteArrayOutputStream();
             ObjectOutputStream so = new ObjectOutputStream(bo);
-            so.writeObject(values);
+            if(type == 0){
+                so.writeObject(values);
+            }else{
+                so.writeObject(texts);
+            }
             so.flush();
-            values_encoded = Base64.encodeToString(bo.toByteArray(), Base64.NO_WRAP);
+            if (type == 0){
+                values_encoded = Base64.encodeToString(bo.toByteArray(), Base64.NO_WRAP);
+            } else {
+                texts_encoded = Base64.encodeToString(bo.toByteArray(), Base64.NO_WRAP);
+            }
         } catch (Exception e) {
             System.out.println(e);
         }
     }
 
-    private void decoding(){
-        //updates "values" from "values_encoded"
+    private void decoding(int type){
+        //type = 0: updates "values" from "values_encoded"
+        //type = 1: updates "texts" from "texts_encoded"
         try {
-            byte[] b = Base64.decode(values_encoded, Base64.NO_WRAP);
+            String temp_string = "";
+            if (type == 0){
+                temp_string = values_encoded;
+            } else {
+                temp_string = texts_encoded;
+            }
+            byte[] b = Base64.decode(temp_string, Base64.NO_WRAP);
+
             ByteArrayInputStream bi = new ByteArrayInputStream(b);
             ObjectInputStream si = new ObjectInputStream(bi);
             Map obj = (Map) si.readObject();
-            values = obj;
+
+            if (type == 0){
+                values = obj;
+            } else {
+                texts = obj;
+            }
+
         } catch (Exception e) {
             System.out.println(e);
         }

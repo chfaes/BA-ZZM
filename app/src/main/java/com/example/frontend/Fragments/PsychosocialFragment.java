@@ -1,6 +1,8 @@
 package com.example.frontend.Fragments;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -8,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -15,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
@@ -159,10 +163,11 @@ public class PsychosocialFragment extends Fragment implements ReasonDialog.Reaso
         //Log.d("Log", "Zitrone 2:" + psychoSocialBeforeOfPatient.getValues().toString());
         Button btn = new Button(getActivity());
         //Text and Tag
-        btn.setText(text);
         if (isNew){
+            btn.setText(text);
             btn.setTag(psychoSocialBeforeOfPatient.getNextTag());
         } else {
+            btn.setText(psychoSocialBeforeOfPatient.getText(tag));
             btn.setTag(tag);
         }
         //Dimensions
@@ -191,14 +196,11 @@ public class PsychosocialFragment extends Fragment implements ReasonDialog.Reaso
     public void setPreexistingButtons(View view){
         //Special routine for the dynamically generated buttons: Gets all pre-existing buttons
         //from values and creates them.
-        Log.d("Log", "hier1");
         Map PsySocBefore = psychoSocialBeforeOfPatient.getValues();
-        Log.d("Log", "hier2:: " + PsySocBefore.toString());
         Iterator it = PsySocBefore.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry)it.next();
             ArrayList<Integer> templist = (ArrayList<Integer>) pair.getValue();
-            Log.d("Log", ":::hier:"+pair.getValue().toString());
             createBtn(view,templist.get(0),templist.get(1),templist.get(2),templist.get(3),"NEW",false, pair.getKey().toString());
         }
     }
@@ -569,6 +571,37 @@ public class PsychosocialFragment extends Fragment implements ReasonDialog.Reaso
         btnSize2.setOnClickListener(changeSize);
         btnSize3.setOnClickListener(changeSize);
 
+        Button btnRename = (Button) view.findViewById(R.id.rename);
+        View.OnClickListener rename = new View.OnClickListener(){
+            @Override
+            public void onClick (View view){
+                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                builder.setTitle("Title");
+                final EditText input = new EditText(view.getContext());
+                input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                builder.setView(input);
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String str = input.getText().toString();
+                        psychoSocialBeforeOfPatient.setText(clickedItem.getTag().toString(), str);
+                        updatePsychoSocialText(clickedItem, str);
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+                builder.show();
+                popupWindow.dismiss();
+            }
+        };
+
+        btnRename.setOnClickListener(rename);
+
         popupWindow.setFocusable(true);
         popupWindow.setWidth(WindowManager.LayoutParams.WRAP_CONTENT);
         popupWindow.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
@@ -758,6 +791,11 @@ public class PsychosocialFragment extends Fragment implements ReasonDialog.Reaso
         }
         updatePsychoSocialAfter(psychoSocialAfterOfPatient);
         updatePsychoSocialBefore(psychoSocialBeforeOfPatient);
+    }
+
+    private void updatePsychoSocialText(View btn, String str){
+        Button local_btn = (Button) btn;
+        local_btn.setText(str);
     }
 
 }

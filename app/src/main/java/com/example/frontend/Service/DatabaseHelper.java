@@ -211,6 +211,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "    event_color  int NOT NULL, " +
                 "    event_size   int NOT NULL, " +
                 "    dynamic_buttons   string NOT NULL, " +
+                "    dynamic_texts   string NOT NULL, " +
                 "    FOREIGN KEY (patient_id) REFERENCES Patient (id) ON DELETE CASCADE " +
                 ")");
         db.execSQL("CREATE TABLE PsychoSocialAfter " +
@@ -2070,6 +2071,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put("event_size", psychoSocialBefore.getEvent_size());
 
         values.put("dynamic_buttons", psychoSocialBefore.getValues_encoded());
+        values.put("dynamic_texts", psychoSocialBefore.getTexts_encoded());
 
         // Inserting Row
         db.insert("PsychoSocialBefore", null, values);
@@ -2109,6 +2111,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         psychoSocialBefore.setEvent_color(Integer.parseInt(cursor.getString(19)));
         psychoSocialBefore.setEvent_size(Integer.parseInt(cursor.getString(20)));
         psychoSocialBefore.setValues_encoded(cursor.getString(21));
+        psychoSocialBefore.setTexts_encoded(cursor.getString(22));
 
         // return psychoSocialBefore
         return psychoSocialBefore;
@@ -2148,6 +2151,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 psychoSocialBefore.setEvent_color(Integer.parseInt(cursor.getString(19)));
                 psychoSocialBefore.setEvent_size(Integer.parseInt(cursor.getString(20)));
                 psychoSocialBefore.setValues_encoded(cursor.getString(21));
+                psychoSocialBefore.setTexts_encoded(cursor.getString(22));
                 // Adding psychoSocialBefore to list
                 psychoSocialBeforeList.add(psychoSocialBefore);
             } while (cursor.moveToNext());
@@ -2189,6 +2193,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put("event_size", psychoSocialBefore.getEvent_size());
 
         values.put("dynamic_buttons", psychoSocialBefore.getValues_encoded());
+        values.put("dynamic_texts", psychoSocialBefore.getTexts_encoded());
 
         // updating row
         return db.update("PsychoSocialBefore", values, "patient_id = ?",

@@ -29,4 +29,10 @@ android:orientation="horizontal"
         android:layout_height="30dp"
         android:background="@drawable/roundedbutton_grey"
         android:text="3" />
+    <Button
+        android:id="@+id/rename"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/roundedbutton_grey"
+        android:text="AZ" />
 </LinearLayout>
