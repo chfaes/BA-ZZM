@@ -1,6 +1,9 @@
 package com.example.frontend.Fragments;
 
+import android.Manifest;
 import android.app.Dialog;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -9,11 +12,13 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
-import android.support.constraint.ConstraintSet;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -37,20 +42,10 @@ import com.example.frontend.Models.PainCurrent;
 import com.example.frontend.Models.PainSuperclass;
 import com.example.frontend.R;
 import com.example.frontend.Service.DatabaseHelper;
-import com.example.frontend.Service.JsonPlaceHolderApi;
-import com.github.chrisbanes.photoview.PhotoView;
 
 import java.io.ByteArrayOutputStream;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
-
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class PainFragment extends Fragment {
 
@@ -350,6 +345,19 @@ public class PainFragment extends Fragment {
 
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data){
+        //Get Camera capture
+        if(requestCode == 100){
+            try {
+                painOfPatientBeginning.setPhoto((Bitmap) data.getExtras().get("data"));
+            } catch(Exception e) {
+                //Photo cancelled.
+                Log.d("Log", "Cancelled Photography. See PainFragment.java.");
+            }
+        }
+    }
+
     private void updatePainDisplay(PainSuperclass painObject){
         //Updates the gifs to match the current selection of pain qualities. Note that
         //there is no distinction between "pins and needles" and "tingling" (both equal
@@ -642,6 +650,13 @@ public class PainFragment extends Fragment {
         //Once an Item from Popup Menu is selected, "addPainItem" is set to the item title
         //and any click on the surface will set the coordinates for the selected pain item.
         //Note that "both_pain_types" is used to have a simple way of accessing both beginning and current pain.
+
+        //Ask Camera permission
+        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(getActivity(), new String[] {Manifest.permission.CAMERA}, 100);
+        }
+
+        //Set all gifs, create gif array
         myDialog.setContentView(R.layout.popup_image_pain_positions);
         pl.droidsonroids.gif.GifImageView popup_gif_01 = myDialog.findViewById(R.id.popup_pain_gif01);
         pl.droidsonroids.gif.GifImageView popup_gif_02 = myDialog.findViewById(R.id.popup_pain_gif02);
@@ -657,10 +672,15 @@ public class PainFragment extends Fragment {
         addPainItem = "none";
         ArrayList<PainSuperclass> both_pain_types = new ArrayList<>(Arrays.asList(painOfPatientBeginning, painOfPatientCurrent));
 
+        //Initialize Buttons
         TextView btnClose;
         TextView btnAddPain;
+        Button btnFoto;
+        ImageView Photography;
         btnClose = myDialog.findViewById(R.id.btnCancel);
         btnAddPain = myDialog.findViewById(R.id.btnAddPain);
+        btnFoto = myDialog.findViewById(R.id.btnTakePicture);
+        Photography = myDialog.findViewById(R.id.painPhoto);
 
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -686,6 +706,16 @@ public class PainFragment extends Fragment {
             }
         });
 
+        //Camera Button
+        btnFoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent, 100);
+            }
+        });
+
+        //Surface Touch logic
         myDialog.findViewById(R.id.ivDisplay).setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -708,7 +738,7 @@ public class PainFragment extends Fragment {
             }
         });
 
-        // Update all view coordinates before opening the popup
+        // Update all view coordinates before opening the popup; update Photography if exists.
         int index = 1;
         if (rgBeginningCurrent.getCheckedRadioButtonId() == R.id.rbBeginning){index = 0;}
         ArrayList temp = both_pain_types.get(index).getPainList();
@@ -716,6 +746,10 @@ public class PainFragment extends Fragment {
             float x = Float.parseFloat(both_pain_types.get(index).getPainCoordinates(temp.get(i).toString()).get(0).toString());
             float y = Float.parseFloat(both_pain_types.get(index).getPainCoordinates(temp.get(i).toString()).get(1).toString());
             updatePainPopup(popup_gif_list.get(i), x, y, temp.get(i).toString(), both_pain_types.get(index));
+        }
+        if (painOfPatientBeginning.getPhoto()!=null){
+            Photography.setImageBitmap(painOfPatientBeginning.getPhoto());
+            Photography.setVisibility(View.VISIBLE);
         }
 
         myDialog.show();

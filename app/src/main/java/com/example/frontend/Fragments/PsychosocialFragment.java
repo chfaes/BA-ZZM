@@ -600,7 +600,14 @@ public class PsychosocialFragment extends Fragment implements ReasonDialog.Reaso
             }
         };
 
-        btnRename.setOnClickListener(rename);
+        //If the clicked Button has a Tag, read: the button was dynamically generated, then
+        //it can be renamed. The other five Buttons (family, work etc.) must stay the way they are.
+        if (clickedItem.getTag() != null){
+            btnRename.setOnClickListener(rename);
+        } else {
+            btnRename.setEnabled(false);
+        }
+
 
         popupWindow.setFocusable(true);
         popupWindow.setWidth(WindowManager.LayoutParams.WRAP_CONTENT);

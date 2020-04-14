@@ -1,5 +1,7 @@
 package com.example.frontend.Models;
 
+import android.graphics.Bitmap;
+import android.provider.ContactsContract;
 import android.util.Base64;
 import android.util.Log;
 
@@ -16,11 +18,12 @@ import java.util.Map;
 public abstract class PainSuperclass implements Serializable {
     //This class is here to encompass PainBeginning and PainCurrent such that
     //objects of either type can be passed as "PainSuperclass" arguments to functions.
-
+    private Bitmap Photography;
     private Map<String, ArrayList<Float>> values = new HashMap();
     private String values_encoded;
     private String testString; //Zitrone
-    private  ArrayList<String> pain_list = new ArrayList<String>(Arrays.asList("pulsating", "pulling", "numb", "stinging", "burning", "pinsandneedles", "tingling", "dull"));
+    private  ArrayList<String> pain_list = new ArrayList<String>(Arrays.asList("pulsating",
+            "pulling", "numb", "stinging", "burning", "pinsandneedles", "tingling", "dull"));
 
     public abstract int getPatient_id();
 
@@ -148,5 +151,14 @@ public abstract class PainSuperclass implements Serializable {
             System.out.println(e);
         }
     }
+
+    public void setPhoto(Bitmap bmp){
+        Photography = bmp;
+    }
+
+    public Bitmap getPhoto(){
+        return Photography;
+    }
+
 
 }
