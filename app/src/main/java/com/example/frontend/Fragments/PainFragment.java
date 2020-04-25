@@ -747,7 +747,7 @@ public class PainFragment extends Fragment {
             float y = Float.parseFloat(both_pain_types.get(index).getPainCoordinates(temp.get(i).toString()).get(1).toString());
             updatePainPopup(popup_gif_list.get(i), x, y, temp.get(i).toString(), both_pain_types.get(index));
         }
-        if (painOfPatientBeginning.getPhoto()!=null){
+        if (painOfPatientBeginning.existsPhoto()){
             Photography.setImageBitmap(painOfPatientBeginning.getPhoto());
             Photography.setVisibility(View.VISIBLE);
         }

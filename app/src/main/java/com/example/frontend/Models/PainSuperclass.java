@@ -18,7 +18,7 @@ import java.util.Map;
 public abstract class PainSuperclass implements Serializable {
     //This class is here to encompass PainBeginning and PainCurrent such that
     //objects of either type can be passed as "PainSuperclass" arguments to functions.
-    private Bitmap Photography;
+    private ProxyBitmap Photography;
     private Map<String, ArrayList<Float>> values = new HashMap();
     private String values_encoded;
     private String testString; //Zitrone
@@ -115,6 +115,13 @@ public abstract class PainSuperclass implements Serializable {
         //checks if painType is part of the hashmap
         return values.get(painType) != null;
     }
+    public Map getValues(){
+        return values;
+    }
+
+    public void setValues(Map<String, ArrayList<Float>> input){
+        values = input;
+    }
 
     public String getValues_encoded(){
         return values_encoded;
@@ -134,6 +141,7 @@ public abstract class PainSuperclass implements Serializable {
             so.writeObject(values);
             so.flush();
             values_encoded = Base64.encodeToString(bo.toByteArray(), Base64.NO_WRAP);
+
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -153,12 +161,16 @@ public abstract class PainSuperclass implements Serializable {
     }
 
     public void setPhoto(Bitmap bmp){
-        Photography = bmp;
+        Log.d("Log", "PHOTO GESETZT");
+        Photography = new ProxyBitmap(bmp);
     }
 
     public Bitmap getPhoto(){
-        return Photography;
+        return Photography.getBitmap();
     }
 
+    public boolean existsPhoto(){
+        return Photography!=null;
+    }
 
 }
