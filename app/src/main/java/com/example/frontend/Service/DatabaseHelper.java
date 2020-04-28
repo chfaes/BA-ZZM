@@ -104,6 +104,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS PatientWebsite");
         db.execSQL("DROP TABLE IF EXISTS PainBeginning");
         db.execSQL("DROP TABLE IF EXISTS PainCurrent");
+        db.execSQL("DROP TABLE IF EXISTS Pain");
 
         // Create tables again
         onCreate(db);
@@ -330,6 +331,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "    comment text, " +
                 "    test_string string, " +
                 "    spatial_information string, " +
+                "    FOREIGN KEY (patient_id) REFERENCES Patient (id) ON DELETE CASCADE " +
+                ")");
+        db.execSQL("CREATE TABLE Pain " +
+                "( " +
+                "    patient_id int, " +
+                "    date int, " +
+                "    class_encoded string, " +
+                "    CONSTRAINT CompKey_id_date PRIMARY KEY (patient_id, date), " +
                 "    FOREIGN KEY (patient_id) REFERENCES Patient (id) ON DELETE CASCADE " +
                 ")");
     }
@@ -1884,6 +1893,67 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, new String[]{String.valueOf(patientId)});
+
+        cursor.moveToFirst();
+        Integer count = Integer.parseInt(cursor.getString(0));
+
+        return count != null && count > 0;
+    }
+
+    public void addPain(int patient_id, int date, String class_encoded) {
+        try{
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("patient_id", patient_id);
+        values.put("date", date);
+        values.put("class_encoded", class_encoded);
+
+        // Inserting Row
+        db.insert("Pain", null, values);
+
+        // Closing database connection
+        db.close();
+        } catch (Exception e){
+            Log.d("Log", e.toString());
+        }
+    }
+
+    public String getPainEncoded(int patient_id_query, int date_query){
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query("Pain", null, "patient_id = ? AND date = ?",
+                new String[]{String.valueOf(patient_id_query), String.valueOf(date_query)}, null, null, null, null);
+        if (cursor != null)
+            cursor.moveToFirst();
+            Log.d("Log", "Zitrone? " + cursor.getString(1));
+        return "asdf";
+    }
+
+    public int updatePain(int patient_id, int date, String class_encoded) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("class_encoded", class_encoded);
+
+        // updating row
+        return db.update("Pain", values, "patient_id = ? AND date = ?",
+                new String[]{String.valueOf(patient_id), String.valueOf(date)});
+    }
+
+    public void deletePainByPatientAndDate(int patient_id, int date) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete("Pain", "patient_id = ? AND date = ?",
+                new String[]{String.valueOf(patient_id), String.valueOf(date)});
+        db.close();
+    }
+
+    public boolean existsPain(int patient_id, int date) {
+        String selectQuery = "SELECT COUNT(*) FROM Pain WHERE patient_id = ? AND date = ?";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, new String[]{String.valueOf(patient_id), String.valueOf(date)});
 
         cursor.moveToFirst();
         Integer count = Integer.parseInt(cursor.getString(0));

@@ -2,6 +2,8 @@ package com.example.frontend.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -13,52 +15,51 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.frontend.R;
+import com.example.frontend.Service.DatabaseHelper;
 
 import org.rajawali3d.loader.IParser;
 import org.rajawali3d.surface.IRajawaliSurface;
 import org.rajawali3d.surface.RajawaliSurfaceView;
 
+import static org.flywaydb.core.api.android.ContextHolder.getContext;
 
 
 public class TestActivity extends AppCompatActivity {
 
     //Renderer renderer;
     private TextView txt_coord;
+    private Button testBtn1;
+    private Button testBtn2;
+    DatabaseHelper db;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
+            testBtn1 = (Button) findViewById(R.id.button1);
+            testBtn2 = (Button) findViewById(R.id.button2);
+            txt_coord = (TextView) this.findViewById(R.id.activity_test_coord_text);
+            db = new DatabaseHelper(this);
 
-        };
+            testBtn2.setOnClickListener(new View.OnClickListener() {
+                //Set data
+                @Override
+                public void onClick(View view) {
+                    db.addPain(5,20200428, "asdfqwerasdfqwerpoiu");
+                    txt_coord.setText("Zitrone: Habe Daten gesetzt.");
+                }
+            });
 
-    public boolean onTouchEvent(MotionEvent event){
-        txt_coord = (TextView) this.findViewById(R.id.activity_test_coord_text);
-        int action = event.getAction();
-        switch(action){
-            case(MotionEvent.ACTION_DOWN):
-                float x = event.getX();
-                txt_coord.setText(Float.toString(x));
-                Log.d("Log", "x-Achse:" + Float.toString(x));
-        }
-        return true;
-
-
+            testBtn1.setOnClickListener(new View.OnClickListener() {
+                //Load data
+                @Override
+                public void onClick(View view) {
+                    txt_coord.setText(db.getPainEncoded(5,20200428));
+                }
+            });
     };
-
-
-    /*
-        final RajawaliSurfaceView surface = new RajawaliSurfaceView(this);
-        surface.setFrameRate(60.0);
-        surface.setRenderMode(IRajawaliSurface.RENDERMODE_WHEN_DIRTY);
-
-        // Add mSurface to your root view
-        addContentView(surface, new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT));
-
-        renderer = new Renderer(this);
-        surface.setSurfaceRenderer(renderer);*/
-    }
+}
 
 
 
