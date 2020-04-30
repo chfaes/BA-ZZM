@@ -38,6 +38,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -1919,16 +1920,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public String getPainEncoded(int patient_id_query, int date_query){
-
+    public ArrayList<String> getPainListEncoded(int patient_id_query){
+        ArrayList<String> return_list = new ArrayList<String>();
         SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query("Pain", null, "patient_id = ?",
+                new String[]{String.valueOf(patient_id_query)}, null, null, null, null);
+        if (cursor.moveToFirst()) {
+            do {
+                return_list.add(cursor.getString(2));
+            } while (cursor.moveToNext());
+        }
+        return return_list;
+    }
 
-        Cursor cursor = db.query("Pain", null, "patient_id = ? AND date = ?",
-                new String[]{String.valueOf(patient_id_query), String.valueOf(date_query)}, null, null, null, null);
-        if (cursor != null)
+    public String getPainEncoded(int patient_id_query, int date_query){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query("Pain", null, "patient_id = ? AND date = ?", //
+                new String[]{String.valueOf(patient_id_query), String.valueOf(date_query)}, null, null, null, null); //
+        if (cursor!=null) {
             cursor.moveToFirst();
-            Log.d("Log", "Zitrone? " + cursor.getString(1));
-        return "asdf";
+        }
+        return cursor.getString(2);
     }
 
     public int updatePain(int patient_id, int date, String class_encoded) {

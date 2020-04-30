@@ -47,6 +47,7 @@ public class TestActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     db.addPain(5,20200428, "asdfqwerasdfqwerpoiu");
+                    db.addPain(5,20200628, "w88w88w88w88");
                     txt_coord.setText("Zitrone: Habe Daten gesetzt.");
                 }
             });
@@ -55,7 +56,7 @@ public class TestActivity extends AppCompatActivity {
                 //Load data
                 @Override
                 public void onClick(View view) {
-                    txt_coord.setText(db.getPainEncoded(5,20200428));
+                    txt_coord.setText(db.getPainListEncoded(5).get(1));
                 }
             });
     };
