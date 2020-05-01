@@ -46,6 +46,8 @@ import com.example.frontend.Service.DatabaseHelper;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class PainFragment extends Fragment {
 
@@ -76,6 +78,7 @@ public class PainFragment extends Fragment {
     Button btnTingling;
     Button btnPinsandneedles;
     Button btnNumb;
+    Button btnAddNewRB;
 
     private ImageView ivPermSlightFluc;
     private ImageView ivPermStrongFluc;
@@ -103,6 +106,14 @@ public class PainFragment extends Fragment {
     float upy = 0;
     boolean init = true;
     Dialog myDialog;
+
+    private View.OnClickListener onClickAddNewRB = new View.OnClickListener(){
+        @Override
+        public void onClick(View view){
+            addNewRB();
+        }
+    };
+
     private View.OnClickListener onClickLocationImage = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -224,7 +235,6 @@ public class PainFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
-
         db = new DatabaseHelper(getContext());
         etComment = view.findViewById(R.id.etComment);
         etComment.addTextChangedListener(new TextWatcher() {
@@ -255,6 +265,7 @@ public class PainFragment extends Fragment {
         btnTingling = view.findViewById(R.id.btnTingling);
         btnPinsandneedles = view.findViewById(R.id.btnPinsandneedles);
         btnNumb = view.findViewById(R.id.btnNumb);
+        btnAddNewRB = view.findViewById(R.id.BtnAddNew);
         pain_gif_01 = view.findViewById(R.id.fragment_pain_gif01);
         pain_gif_02 = view.findViewById(R.id.fragment_pain_gif02);
         pain_gif_03 = view.findViewById(R.id.fragment_pain_gif03);
@@ -271,6 +282,8 @@ public class PainFragment extends Fragment {
         btnTingling.setOnClickListener(onQualityClickListener);
         btnPinsandneedles.setOnClickListener(onQualityClickListener);
         btnNumb.setOnClickListener(onQualityClickListener);
+
+        btnAddNewRB.setOnClickListener(onClickAddNewRB);
 
         ivPermSlightFluc = view.findViewById(R.id.btnPermSlightFluc);
         ivPermStrongFluc = view.findViewById(R.id.btnPermStrongFluc);
@@ -996,4 +1009,24 @@ public class PainFragment extends Fragment {
         }
     }
 
+    public String getDateAndTime(){
+        //Date and time including minutes and seconds, i.e. 2020-05-01-23-59-59, as int: 20200501235959
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
+        Date date = new Date();
+        return formatter.format(date);
+    }
+
+    private void addNewRB(){
+        //adds a new RadioButton. Its tag and text are the current date and time.
+        Log.d("Log", "Zitrone1");
+        String str_id = getDateAndTime();
+        Log.d("Log", "Zitrone2");
+        RadioButton rbn = new RadioButton(getContext());
+        Log.d("Log", "Zitrone3");
+        rbn.setText(str_id);
+        rbn.setTag(str_id);
+        Log.d("Log", "Zitrone4");
+        //Attach button to RadioGroup.
+        rgBeginningCurrent.addView(rbn);
+    }
 }

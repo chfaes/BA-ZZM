@@ -1933,6 +1933,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return return_list;
     }
 
+    public ArrayList<String> getPainDates(int patient_id_query){
+        ArrayList<String> return_list = new ArrayList<String>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query("Pain", null, "patient_id = ?",
+                new String[]{String.valueOf(patient_id_query)}, null, null, null, null);
+        if (cursor.moveToFirst()) {
+            do {
+                return_list.add(cursor.getString(1));
+            } while (cursor.moveToNext());
+        }
+        return return_list;
+    }
+
     public String getPainEncoded(int patient_id_query, int date_query){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query("Pain", null, "patient_id = ? AND date = ?", //
@@ -1961,11 +1974,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public boolean existsPain(int patient_id, int date) {
-        String selectQuery = "SELECT COUNT(*) FROM Pain WHERE patient_id = ? AND date = ?";
+    public boolean existsPain(int patient_id) {
+        String selectQuery = "SELECT COUNT(*) FROM Pain WHERE patient_id = ?";
 
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, new String[]{String.valueOf(patient_id), String.valueOf(date)});
+        Cursor cursor = db.rawQuery(selectQuery, new String[]{String.valueOf(patient_id)});
 
         cursor.moveToFirst();
         Integer count = Integer.parseInt(cursor.getString(0));
