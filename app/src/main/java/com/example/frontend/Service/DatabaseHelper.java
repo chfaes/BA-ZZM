@@ -1758,7 +1758,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
     //PainBeginning table related functions
-
+/*
     public void addPainBeginning(PainBeginning painBeginning) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -1900,7 +1900,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return count != null && count > 0;
     }
-
+*/
     public void addPain(int patient_id, String date, String class_encoded) {
         try{
         SQLiteDatabase db = this.getWritableDatabase();
@@ -1986,8 +1986,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return count != null && count > 0;
     }
 
-    //PainCurrent table related functions
+    public boolean existsPainAndDate(int patient_id, String date) {
+        String selectQuery = "SELECT COUNT(*) FROM Pain WHERE patient_id = ? AND date = ?";
 
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, new String[]{String.valueOf(patient_id), date});
+
+        cursor.moveToFirst();
+        Integer count = Integer.parseInt(cursor.getString(0));
+
+        return count != null && count > 0;
+    }
+
+
+    //PainCurrent table related functions
+/*
     public void addPainCurrent(PainCurrent painCurrent) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -2129,7 +2142,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return count != null && count > 0;
     }
-
+*/
 
     //PsychoSocialBefore table related functions
 

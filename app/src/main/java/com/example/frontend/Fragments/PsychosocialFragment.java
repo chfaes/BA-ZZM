@@ -160,7 +160,6 @@ public class PsychosocialFragment extends Fragment implements ReasonDialog.Reaso
         //the user by clicking "New Button" in the Fragment) adds its values to "values" in the
         //Psychosocial Class. Note that "tag" is generated if the Button is new; if the button exists already,
         //the tag has to be provided in the function call.
-        //Log.d("Log", "Zitrone 2:" + psychoSocialBeforeOfPatient.getValues().toString());
         Button btn = new Button(getActivity());
         //Text and Tag
         if (isNew){

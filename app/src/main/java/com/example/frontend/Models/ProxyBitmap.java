@@ -1,10 +1,7 @@
 package com.example.frontend.Models;
 
 import android.graphics.Bitmap;
-import android.util.Base64;
 
-import java.io.ByteArrayOutputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 public class ProxyBitmap implements Serializable{

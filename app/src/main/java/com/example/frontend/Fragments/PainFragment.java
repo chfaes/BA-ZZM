@@ -53,13 +53,15 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class PainFragment extends Fragment {
 
     private int patientId;
     DatabaseHelper db;
     private ImageView ivLocationTeeth;
-    private ImageView ivLocationFaceLeft;
+    //private ImageView ivLocationFaceLeft;
     private ImageView ivLocationFaceRight;
     private ImageView fragment_pain_png_base;
     private pl.droidsonroids.gif.GifImageView pain_gif_01;
@@ -116,6 +118,13 @@ public class PainFragment extends Fragment {
         @Override
         public void onClick(View view){
             addNewRB("-1", true);
+            btnAddNewRB.setEnabled(false);
+            btnAddNewRB.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    btnAddNewRB.setEnabled(true);
+                }
+            }, 5000);
         }
     };
 
@@ -128,11 +137,11 @@ public class PainFragment extends Fragment {
                     openedLocationImage = R.id.ivLocationTeeth;
                     showImagePopup();
                     break;
-                case R.id.ivLocationFaceLeft:
+                /*case R.id.ivLocationFaceLeft:
                     bmp = ((BitmapDrawable) ivLocationFaceLeft.getDrawable()).getBitmap();
                     openedLocationImage = R.id.ivLocationFaceLeft;
                     showImagePopup();
-                    break;
+                    break;*/
                 case R.id.ivLocationFaceRight:
                     bmp = ((BitmapDrawable) ivLocationFaceRight.getDrawable()).getBitmap();
                     openedLocationImage = R.id.ivLocationFaceRight;
@@ -192,7 +201,6 @@ public class PainFragment extends Fragment {
 
     @Override
     public void onDestroyView() {
-        Log.d("Log", "Destroying activity");
         savePainBeginning();
         super.onDestroyView();
     }
@@ -265,8 +273,8 @@ public class PainFragment extends Fragment {
 
         ivLocationTeeth = view.findViewById(R.id.ivLocationTeeth);
         ivLocationTeeth.setOnClickListener(onClickLocationImage);
-        ivLocationFaceLeft = view.findViewById(R.id.ivLocationFaceLeft);
-        ivLocationFaceLeft.setOnClickListener(onClickLocationImage);
+        /*ivLocationFaceLeft = view.findViewById(R.id.ivLocationFaceLeft);
+        ivLocationFaceLeft.setOnClickListener(onClickLocationImage);*/
         ivLocationFaceRight = view.findViewById(R.id.ivLocationFaceRight);
         ivLocationFaceRight.setOnClickListener(onClickLocationImage);
         fragment_pain_png_base = view.findViewById(R.id.fragment_pain_png_base);
@@ -274,9 +282,6 @@ public class PainFragment extends Fragment {
         myDialog = new Dialog(getActivity());
         myDialog.setCanceledOnTouchOutside(false);
         addPainItem = "none";
-
-        rbBeginning = view.findViewById(R.id.rbBeginning);
-        rbCurrent = view.findViewById(R.id.rbCurrent);
 
         seekBar = (SeekBar) view.findViewById(R.id.sbIntensity);
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -386,7 +391,7 @@ public class PainFragment extends Fragment {
 
         //Check the first Radiobutton in the group by default. Set the string "activeRadioButton"
         //accordingly.
-        rgBeginningCurrent.check(rgBeginningCurrent.getChildAt(2).getId());
+        rgBeginningCurrent.check(rgBeginningCurrent.getChildAt(0).getId());
         activeRadioButton = RadioGroupMap.get(String.valueOf(rgBeginningCurrent.getCheckedRadioButtonId()));
 
     }
@@ -399,13 +404,6 @@ public class PainFragment extends Fragment {
         PainBeginning pain = decodePainFromString(str);
         painOfPatient = pain;
         setUpAllViewsBeginning();
-        /*if (rgBeginningCurrent.getCheckedRadioButtonId() == R.id.rbBeginning) {
-            setBeginnViewsIfExist();
-        } else if (rgBeginningCurrent.getCheckedRadioButtonId() == R.id.rbCurrent) {
-            setCurrentViewsIfExist();
-        } else {
-
-        }*/
     }
 
     private void initializePainsOfPatient() {
@@ -507,9 +505,9 @@ public class PainFragment extends Fragment {
                     case R.id.ivLocationTeeth:
                         bmp = BitmapFactory.decodeResource(getResources(), R.drawable.teeth);
                         break;
-                    case R.id.ivLocationFaceLeft:
+                    /*case R.id.ivLocationFaceLeft:
                         bmp = BitmapFactory.decodeResource(getResources(), R.drawable.face_left);
-                        break;
+                        break;*/
                     case R.id.ivLocationFaceRight:
                         bmp = BitmapFactory.decodeResource(getResources(), R.drawable.face_right);
                         break;
@@ -537,10 +535,10 @@ public class PainFragment extends Fragment {
                         ivLocationTeeth.setImageBitmap(alteredBitmap);
                         painOfPatient.setLocation_teeth(bitmapToByte(alteredBitmap));
                         break;
-                    case R.id.ivLocationFaceLeft:
+                    /*case R.id.ivLocationFaceLeft:
                         ivLocationFaceLeft.setImageBitmap(alteredBitmap);
                         painOfPatient.setLocation_face_left(bitmapToByte(alteredBitmap));
-                        break;
+                        break;*/
                     case R.id.ivLocationFaceRight:
                         ivLocationFaceRight.setImageBitmap(alteredBitmap);
                         painOfPatient.setLocation_face_right(bitmapToByte(alteredBitmap));
@@ -633,9 +631,6 @@ public class PainFragment extends Fragment {
                     case(MotionEvent.ACTION_DOWN):
                         // Touching the screen sets new coordinates for the selected pain.
                         if (!addPainItem.equals("none")){
-                            int index = 1;
-                            if (rgBeginningCurrent.getCheckedRadioButtonId() == R.id.rbBeginning){index = 0;}
-
                             painOfPatient.setPainCoordinates(motionEvent.getX(), motionEvent.getY(), 0.0f, addPainItem);
                             updatePainPopup(popup_gif_list.get(painOfPatient.getPainList().indexOf(addPainItem)),
                                     motionEvent.getX(), motionEvent.getY(), addPainItem, painOfPatient);
@@ -687,7 +682,7 @@ public class PainFragment extends Fragment {
         Bitmap bmFaceLeft = BitmapFactory.decodeByteArray(painOfPatient.getLocation_face_left(), 0, painOfPatient.getLocation_face_left().length);
         Bitmap bmFaceRight = BitmapFactory.decodeByteArray(painOfPatient.getLocation_face_right(), 0, painOfPatient.getLocation_face_right().length);
         ivLocationTeeth.setImageBitmap(bmTeeth);
-        ivLocationFaceLeft.setImageBitmap(bmFaceLeft);
+        //ivLocationFaceLeft.setImageBitmap(bmFaceLeft);
         ivLocationFaceRight.setImageBitmap(bmFaceRight);
         seekBar.setProgress(painOfPatient.getIntensity());
         etComment.setText(painOfPatient.getComment());
@@ -813,8 +808,12 @@ public class PainFragment extends Fragment {
         }
 
         RadioButton rbn = new RadioButton(getContext());
-        rbn.setText(date);
+        String temp_string = date.substring(0, 4) + "/" + date.substring(4, 6) + "/" + date.substring(6, 8) + " " +
+                date.substring(8, 10) + ":" + date.substring(10, 12) + ":" + date.substring(12,14);
+        rbn.setText(temp_string);
         rbn.setTag(date);
+        rbn.setBackgroundResource(R.drawable.radiobutton_selector);
+        rbn.setButtonDrawable(null);
 
         //Attach button to RadioGroup, adds key value pair to Map.
         rgBeginningCurrent.addView(rbn);

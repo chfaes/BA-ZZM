@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/BtnAddNew"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         >
@@ -40,35 +40,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
-
-            <RadioButton
-                android:id="@+id/rbBeginning"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/radiobutton_selector"
-                android:button="@null"
-                android:gravity="center"
-                android:paddingVertical="10dp"
-                android:singleLine="true"
-                android:text="@string/beginning"
-                android:textColor="@color/radiobutton_text_selected"
-                android:textSize="18sp" />
-
-            <RadioButton
-                android:id="@+id/rbCurrent"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/radiobutton_selector"
-                android:button="@null"
-                android:gravity="center"
-                android:paddingVertical="10dp"
-                android:singleLine="true"
-                android:text="@string/current"
-                android:textColor="@color/radiobutton_text_selected"
-                android:textSize="18sp" />
-
         </RadioGroup>
     </HorizontalScrollView>
 
@@ -242,7 +213,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView2"
                 app:layout_constraintVertical_bias="0.0" />
 
-            <ImageView
+            <!--<ImageView
                 android:id="@+id/ivLocationFaceLeft"
                 android:layout_width="4dp"
                 android:layout_height="4dp"
@@ -253,7 +224,7 @@
                 android:src="@drawable/face_left"
                 app:layout_constraintBottom_toTopOf="@+id/textView2"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent" />-->
 
 
         </android.support.constraint.ConstraintLayout>
