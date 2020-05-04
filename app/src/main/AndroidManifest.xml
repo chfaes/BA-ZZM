@@ -29,8 +29,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activities.MenuActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize|locale"
             android:screenOrientation="landscape"
-            android:configChanges="locale"></activity>
+            ></activity>
         <activity android:name=".Activities.PatientSelectionActivity"
             android:screenOrientation="landscape">
         </activity>

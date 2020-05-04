@@ -21,6 +21,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -38,16 +39,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.frontend.Models.PainBeginning;
-import com.example.frontend.Models.PainCurrent;
 import com.example.frontend.Models.PainSuperclass;
 import com.example.frontend.R;
 import com.example.frontend.Service.DatabaseHelper;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class PainFragment extends Fragment {
 
@@ -70,6 +75,9 @@ public class PainFragment extends Fragment {
     RadioButton rbBeginning;
     RadioButton rbCurrent;
 
+    Map<String, String> RadioGroupMap = new HashMap<String, String>();
+    String activeRadioButton = "";
+
     Button btnDull;
     Button btnPulling;
     Button btnPulsating;
@@ -87,12 +95,9 @@ public class PainFragment extends Fragment {
 
     private EditText etComment;
 
-    boolean initialSetUpBeginningDone = false;
-    boolean initialSetUpCurrentDone = false;
     boolean firstTimeOpen = true;
 
-    private PainBeginning painOfPatientBeginning = new PainBeginning();
-    private PainCurrent painOfPatientCurrent = new PainCurrent();
+    private PainBeginning painOfPatient = new PainBeginning();
 
     SeekBar seekBar;
 
@@ -110,7 +115,7 @@ public class PainFragment extends Fragment {
     private View.OnClickListener onClickAddNewRB = new View.OnClickListener(){
         @Override
         public void onClick(View view){
-            addNewRB();
+            addNewRB("-1", true);
         }
     };
 
@@ -148,63 +153,33 @@ public class PainFragment extends Fragment {
         @Override
         public void onClick(View view) {
             selectDeselectView(view);
-            if (rgBeginningCurrent.getCheckedRadioButtonId() == R.id.rbBeginning) {
-                switch (view.getId()) {
-                    case R.id.btnDull:
-                        painOfPatientBeginning.setDull(!painOfPatientBeginning.isDull());
-                        break;
-                    case R.id.btnPulling:
-                        painOfPatientBeginning.setPulling(!painOfPatientBeginning.isPulling());
-                        break;
-                    case R.id.btnPulsating:
-                        painOfPatientBeginning.setPulsating(!painOfPatientBeginning.isPulsating());
-                        break;
-                    case R.id.btnStinging:
-                        painOfPatientBeginning.setStinging(!painOfPatientBeginning.isStinging());
-                        break;
-                    case R.id.btnBurning:
-                        painOfPatientBeginning.setBurning(!painOfPatientBeginning.isBurning());
-                        break;
-                    case R.id.btnTingling:
-                        painOfPatientBeginning.setTingling(!painOfPatientBeginning.isTingling());
-                        break;
-                    case R.id.btnPinsandneedles:
-                        painOfPatientBeginning.setPinsneedles(!painOfPatientBeginning.isPinsneedles());
-                        break;
-                    case R.id.btnNumb:
-                        painOfPatientBeginning.setNumb(!painOfPatientBeginning.isNumb());
-                        break;
-                }
-                updatePainDisplay(painOfPatientBeginning);
-            } else if (rgBeginningCurrent.getCheckedRadioButtonId() == R.id.rbCurrent){
-                switch (view.getId()) {
-                    case R.id.btnDull:
-                        painOfPatientCurrent.setDull(!painOfPatientCurrent.isDull());
-                        break;
-                    case R.id.btnPulling:
-                        painOfPatientCurrent.setPulling(!painOfPatientCurrent.isPulling());
-                        break;
-                    case R.id.btnPulsating:
-                        painOfPatientCurrent.setPulsating(!painOfPatientCurrent.isPulsating());
-                        break;
-                    case R.id.btnStinging:
-                        painOfPatientCurrent.setStinging(!painOfPatientCurrent.isStinging());
-                        break;
-                    case R.id.btnBurning:
-                        painOfPatientCurrent.setBurning(!painOfPatientCurrent.isBurning());
-                        break;
-                    case R.id.btnTingling:
-                        painOfPatientCurrent.setTingling(!painOfPatientCurrent.isTingling());
-                        break;
-                    case R.id.btnPinsandneedles:
-                        painOfPatientCurrent.setPinsneedles(!painOfPatientCurrent.isPinsneedles());
-                        break;
-                    case R.id.btnNumb:
-                        painOfPatientCurrent.setNumb(!painOfPatientCurrent.isNumb());
-                        break;
-                }
-                updatePainDisplay(painOfPatientCurrent);
+            switch (view.getId()) {
+                case R.id.btnDull:
+                    painOfPatient.setDull(!painOfPatient.isDull());
+                    break;
+                case R.id.btnPulling:
+                    painOfPatient.setPulling(!painOfPatient.isPulling());
+                    break;
+                case R.id.btnPulsating:
+                    painOfPatient.setPulsating(!painOfPatient.isPulsating());
+                    break;
+                case R.id.btnStinging:
+                    painOfPatient.setStinging(!painOfPatient.isStinging());
+                    break;
+                case R.id.btnBurning:
+                    painOfPatient.setBurning(!painOfPatient.isBurning());
+                    break;
+                case R.id.btnTingling:
+                    painOfPatient.setTingling(!painOfPatient.isTingling());
+                    break;
+                case R.id.btnPinsandneedles:
+                    painOfPatient.setPinsneedles(!painOfPatient.isPinsneedles());
+                    break;
+                case R.id.btnNumb:
+                    painOfPatient.setNumb(!painOfPatient.isNumb());
+                    break;
             }
+            updatePainDisplay(painOfPatient);
         }
     };
 
@@ -217,11 +192,8 @@ public class PainFragment extends Fragment {
 
     @Override
     public void onDestroyView() {
-        if (rgBeginningCurrent.getCheckedRadioButtonId() == R.id.rbBeginning) {
-            savePainBeginning();
-        } else if (rgBeginningCurrent.getCheckedRadioButtonId() == R.id.rbCurrent) {
-            savePainCurrent();
-        }
+        Log.d("Log", "Destroying activity");
+        savePainBeginning();
         super.onDestroyView();
     }
 
@@ -245,11 +217,7 @@ public class PainFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (rgBeginningCurrent.getCheckedRadioButtonId() == R.id.rbBeginning) {
-                    painOfPatientBeginning.setComment(etComment.getText().toString());
-                } else {
-                    painOfPatientCurrent.setComment(etComment.getText().toString());
-                }
+                painOfPatient.setComment(etComment.getText().toString());
             }
 
             @Override
@@ -317,11 +285,7 @@ public class PainFragment extends Fragment {
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
                 TextView t = (TextView) view.findViewById(R.id.tvIntensity);
                 t.setText(String.valueOf(i));
-                if (rgBeginningCurrent.getCheckedRadioButtonId() == R.id.rbBeginning) {
-                    painOfPatientBeginning.setIntensity(i);
-                } else {
-                    painOfPatientCurrent.setIntensity(i);
-                }
+                painOfPatient.setIntensity(i);
             }
 
             @Override
@@ -339,18 +303,14 @@ public class PainFragment extends Fragment {
         rgBeginningCurrent.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
-                setUpSelectedViews();
-                if (!firstTimeOpen) {
-                    if (checkedId == R.id.rbCurrent) {
-                        savePainBeginning();
-                    }
-                    if (checkedId == R.id.rbBeginning) {
-                        savePainCurrent();
-                    }
+                if(!firstTimeOpen){
+                    savePainBeginning();
                 }
+                setUpSelectedViews();
             }
         });
-        rbBeginning.setChecked(true);
+
+        initializeFragment();
         firstTimeOpen = false;
 
         initializePainsOfPatient();
@@ -363,7 +323,11 @@ public class PainFragment extends Fragment {
         //Get Camera capture
         if(requestCode == 100){
             try {
-                painOfPatientBeginning.setPhoto((Bitmap) data.getExtras().get("data"));
+                painOfPatient.setPhoto((Bitmap) data.getExtras().get("data"));
+                ImageView Photography = myDialog.findViewById(R.id.painPhoto);
+                Photography.setImageBitmap(painOfPatient.getPhoto());
+                Photography.setVisibility(View.VISIBLE);
+                savePainBeginning();
             } catch(Exception e) {
                 //Photo cancelled.
                 Log.d("Log", "Cancelled Photography. See PainFragment.java.");
@@ -407,91 +371,66 @@ public class PainFragment extends Fragment {
 
     }
 
-    private void setUpSelectedViews() {
-        if (rgBeginningCurrent.getCheckedRadioButtonId() == R.id.rbBeginning) {
-            setBeginnViewsIfExist();
+    private void initializeFragment(){
+        if (!db.existsPain(patientId)){
+            // If the patient has no database entries: add a new pain object (encoded) to the DB.
+            db.addPain(patientId, getDateAndTime(), encodeInstance(initializePainInstance(new PainBeginning())));
+        }
 
+        ArrayList<String> temp_list = db.getPainDates(patientId);
+
+        for (int i = 0; i < temp_list.size(); i++) {
+            //create Radiobuttons from all existing dates of this patient.
+            addNewRB(temp_list.get(i), false);
+        }
+
+        //Check the first Radiobutton in the group by default. Set the string "activeRadioButton"
+        //accordingly.
+        rgBeginningCurrent.check(rgBeginningCurrent.getChildAt(2).getId());
+        activeRadioButton = RadioGroupMap.get(String.valueOf(rgBeginningCurrent.getCheckedRadioButtonId()));
+
+    }
+
+    private void setUpSelectedViews() {
+        // Gets the currently checked Radiobutton and fills in the view with the contents
+        // from the respective database entry.
+        activeRadioButton = RadioGroupMap.get(String.valueOf(rgBeginningCurrent.getCheckedRadioButtonId()));
+        String str = db.getPainEncoded(patientId, activeRadioButton);
+        PainBeginning pain = decodePainFromString(str);
+        painOfPatient = pain;
+        setUpAllViewsBeginning();
+        /*if (rgBeginningCurrent.getCheckedRadioButtonId() == R.id.rbBeginning) {
+            setBeginnViewsIfExist();
         } else if (rgBeginningCurrent.getCheckedRadioButtonId() == R.id.rbCurrent) {
             setCurrentViewsIfExist();
-        }
-    }
-
-    private void setBeginnViewsIfExist() {
-        boolean PainBeginningExists = db.existsPainBeginning(patientId);
-        if (PainBeginningExists) {
-            setUpAllViewsBeginning();
         } else {
-            etComment.setText("");
-            deselectAllQualityButtons();
-            deselectPattern();
-            seekBar.setProgress(0);
-            ivLocationTeeth.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.teeth));
-            ivLocationFaceLeft.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.face_left));
-            ivLocationFaceRight.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.face_right));
-        }
-    }
 
-    private void setCurrentViewsIfExist() {
-        boolean PainBeginningExists = db.existsPainCurrent(patientId);
-        if (PainBeginningExists) {
-            setUpAllViewsCurrent();
-        } else {
-            etComment.setText("");
-            deselectAllQualityButtons();
-            deselectPattern();
-            seekBar.setProgress(0);
-            ivLocationTeeth.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.teeth));
-            ivLocationFaceLeft.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.face_left));
-            ivLocationFaceRight.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.face_right));
-        }
+        }*/
     }
 
     private void initializePainsOfPatient() {
-        painOfPatientBeginning.setPatient_id(patientId);
+        painOfPatient.setPatient_id(patientId);
 
-        painOfPatientBeginning.setIntensity(0);
+        painOfPatient.setIntensity(0);
 
         Bitmap bmpTeeth = BitmapFactory.decodeResource(getResources(), R.drawable.teeth);
         Bitmap bmpFaceLeft = BitmapFactory.decodeResource(getResources(), R.drawable.face_left);
         Bitmap bmpFaceRight = BitmapFactory.decodeResource(getResources(), R.drawable.face_right);
-        painOfPatientBeginning.setLocation_teeth(bitmapToByte(bmpTeeth));
-        painOfPatientBeginning.setLocation_face_left(bitmapToByte(bmpFaceLeft));
-        painOfPatientBeginning.setLocation_face_right(bitmapToByte(bmpFaceRight));
+        painOfPatient.setLocation_teeth(bitmapToByte(bmpTeeth));
+        painOfPatient.setLocation_face_left(bitmapToByte(bmpFaceLeft));
+        painOfPatient.setLocation_face_right(bitmapToByte(bmpFaceRight));
 
-        painOfPatientBeginning.setPain_pattern(null);
+        painOfPatient.setPain_pattern(null);
 
-        painOfPatientBeginning.setDull(false);
-        painOfPatientBeginning.setPulling(false);
-        painOfPatientBeginning.setStinging(false);
-        painOfPatientBeginning.setPulsating(false);
-        painOfPatientBeginning.setBurning(false);
-        painOfPatientBeginning.setPinsneedles(false);
-        painOfPatientBeginning.setTingling(false);
-        painOfPatientBeginning.setNumb(false);
-        painOfPatientBeginning.setComment("");
-
-        painOfPatientCurrent.setPatient_id(patientId);
-
-        painOfPatientCurrent.setIntensity(0);
-
-        Bitmap bmpTeethCurrent = BitmapFactory.decodeResource(getResources(), R.drawable.teeth);
-        Bitmap bmpFaceLeftCurrent = BitmapFactory.decodeResource(getResources(), R.drawable.face_left);
-        Bitmap bmpFaceRightCurrent = BitmapFactory.decodeResource(getResources(), R.drawable.face_right);
-        painOfPatientCurrent.setLocation_teeth(bitmapToByte(bmpTeethCurrent));
-        painOfPatientCurrent.setLocation_face_left(bitmapToByte(bmpFaceLeftCurrent));
-        painOfPatientCurrent.setLocation_face_right(bitmapToByte(bmpFaceRightCurrent));
-
-        painOfPatientCurrent.setPain_pattern(null);
-
-        painOfPatientCurrent.setDull(false);
-        painOfPatientCurrent.setPulling(false);
-        painOfPatientCurrent.setStinging(false);
-        painOfPatientCurrent.setPulsating(false);
-        painOfPatientCurrent.setBurning(false);
-        painOfPatientCurrent.setPinsneedles(false);
-        painOfPatientCurrent.setTingling(false);
-        painOfPatientCurrent.setNumb(false);
-        painOfPatientCurrent.setComment("");
+        painOfPatient.setDull(false);
+        painOfPatient.setPulling(false);
+        painOfPatient.setStinging(false);
+        painOfPatient.setPulsating(false);
+        painOfPatient.setBurning(false);
+        painOfPatient.setPinsneedles(false);
+        painOfPatient.setTingling(false);
+        painOfPatient.setNumb(false);
+        painOfPatient.setComment("");
     }
 
     public byte[] bitmapToByte(Bitmap drawing) {
@@ -553,29 +492,6 @@ public class PainFragment extends Fragment {
         });
     }
 
-
-    private static Bitmap resize(Bitmap image, int maxWidth, int maxHeight) {
-        if (maxHeight > 0 && maxWidth > 0) {
-            int width = image.getWidth();
-            int height = image.getHeight();
-            float ratioBitmap = (float) width / (float) height;
-            float ratioMax = (float) maxWidth / (float) maxHeight;
-
-            int finalWidth = maxWidth;
-            int finalHeight = maxHeight;
-            if (ratioMax > ratioBitmap) {
-                finalWidth = (int) ((float) maxHeight * ratioBitmap);
-            } else {
-                finalHeight = (int) ((float) maxWidth / ratioBitmap);
-            }
-            image = Bitmap.createScaledBitmap(image, finalWidth, finalHeight, true);
-            return image;
-        } else {
-            return image;
-        }
-    }
-
-
     private void showImagePopup() {
         myDialog.setContentView(R.layout.popup_image_drawable);
 
@@ -616,39 +532,20 @@ public class PainFragment extends Fragment {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (rgBeginningCurrent.getCheckedRadioButtonId() == R.id.rbBeginning) {
-                    switch (openedLocationImage) {
-                        case R.id.ivLocationTeeth:
-                            ivLocationTeeth.setImageBitmap(alteredBitmap);
-                            painOfPatientBeginning.setLocation_teeth(bitmapToByte(alteredBitmap));
-                            break;
-                        case R.id.ivLocationFaceLeft:
-                            ivLocationFaceLeft.setImageBitmap(alteredBitmap);
-                            painOfPatientBeginning.setLocation_face_left(bitmapToByte(alteredBitmap));
-                            break;
-                        case R.id.ivLocationFaceRight:
-                            ivLocationFaceRight.setImageBitmap(alteredBitmap);
-                            painOfPatientBeginning.setLocation_face_right(bitmapToByte(alteredBitmap));
-                            break;
-                    }
-                } else {
-                    switch (openedLocationImage) {
-                        case R.id.ivLocationTeeth:
-                            ivLocationTeeth.setImageBitmap(alteredBitmap);
-                            painOfPatientCurrent.setLocation_teeth(bitmapToByte(alteredBitmap));
-                            break;
-                        case R.id.ivLocationFaceLeft:
-                            ivLocationFaceLeft.setImageBitmap(alteredBitmap);
-                            painOfPatientCurrent.setLocation_face_left(bitmapToByte(alteredBitmap));
-                            break;
-                        case R.id.ivLocationFaceRight:
-                            ivLocationFaceRight.setImageBitmap(alteredBitmap);
-                            painOfPatientCurrent.setLocation_face_right(bitmapToByte(alteredBitmap));
-                            break;
-                    }
+                switch (openedLocationImage) {
+                    case R.id.ivLocationTeeth:
+                        ivLocationTeeth.setImageBitmap(alteredBitmap);
+                        painOfPatient.setLocation_teeth(bitmapToByte(alteredBitmap));
+                        break;
+                    case R.id.ivLocationFaceLeft:
+                        ivLocationFaceLeft.setImageBitmap(alteredBitmap);
+                        painOfPatient.setLocation_face_left(bitmapToByte(alteredBitmap));
+                        break;
+                    case R.id.ivLocationFaceRight:
+                        ivLocationFaceRight.setImageBitmap(alteredBitmap);
+                        painOfPatient.setLocation_face_right(bitmapToByte(alteredBitmap));
+                        break;
                 }
-
-
                 myDialog.dismiss();
             }
         });
@@ -683,19 +580,18 @@ public class PainFragment extends Fragment {
                 popup_gif_01, popup_gif_02, popup_gif_03, popup_gif_04, popup_gif_05, popup_gif_06,
                 popup_gif_07, popup_gif_08));
         addPainItem = "none";
-        ArrayList<PainSuperclass> both_pain_types = new ArrayList<>(Arrays.asList(painOfPatientBeginning, painOfPatientCurrent));
 
         //Initialize Buttons
-        TextView btnClose;
+        TextView btnSave;
         TextView btnAddPain;
         Button btnFoto;
         ImageView Photography;
-        btnClose = myDialog.findViewById(R.id.btnCancel);
+        btnSave = myDialog.findViewById(R.id.btnSave);
         btnAddPain = myDialog.findViewById(R.id.btnAddPain);
         btnFoto = myDialog.findViewById(R.id.btnTakePicture);
         Photography = myDialog.findViewById(R.id.painPhoto);
 
-        btnClose.setOnClickListener(new View.OnClickListener() {
+        btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 myDialog.dismiss();
@@ -740,9 +636,9 @@ public class PainFragment extends Fragment {
                             int index = 1;
                             if (rgBeginningCurrent.getCheckedRadioButtonId() == R.id.rbBeginning){index = 0;}
 
-                            both_pain_types.get(index).setPainCoordinates(motionEvent.getX(), motionEvent.getY(), 0.0f, addPainItem);
-                            updatePainPopup(popup_gif_list.get(both_pain_types.get(index).getPainList().indexOf(addPainItem)),
-                                    motionEvent.getX(), motionEvent.getY(), addPainItem, both_pain_types.get(index));
+                            painOfPatient.setPainCoordinates(motionEvent.getX(), motionEvent.getY(), 0.0f, addPainItem);
+                            updatePainPopup(popup_gif_list.get(painOfPatient.getPainList().indexOf(addPainItem)),
+                                    motionEvent.getX(), motionEvent.getY(), addPainItem, painOfPatient);
 
                             addPainItem = "none";
                         }
@@ -752,16 +648,15 @@ public class PainFragment extends Fragment {
         });
 
         // Update all view coordinates before opening the popup; update Photography if exists.
-        int index = 1;
-        if (rgBeginningCurrent.getCheckedRadioButtonId() == R.id.rbBeginning){index = 0;}
-        ArrayList temp = both_pain_types.get(index).getPainList();
+
+        ArrayList temp = painOfPatient.getPainList();
         for (int i = 0; i < temp.size(); i++) {
-            float x = Float.parseFloat(both_pain_types.get(index).getPainCoordinates(temp.get(i).toString()).get(0).toString());
-            float y = Float.parseFloat(both_pain_types.get(index).getPainCoordinates(temp.get(i).toString()).get(1).toString());
-            updatePainPopup(popup_gif_list.get(i), x, y, temp.get(i).toString(), both_pain_types.get(index));
+            float x = Float.parseFloat(painOfPatient.getPainCoordinates(temp.get(i).toString()).get(0).toString());
+            float y = Float.parseFloat(painOfPatient.getPainCoordinates(temp.get(i).toString()).get(1).toString());
+            updatePainPopup(popup_gif_list.get(i), x, y, temp.get(i).toString(), painOfPatient);
         }
-        if (painOfPatientBeginning.existsPhoto()){
-            Photography.setImageBitmap(painOfPatientBeginning.getPhoto());
+        if (painOfPatient.existsPhoto()){
+            Photography.setImageBitmap(painOfPatient.getPhoto());
             Photography.setVisibility(View.VISIBLE);
         }
 
@@ -783,56 +678,23 @@ public class PainFragment extends Fragment {
 
     }
 
-    public void addNewPainBeginning(PainBeginning painBeginning) {
-        db.addPainBeginning(painBeginning);
-    }
-
-    public void updatePainBeginning(final PainBeginning updatedPainBeginning) {
-        db.updatePainBeginning(patientId, updatedPainBeginning);
-    }
-
     public void savePainBeginning() {
-        boolean painBeginningExists = db.existsPainBeginning(patientId);
-
-        if (painBeginningExists) {
-            updatePainBeginning(painOfPatientBeginning);
-        } else {
-            addNewPainBeginning(painOfPatientBeginning);
-        }
-    }
-
-    public void addNewPainCurrent(PainCurrent painCurrent) {
-        db.addPainCurrent(painCurrent);
-    }
-
-    public void updatePainCurrent(final PainCurrent updatedPainCurrent) {
-        db.updatePainCurrent(patientId, updatedPainCurrent);
-    }
-
-    public void savePainCurrent() {
-        boolean painCurrentExists = db.existsPainCurrent(patientId);
-
-        if (painCurrentExists) {
-            updatePainCurrent(painOfPatientCurrent);
-        } else {
-            addNewPainCurrent(painOfPatientCurrent);
-        }
+        db.updatePain(patientId, activeRadioButton, encodeInstance(painOfPatient));
     }
 
     private void setUpAllViewsBeginning() {
-        painOfPatientBeginning = db.getPainBeginningOfPatient(patientId);
-        Bitmap bmTeeth = BitmapFactory.decodeByteArray(painOfPatientBeginning.getLocation_teeth(), 0, painOfPatientBeginning.getLocation_teeth().length);
-        Bitmap bmFaceLeft = BitmapFactory.decodeByteArray(painOfPatientBeginning.getLocation_face_left(), 0, painOfPatientBeginning.getLocation_face_left().length);
-        Bitmap bmFaceRight = BitmapFactory.decodeByteArray(painOfPatientBeginning.getLocation_face_right(), 0, painOfPatientBeginning.getLocation_face_right().length);
+        Bitmap bmTeeth = BitmapFactory.decodeByteArray(painOfPatient.getLocation_teeth(), 0, painOfPatient.getLocation_teeth().length);
+        Bitmap bmFaceLeft = BitmapFactory.decodeByteArray(painOfPatient.getLocation_face_left(), 0, painOfPatient.getLocation_face_left().length);
+        Bitmap bmFaceRight = BitmapFactory.decodeByteArray(painOfPatient.getLocation_face_right(), 0, painOfPatient.getLocation_face_right().length);
         ivLocationTeeth.setImageBitmap(bmTeeth);
         ivLocationFaceLeft.setImageBitmap(bmFaceLeft);
         ivLocationFaceRight.setImageBitmap(bmFaceRight);
-        seekBar.setProgress(painOfPatientBeginning.getIntensity());
-        etComment.setText(painOfPatientBeginning.getComment());
+        seekBar.setProgress(painOfPatient.getIntensity());
+        etComment.setText(painOfPatient.getComment());
 
         deselectPattern();
-        if (painOfPatientBeginning.getPain_pattern() != null && !painOfPatientBeginning.getPain_pattern().isEmpty()) {
-            switch (painOfPatientBeginning.getPain_pattern()) {
+        if (painOfPatient.getPain_pattern() != null && !painOfPatient.getPain_pattern().isEmpty()) {
+            switch (painOfPatient.getPain_pattern()) {
                 case "PermSlightFluc":
                     selectPattern(ivPermSlightFluc);
                     break;
@@ -849,89 +711,31 @@ public class PainFragment extends Fragment {
         }
 
         deselectAllQualityButtons();
-        if (painOfPatientBeginning.isDull()) {
+        if (painOfPatient.isDull()) {
             selectDeselectView(btnDull);
         }
-        if (painOfPatientBeginning.isPulling()) {
+        if (painOfPatient.isPulling()) {
             selectDeselectView(btnPulling);
         }
-        if (painOfPatientBeginning.isPulsating()) {
+        if (painOfPatient.isPulsating()) {
             selectDeselectView(btnPulsating);
         }
-        if (painOfPatientBeginning.isPinsneedles()) {
+        if (painOfPatient.isPinsneedles()) {
             selectDeselectView(btnPinsandneedles);
         }
-        if (painOfPatientBeginning.isTingling()) {
+        if (painOfPatient.isTingling()) {
             selectDeselectView(btnTingling);
         }
-        if (painOfPatientBeginning.isBurning()) {
+        if (painOfPatient.isBurning()) {
             selectDeselectView(btnBurning);
         }
-        if (painOfPatientBeginning.isStinging()) {
+        if (painOfPatient.isStinging()) {
             selectDeselectView(btnStinging);
         }
-        if (painOfPatientBeginning.isNumb()) {
+        if (painOfPatient.isNumb()) {
             selectDeselectView(btnNumb);
         }
-        updatePainDisplay(painOfPatientBeginning);
-    }
-
-    private void setUpAllViewsCurrent() {
-        painOfPatientCurrent = db.getPainCurrentOfPatient(patientId);
-        Bitmap bmTeeth = BitmapFactory.decodeByteArray(painOfPatientCurrent.getLocation_teeth(), 0, painOfPatientCurrent.getLocation_teeth().length);
-        Bitmap bmFaceLeft = BitmapFactory.decodeByteArray(painOfPatientCurrent.getLocation_face_left(), 0, painOfPatientCurrent.getLocation_face_left().length);
-        Bitmap bmFaceRight = BitmapFactory.decodeByteArray(painOfPatientCurrent.getLocation_face_right(), 0, painOfPatientCurrent.getLocation_face_right().length);
-        ivLocationTeeth.setImageBitmap(bmTeeth);
-        ivLocationFaceLeft.setImageBitmap(bmFaceLeft);
-        ivLocationFaceRight.setImageBitmap(bmFaceRight);
-        seekBar.setProgress(painOfPatientCurrent.getIntensity());
-        etComment.setText(painOfPatientCurrent.getComment());
-
-        deselectPattern();
-        if (painOfPatientCurrent.getPain_pattern() != null && !painOfPatientCurrent.getPain_pattern().isEmpty()) {
-            switch (painOfPatientCurrent.getPain_pattern()) {
-                case "PermSlightFluc":
-                    selectPattern(ivPermSlightFluc);
-                    break;
-                case "PermStrongFluc":
-                    selectPattern(ivPermStrongFluc);
-                    break;
-                case "AttFreeInt":
-                    selectPattern(ivAttFreeInt);
-                    break;
-                case "AttNoFreeInt":
-                    selectPattern(ivAttNoFreeInt);
-                    break;
-            }
-        }
-
-        deselectAllQualityButtons();
-        if (painOfPatientCurrent.isDull()) {
-            selectDeselectView(btnDull);
-        }
-        if (painOfPatientCurrent.isPulling()) {
-            selectDeselectView(btnPulling);
-        }
-        if (painOfPatientCurrent.isPulsating()) {
-            selectDeselectView(btnPulsating);
-        }
-        if (painOfPatientCurrent.isPinsneedles()) {
-            selectDeselectView(btnPinsandneedles);
-        }
-        if (painOfPatientCurrent.isTingling()) {
-            selectDeselectView(btnTingling);
-        }
-        if (painOfPatientCurrent.isBurning()) {
-            selectDeselectView(btnBurning);
-        }
-        if (painOfPatientCurrent.isStinging()) {
-            selectDeselectView(btnStinging);
-        }
-        if (painOfPatientCurrent.isNumb()) {
-            selectDeselectView(btnNumb);
-        }
-        updatePainDisplay(painOfPatientCurrent);
-        initialSetUpBeginningDone = true;
+        updatePainDisplay(painOfPatient);
     }
 
     private void deselectAllQualityButtons() {
@@ -976,36 +780,19 @@ public class PainFragment extends Fragment {
     private void selectPattern(View view) {
         deselectPattern();
         view.setBackgroundColor(getResources().getColor(R.color.colorBlue));
-        if (rgBeginningCurrent.getCheckedRadioButtonId() == R.id.rbBeginning) {
-            switch (view.getId()) {
-                case R.id.btnPermSlightFluc:
-                    painOfPatientBeginning.setPain_pattern("PermSlightFluc");
-                    break;
-                case R.id.btnPermStrongFluc:
-                    painOfPatientBeginning.setPain_pattern("PermStrongFluc");
-                    break;
-                case R.id.btnAttFreeInt:
-                    painOfPatientBeginning.setPain_pattern("AttFreeInt");
-                    break;
-                case R.id.btnAttNoFreeInt:
-                    painOfPatientBeginning.setPain_pattern("AttNoFreeInt");
-                    break;
-            }
-        } else {
-            switch (view.getId()) {
-                case R.id.btnPermSlightFluc:
-                    painOfPatientCurrent.setPain_pattern("PermSlightFluc");
-                    break;
-                case R.id.btnPermStrongFluc:
-                    painOfPatientCurrent.setPain_pattern("PermStrongFluc");
-                    break;
-                case R.id.btnAttFreeInt:
-                    painOfPatientCurrent.setPain_pattern("AttFreeInt");
-                    break;
-                case R.id.btnAttNoFreeInt:
-                    painOfPatientCurrent.setPain_pattern("AttNoFreeInt");
-                    break;
-            }
+        switch (view.getId()) {
+            case R.id.btnPermSlightFluc:
+                painOfPatient.setPain_pattern("PermSlightFluc");
+                break;
+            case R.id.btnPermStrongFluc:
+                painOfPatient.setPain_pattern("PermStrongFluc");
+                break;
+            case R.id.btnAttFreeInt:
+                painOfPatient.setPain_pattern("AttFreeInt");
+                break;
+            case R.id.btnAttNoFreeInt:
+                painOfPatient.setPain_pattern("AttNoFreeInt");
+                break;
         }
     }
 
@@ -1016,17 +803,83 @@ public class PainFragment extends Fragment {
         return formatter.format(date);
     }
 
-    private void addNewRB(){
-        //adds a new RadioButton. Its tag and text are the current date and time.
-        Log.d("Log", "Zitrone1");
-        String str_id = getDateAndTime();
-        Log.d("Log", "Zitrone2");
+    private void addNewRB(String date, boolean addToDB){
+        //adds a new RadioButton. Its tag and text are the date and time.
+        //date is "optional": if "-1" is passed, it retrieves the current date and time.
+        //addToDB: if set to true, a new PainObject with the respective date and time will be added
+        //to the DB.
+        if (date.equals("-1")) {
+            date = getDateAndTime();
+        }
+
         RadioButton rbn = new RadioButton(getContext());
-        Log.d("Log", "Zitrone3");
-        rbn.setText(str_id);
-        rbn.setTag(str_id);
-        Log.d("Log", "Zitrone4");
-        //Attach button to RadioGroup.
+        rbn.setText(date);
+        rbn.setTag(date);
+
+        //Attach button to RadioGroup, adds key value pair to Map.
         rgBeginningCurrent.addView(rbn);
+        RadioGroupMap.put(String.valueOf(rbn.getId()), date);
+
+        if (addToDB){
+            // Creates new Pain instance, calls method to initialize its values and
+            // saves the encoded instance in DB.
+            db.addPain(patientId, date, encodeInstance(initializePainInstance(new PainBeginning())));
+        }
+    }
+
+    private PainBeginning initializePainInstance(PainBeginning pain){
+        pain.setPatient_id(patientId);
+
+        pain.setIntensity(0);
+
+        Bitmap bmpTeeth = BitmapFactory.decodeResource(getResources(), R.drawable.teeth);
+        Bitmap bmpFaceLeft = BitmapFactory.decodeResource(getResources(), R.drawable.face_left);
+        Bitmap bmpFaceRight = BitmapFactory.decodeResource(getResources(), R.drawable.face_right);
+        pain.setLocation_teeth(bitmapToByte(bmpTeeth));
+        pain.setLocation_face_left(bitmapToByte(bmpFaceLeft));
+        pain.setLocation_face_right(bitmapToByte(bmpFaceRight));
+
+        pain.setPain_pattern(null);
+
+        pain.setDull(false);
+        pain.setPulling(false);
+        pain.setStinging(false);
+        pain.setPulsating(false);
+        pain.setBurning(false);
+        pain.setPinsneedles(false);
+        pain.setTingling(false);
+        pain.setNumb(false);
+        pain.setComment("");
+
+        return pain;
+    }
+
+    private PainBeginning decodePainFromString(String object){
+        //updates "values" from "values_encoded"
+        PainBeginning obj = null;
+        try {
+            byte[] b = Base64.decode(object, Base64.NO_WRAP);
+            ByteArrayInputStream bi = new ByteArrayInputStream(b);
+            ObjectInputStream si = new ObjectInputStream(bi);
+            obj = (PainBeginning) si.readObject();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return obj;
+    }
+
+    public String encodeInstance(PainBeginning object){
+        String return_str = "";
+        try {
+            ByteArrayOutputStream bo = new ByteArrayOutputStream();
+            ObjectOutputStream so = new ObjectOutputStream(bo);
+            so.writeObject(object);
+            so.flush();
+            return_str = Base64.encodeToString(bo.toByteArray(), Base64.NO_WRAP);
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return return_str;
     }
 }

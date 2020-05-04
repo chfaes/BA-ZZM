@@ -1901,7 +1901,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return count != null && count > 0;
     }
 
-    public void addPain(int patient_id, int date, String class_encoded) {
+    public void addPain(int patient_id, String date, String class_encoded) {
         try{
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -1946,17 +1946,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return return_list;
     }
 
-    public String getPainEncoded(int patient_id_query, int date_query){
+    public String getPainEncoded(int patient_id_query, String date_query){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query("Pain", null, "patient_id = ? AND date = ?", //
-                new String[]{String.valueOf(patient_id_query), String.valueOf(date_query)}, null, null, null, null); //
+                new String[]{String.valueOf(patient_id_query), date_query}, null, null, null, null); //
         if (cursor!=null) {
             cursor.moveToFirst();
         }
         return cursor.getString(2);
     }
 
-    public int updatePain(int patient_id, int date, String class_encoded) {
+    public int updatePain(int patient_id, String date, String class_encoded) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -1964,13 +1964,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // updating row
         return db.update("Pain", values, "patient_id = ? AND date = ?",
-                new String[]{String.valueOf(patient_id), String.valueOf(date)});
+                new String[]{String.valueOf(patient_id), date});
     }
 
-    public void deletePainByPatientAndDate(int patient_id, int date) {
+    public void deletePainByPatientAndDate(int patient_id, String date) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete("Pain", "patient_id = ? AND date = ?",
-                new String[]{String.valueOf(patient_id), String.valueOf(date)});
+                new String[]{String.valueOf(patient_id), date});
         db.close();
     }
 
@@ -1985,7 +1985,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return count != null && count > 0;
     }
-
 
     //PainCurrent table related functions
 
