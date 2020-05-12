@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -89,6 +90,7 @@ public class PainFragment extends Fragment {
     Button btnPinsandneedles;
     Button btnNumb;
     Button btnAddNewRB;
+    Button btn3d;
 
     private ImageView ivPermSlightFluc;
     private ImageView ivPermStrongFluc;
@@ -125,6 +127,14 @@ public class PainFragment extends Fragment {
                     btnAddNewRB.setEnabled(true);
                 }
             }, 5000);
+        }
+    };
+
+    private View.OnClickListener onClickOpen3d = new View.OnClickListener(){
+        @Override
+        public void onClick(View view){
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://192.168.43.51/"));
+            startActivity(browserIntent);
         }
     };
 
@@ -242,6 +252,7 @@ public class PainFragment extends Fragment {
         btnPinsandneedles = view.findViewById(R.id.btnPinsandneedles);
         btnNumb = view.findViewById(R.id.btnNumb);
         btnAddNewRB = view.findViewById(R.id.BtnAddNew);
+        btn3d = view.findViewById(R.id.Btn3d);
         pain_gif_01 = view.findViewById(R.id.fragment_pain_gif01);
         pain_gif_02 = view.findViewById(R.id.fragment_pain_gif02);
         pain_gif_03 = view.findViewById(R.id.fragment_pain_gif03);
@@ -260,6 +271,7 @@ public class PainFragment extends Fragment {
         btnNumb.setOnClickListener(onQualityClickListener);
 
         btnAddNewRB.setOnClickListener(onClickAddNewRB);
+        btn3d.setOnClickListener(onClickOpen3d);
 
         ivPermSlightFluc = view.findViewById(R.id.btnPermSlightFluc);
         ivPermStrongFluc = view.findViewById(R.id.btnPermStrongFluc);
