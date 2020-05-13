@@ -11,9 +11,9 @@
     <item android:id="@+id/item5"
         android:title="@string/burning"/>
     <item android:id="@+id/item6"
-        android:title="@string/pinsandneedles"/>
-    <item android:id="@+id/item7"
         android:title="@string/tingling"/>
+    <item android:id="@+id/item7"
+        android:title="@string/pinsandneedles"/>
     <item android:id="@+id/item8"
         android:title="@string/numb"/>
 

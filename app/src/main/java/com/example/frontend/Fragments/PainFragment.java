@@ -71,12 +71,13 @@ public class PainFragment extends Fragment {
     private pl.droidsonroids.gif.GifImageView pain_gif_04;
     private pl.droidsonroids.gif.GifImageView pain_gif_05;
     private pl.droidsonroids.gif.GifImageView pain_gif_06;
+    private pl.droidsonroids.gif.GifImageView pain_gif_07;
     private pl.droidsonroids.gif.GifImageView pain_gif_08;
     private int openedLocationImage;
     private String addPainItem;
     RadioGroup rgBeginningCurrent;
-    RadioButton rbBeginning;
-    RadioButton rbCurrent;
+    //RadioButton rbBeginning;
+    //RadioButton rbCurrent;
 
     Map<String, String> RadioGroupMap = new HashMap<String, String>();
     String activeRadioButton = "";
@@ -259,6 +260,7 @@ public class PainFragment extends Fragment {
         pain_gif_04 = view.findViewById(R.id.fragment_pain_gif04);
         pain_gif_05 = view.findViewById(R.id.fragment_pain_gif05);
         pain_gif_06 = view.findViewById(R.id.fragment_pain_gif06);
+        pain_gif_07 = view.findViewById(R.id.fragment_pain_gif07);
         pain_gif_08 = view.findViewById(R.id.fragment_pain_gif08);
 
         btnDull.setOnClickListener(onQualityClickListener);
@@ -362,7 +364,7 @@ public class PainFragment extends Fragment {
         pain_gif_04.setImageResource(R.drawable.pain_gif_empty);
         pain_gif_05.setImageResource(R.drawable.pain_gif_empty);
         pain_gif_06.setImageResource(R.drawable.pain_gif_empty);
-        //pain gif 07 is missing - currently, there is no distinction between tingling and needles.
+        pain_gif_07.setImageResource(R.drawable.pain_gif_empty);
         pain_gif_08.setImageResource(R.drawable.pain_gif_empty);
         if (painObject.isPulsating()) {
             pain_gif_01.setImageResource(R.drawable.pain_gif_01);
@@ -379,8 +381,11 @@ public class PainFragment extends Fragment {
         if (painObject.isBurning()) {
             pain_gif_05.setImageResource(R.drawable.pain_gif_05);
         }
-        if (painObject.isPinsneedles() | painObject.isTingling()) {
+        if (painObject.isTingling()) {
             pain_gif_06.setImageResource(R.drawable.pain_gif_06);
+        }
+        if (painObject.isPinsneedles()) {
+            pain_gif_07.setImageResource(R.drawable.pain_gif_07_small);
         }
         if (painObject.isNumb()) {
             pain_gif_08.setImageResource(R.drawable.pain_gif_08);
@@ -592,10 +597,12 @@ public class PainFragment extends Fragment {
         addPainItem = "none";
 
         //Initialize Buttons
+        SeekBar popupSeekBar;
         TextView btnSave;
         TextView btnAddPain;
         Button btnFoto;
         ImageView Photography;
+        popupSeekBar = myDialog.findViewById(R.id.popupSeekBar);
         btnSave = myDialog.findViewById(R.id.btnSave);
         btnAddPain = myDialog.findViewById(R.id.btnAddPain);
         btnFoto = myDialog.findViewById(R.id.btnTakePicture);
@@ -643,9 +650,18 @@ public class PainFragment extends Fragment {
                     case(MotionEvent.ACTION_DOWN):
                         // Touching the screen sets new coordinates for the selected pain.
                         if (!addPainItem.equals("none")){
-                            painOfPatient.setPainCoordinates(motionEvent.getX(), motionEvent.getY(), 0.0f, addPainItem);
-                            updatePainPopup(popup_gif_list.get(painOfPatient.getPainList().indexOf(addPainItem)),
-                                    motionEvent.getX(), motionEvent.getY(), addPainItem, painOfPatient);
+                            Log.d("Log", "Zitrone "+ popupSeekBar.getProgress());
+                            painOfPatient.setPainCoordinates(motionEvent.getX(),
+                                                            motionEvent.getY(),
+                                                            (float) popupSeekBar.getProgress(),
+                                                            addPainItem);
+                            updatePainPopup(popup_gif_list.get(
+                                    painOfPatient.getPainList().indexOf(addPainItem)),
+                                    motionEvent.getX(),
+                                    motionEvent.getY(),
+                                    (float) popupSeekBar.getProgress(),
+                                    addPainItem,
+                                    painOfPatient);
 
                             addPainItem = "none";
                         }
@@ -660,7 +676,8 @@ public class PainFragment extends Fragment {
         for (int i = 0; i < temp.size(); i++) {
             float x = Float.parseFloat(painOfPatient.getPainCoordinates(temp.get(i).toString()).get(0).toString());
             float y = Float.parseFloat(painOfPatient.getPainCoordinates(temp.get(i).toString()).get(1).toString());
-            updatePainPopup(popup_gif_list.get(i), x, y, temp.get(i).toString(), painOfPatient);
+            float z = Float.parseFloat(painOfPatient.getPainCoordinates(temp.get(i).toString()).get(2).toString());
+            updatePainPopup(popup_gif_list.get(i), x, y, z, temp.get(i).toString(), painOfPatient);
         }
         if (painOfPatient.existsPhoto()){
             Photography.setImageBitmap(painOfPatient.getPhoto());
@@ -670,19 +687,21 @@ public class PainFragment extends Fragment {
         myDialog.show();
     }
 
-    private void updatePainPopup(pl.droidsonroids.gif.GifImageView view, float x, float y, String name, PainSuperclass pain_type){
+    private void updatePainPopup(pl.droidsonroids.gif.GifImageView view, float x, float y, float z, String name, PainSuperclass pain_type){
         //Resets the Coordinates of a gif view. If a coordinate is = -1.0, it will by default not be updated.
         //If the pain does not exist yet, the gif is set to invisible.
         //40 and 120 is arbitrary, it adjusts the gif's position a bit to the upper left.
+        view.setScaleX((z/33) + 0.5f);
+        view.setScaleY((z/33) + 0.5f);
+        Log.d("Log", "Zitrone Melone "+ z);
         if (pain_type.painIsSet(name)){
             view.setVisibility(View.VISIBLE);
             ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) view.getLayoutParams();
-            params.setMargins(Math.round(x)-120,Math.round(y)-40,0,0);
+            params.setMargins(Math.round(x)-160,Math.round(y)-80,0,0);
             view.setLayoutParams(params);
         } else {
             view.setVisibility(View.INVISIBLE);
         }
-
     }
 
     public void savePainBeginning() {

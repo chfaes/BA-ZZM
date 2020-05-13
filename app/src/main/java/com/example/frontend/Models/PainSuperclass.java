@@ -24,7 +24,7 @@ public abstract class PainSuperclass implements Serializable {
     private String values_encoded;
     private String testString; //Zitrone
     private  ArrayList<String> pain_list = new ArrayList<String>(Arrays.asList("pulsating",
-            "pulling", "numb", "stinging", "burning", "pinsandneedles", "tingling", "dull"));
+            "pulling", "numb", "stinging", "burning", "tingling", "pins and needles", "dull"));
 
     public abstract int getPatient_id();
 
@@ -85,7 +85,7 @@ public abstract class PainSuperclass implements Serializable {
     public abstract String getComment();
 
     public abstract void setComment(String comment);
-
+/*
     public void setTestString(String testString){
         this.testString = testString; //Zitrone
     }
@@ -93,17 +93,17 @@ public abstract class PainSuperclass implements Serializable {
     public String getTestString(){
         return testString; //Zitrone
     }
-
+*/
     public void setPainCoordinates(Float x, Float y, Float z, String painType){
         //Stores the x, y and z coordinates of a pain type in the hashmap.
         ArrayList<Float> templist = new ArrayList<>(Arrays.asList((float) x, y, z));
         values.put(painType, templist);
-        encoding();
+        //encoding();
     }
 
     public ArrayList getPainCoordinates(String painType){
         //returns [-1.0, -1.0, -1.0] if painType does not exist in the hashmap.
-        decoding();
+        //decoding();
         ArrayList<Float> templist = new ArrayList<>(Arrays.asList((float) -1.0f, -1.0f, -1.0f));
         if (values.get(painType) != null ){
             templist.clear();
@@ -116,7 +116,7 @@ public abstract class PainSuperclass implements Serializable {
         //checks if painType is part of the hashmap
         return values.get(painType) != null;
     }
-
+/*
     public String getValues_encoded(){
         return values_encoded;
     }
@@ -124,9 +124,9 @@ public abstract class PainSuperclass implements Serializable {
     public void setValues_encoded(String str){
         values_encoded = str;
     }
-
+*/
     public ArrayList getPainList(){return pain_list;}
-
+    /*
     private void encoding(){
         //writes "values" to "values_encoded".
         try {
@@ -153,7 +153,7 @@ public abstract class PainSuperclass implements Serializable {
             System.out.println(e);
         }
     }
-
+*/
     public void setPhoto(Bitmap bmp){
         Photography = new ProxyBitmap(bmp);
     }
