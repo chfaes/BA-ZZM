@@ -6,12 +6,14 @@ INSERT INTO DiagnosisType (name, type, description) VALUES ('Kiefergelenk-Ankylo
 INSERT INTO DiagnosisType (name, type, description) VALUES ('Myalgie der Kaumuskulatur', 'Muskulatur','Muskelschmerz in der Kaumuskulatur');
 INSERT INTO DiagnosisType (name, type, description) VALUES ('Parafunktion Zähnepressen','Muskulatur','Zähnepressen');
 INSERT INTO DiagnosisType (name, type, description) VALUES ('Nächtlicher Bruxismus','Muskulatur','Nächtliches Zähneknirschen');
+INSERT INTO DiagnosisType (name, type, description) VALUES ('Zervikozephaler Schmerz','Muskulatur','Von der Halswirbelsäule ausgehende Schmerzen');
 INSERT INTO DiagnosisType (name, type, description) VALUES ('Trigeminusneuralgie','Neurologisch','Starker Gesichtsschmerz - Schmerzattacken');
 INSERT INTO DiagnosisType (name, type, description) VALUES ('Periphere traumatische Trigeminusneuropathie','Neurologisch','Starker Gesichtsschmerz - Dauerschmerz');
 INSERT INTO DiagnosisType (name, type, description) VALUES ('Dentale Überempfindlichkeit','Neurologisch','');
 INSERT INTO DiagnosisType (name, type, description) VALUES ('Idiopathische dentoalveoläre Schmerzen','Neurologisch','Schmerzen im Mundbereich, unbekannte Ursache');
 INSERT INTO DiagnosisType (name, type, description) VALUES ('Zungenbrennen','Neurologisch','Schmerzen und Brennen an den Zungen- oder Mundschleimhäuten');
 INSERT INTO DiagnosisType (name, type, description) VALUES ('Glossopharyngeus-Neuralgie','Neurologisch','Attackenförmige Schmerzen im Rachen-, Hals-, Zungenbereich');
+INSERT INTO DiagnosisType (name, type, description) VALUES ('Tinnitus','Neurologisch','Ohrengeräusch ohne äussere Ursache');
 INSERT INTO DiagnosisType (name, type, description) VALUES ('Chronische Schmerzstörung','Psychologisch','');
 INSERT INTO DiagnosisType (name, type, description) VALUES ('Ein-/Durchschalfstörung','Psychologisch','');
 INSERT INTO DiagnosisType (name, type, description) VALUES ('Obstruktives Schlafapnoe-Syndrom','Psychologisch','Periodische Atemstörungen während des Schlafs');

@@ -690,7 +690,8 @@ public class PainFragment extends Fragment {
     private void updatePainPopup(pl.droidsonroids.gif.GifImageView view, float x, float y, float z, String name, PainSuperclass pain_type){
         //Resets the Coordinates of a gif view. If a coordinate is = -1.0, it will by default not be updated.
         //If the pain does not exist yet, the gif is set to invisible.
-        //40 and 120 is arbitrary, it adjusts the gif's position a bit to the upper left.
+        //80 and 160 is arbitrary, it adjusts the gif's position a bit to the upper left.
+        //The z-Value is the scaling of the gif.
         view.setScaleX((z/33) + 0.5f);
         view.setScaleY((z/33) + 0.5f);
         Log.d("Log", "Zitrone Melone "+ z);
@@ -839,8 +840,8 @@ public class PainFragment extends Fragment {
         }
 
         RadioButton rbn = new RadioButton(getContext());
-        String temp_string = date.substring(0, 4) + "/" + date.substring(4, 6) + "/" + date.substring(6, 8) + " " +
-                date.substring(8, 10) + ":" + date.substring(10, 12) + ":" + date.substring(12,14);
+        String temp_string = "  " + date.substring(0, 4) + "/" + date.substring(4, 6) + "/" + date.substring(6, 8) + " " +
+                date.substring(8, 10) + ":" + date.substring(10, 12) + ":" + date.substring(12,14) + "  ";
         rbn.setText(temp_string);
         rbn.setTag(date);
         rbn.setBackgroundResource(R.drawable.radiobutton_selector);
