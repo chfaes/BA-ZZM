@@ -598,13 +598,17 @@ public class PainFragment extends Fragment {
 
         //Initialize Buttons
         SeekBar popupSeekBar;
+        SeekBar popupSeekBar2;
         TextView btnSave;
         TextView btnAddPain;
+        TextView btnRemovePain;
         Button btnFoto;
         ImageView Photography;
         popupSeekBar = myDialog.findViewById(R.id.popupSeekBar);
+        popupSeekBar2 = myDialog.findViewById(R.id.popupSeekBar2);
         btnSave = myDialog.findViewById(R.id.btnSave);
         btnAddPain = myDialog.findViewById(R.id.btnAddPain);
+        btnRemovePain = myDialog.findViewById(R.id.btnRemovePain);
         btnFoto = myDialog.findViewById(R.id.btnTakePicture);
         Photography = myDialog.findViewById(R.id.painPhoto);
 
@@ -632,6 +636,24 @@ public class PainFragment extends Fragment {
             }
         });
 
+        btnRemovePain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PopupMenu popupMenu = new PopupMenu(getActivity(), view);
+                popupMenu.getMenuInflater().inflate(R.menu.pain_popup_menu, popupMenu.getMenu());
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        painOfPatient.deletePainCoordinates(menuItem.getTitle().toString());
+                        Toast.makeText(getActivity(), menuItem.getTitle().toString() + " was deleted.", Toast.LENGTH_SHORT).show();
+                        myDialog.dismiss();
+                        return true;
+                    }
+                });
+                popupMenu.show();
+            }
+        });
+
         //Camera Button
         btnFoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -650,16 +672,17 @@ public class PainFragment extends Fragment {
                     case(MotionEvent.ACTION_DOWN):
                         // Touching the screen sets new coordinates for the selected pain.
                         if (!addPainItem.equals("none")){
-                            Log.d("Log", "Zitrone "+ popupSeekBar.getProgress());
                             painOfPatient.setPainCoordinates(motionEvent.getX(),
                                                             motionEvent.getY(),
                                                             (float) popupSeekBar.getProgress(),
+                                                            (float) popupSeekBar2.getProgress(),
                                                             addPainItem);
-                            updatePainPopup(popup_gif_list.get(
-                                    painOfPatient.getPainList().indexOf(addPainItem)),
+                            updatePainPopup(
+                                    popup_gif_list.get(painOfPatient.getPainList().indexOf(addPainItem)),
                                     motionEvent.getX(),
                                     motionEvent.getY(),
                                     (float) popupSeekBar.getProgress(),
+                                    (float) popupSeekBar2.getProgress(),
                                     addPainItem,
                                     painOfPatient);
 
@@ -677,7 +700,8 @@ public class PainFragment extends Fragment {
             float x = Float.parseFloat(painOfPatient.getPainCoordinates(temp.get(i).toString()).get(0).toString());
             float y = Float.parseFloat(painOfPatient.getPainCoordinates(temp.get(i).toString()).get(1).toString());
             float z = Float.parseFloat(painOfPatient.getPainCoordinates(temp.get(i).toString()).get(2).toString());
-            updatePainPopup(popup_gif_list.get(i), x, y, z, temp.get(i).toString(), painOfPatient);
+            float t = Float.parseFloat(painOfPatient.getPainCoordinates(temp.get(i).toString()).get(3).toString());
+            updatePainPopup(popup_gif_list.get(i), x, y, z, t, temp.get(i).toString(), painOfPatient);
         }
         if (painOfPatient.existsPhoto()){
             Photography.setImageBitmap(painOfPatient.getPhoto());
@@ -687,14 +711,16 @@ public class PainFragment extends Fragment {
         myDialog.show();
     }
 
-    private void updatePainPopup(pl.droidsonroids.gif.GifImageView view, float x, float y, float z, String name, PainSuperclass pain_type){
+    private void updatePainPopup(pl.droidsonroids.gif.GifImageView view, float x, float y, float z, float t, String name, PainSuperclass pain_type){
         //Resets the Coordinates of a gif view. If a coordinate is = -1.0, it will by default not be updated.
         //If the pain does not exist yet, the gif is set to invisible.
         //80 and 160 is arbitrary, it adjusts the gif's position a bit to the upper left.
-        //The z-Value is the scaling of the gif.
+        //The z-Value is the scaling of the gif. The t-value corresponds to the transparency (alpha) value.
+        //Both z and t are expected to be in the range of 1-100.
         view.setScaleX((z/33) + 0.5f);
         view.setScaleY((z/33) + 0.5f);
-        Log.d("Log", "Zitrone Melone "+ z);
+        view.setAlpha((t * 0.008f) + 0.2f);
+        Log.d("Log", "Zitrone Melone "+ t);
         if (pain_type.painIsSet(name)){
             view.setVisibility(View.VISIBLE);
             ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) view.getLayoutParams();
@@ -711,7 +737,7 @@ public class PainFragment extends Fragment {
 
     private void setUpAllViewsBeginning() {
         Bitmap bmTeeth = BitmapFactory.decodeByteArray(painOfPatient.getLocation_teeth(), 0, painOfPatient.getLocation_teeth().length);
-        Bitmap bmFaceLeft = BitmapFactory.decodeByteArray(painOfPatient.getLocation_face_left(), 0, painOfPatient.getLocation_face_left().length);
+        //Bitmap bmFaceLeft = BitmapFactory.decodeByteArray(painOfPatient.getLocation_face_left(), 0, painOfPatient.getLocation_face_left().length);
         Bitmap bmFaceRight = BitmapFactory.decodeByteArray(painOfPatient.getLocation_face_right(), 0, painOfPatient.getLocation_face_right().length);
         ivLocationTeeth.setImageBitmap(bmTeeth);
         //ivLocationFaceLeft.setImageBitmap(bmFaceLeft);

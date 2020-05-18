@@ -89,6 +89,8 @@
     <string name="awareness">Sensibilisation accrue</string>
     <string name="other_reasons">Autres raisons</string>
 
+    <string name="new_element">Nouveau</string>
+
     <!-- Medien -->
     <string name="gallery">Galerie</string>
     <string name="videos">Vidéos</string>
@@ -125,7 +127,10 @@
     <string name="unbearable_pain">Douleur insupportable</string>
 
     <string name="add_pain">Ajouter douleur</string>
+    <string name="remove_pain">Enlever douler</string>
     <string name="take_picture">Prendre une photo</string>
+    <string name="pain_size">Calibre</string>
+    <string name="pain_alpha">Transparence</string>
 
     <!-- Zusammenfassung -->
     <string name="conclusion">Conclusion</string>

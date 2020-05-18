@@ -85,6 +85,8 @@
     <string name="work">Work</string>
     <string name="event">Event</string>
 
+    <string name="new_element">New</string>
+
     <string name="improvement_reason">Improvement Reason</string>
     <!--
     <string name="drugs">Medikamente</string>
@@ -129,7 +131,11 @@
     <string name="unbearable_pain">Unbearable Pain</string>
 
     <string name="add_pain">Add Pain</string>
+    <string name="remove_pain">Remove Pain</string>
     <string name="take_picture">Take Picture</string>
+
+    <string name="pain_size">Size</string>
+    <string name="pain_alpha">Transparency</string>
 
     <!-- Zusammenfassung -->
     <string name="conclusion">Conclusion</string>

@@ -108,6 +108,8 @@
     <string name="awareness">Необходимая понимание</string>
     <string name="other_reasons">Другие причины</string>
 
+    <string name="new_element">но́вый</string>
+
     <!-- Medien -->
     <string name="gallery">Галерея</string>
     <string name="videos">Видео</string>
@@ -143,9 +145,12 @@
     <string name="no_pain">без боли</string>
     <string name="unbearable_pain">невыносимая боль</string>
 
-    <string name="add_pain">причинять боль</string>
+    <string name="add_pain">причинять боли</string>
+    <string name="remove_pain">удаля́ть боли</string>
     <string name="take_picture">Фотографирование</string>
     <string name="models3d">3D модели</string>
+    <string name="pain_size">рост</string>
+    <string name="pain_alpha">откры́тость</string>
 
     <!-- Zusammenfassung -->
     <string name="conclusion">Завершить</string>

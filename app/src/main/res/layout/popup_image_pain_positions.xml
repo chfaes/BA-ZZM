@@ -75,7 +75,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.9"
-        app:layout_constraintStart_toEndOf="@+id/btnAddPain"
+        app:layout_constraintStart_toEndOf="@+id/btnRemovePain"
         app:layout_constraintTop_toBottomOf="@+id/ivDisplay"
         app:layout_constraintVertical_bias="0.0" />
 
@@ -209,12 +209,54 @@
 
     <SeekBar
         android:id="@+id/popupSeekBar"
-        android:layout_width="95dp"
+        android:layout_width="100dp"
         android:layout_height="17dp"
+        android:layout_marginHorizontal="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnTakePicture"
-        app:layout_constraintHorizontal_bias="0.09"
         app:layout_constraintStart_toEndOf="@+id/btnAddPain"
         app:layout_constraintTop_toBottomOf="@+id/ivDisplay" />
+
+    <SeekBar
+        android:id="@+id/popupSeekBar2"
+        android:layout_width="100dp"
+        android:layout_height="17dp"
+        android:layout_marginHorizontal="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/popupSeekBar"
+        app:layout_constraintTop_toBottomOf="@+id/ivDisplay" />
+
+    <TextView
+        android:id="@+id/textSize"
+        android:layout_width="100dp"
+        android:layout_height="20dp"
+        android:text="@string/pain_size"
+        android:textColor="#FFFFFF"
+        android:layout_marginHorizontal="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/textAlpha"
+        app:layout_constraintStart_toEndOf="@+id/btnAddPain"
+        app:layout_constraintTop_toBottomOf="@+id/popupSeekBar" />
+
+    <TextView
+        android:id="@+id/textAlpha"
+        android:layout_width="100dp"
+        android:layout_height="20dp"
+        android:text="@string/pain_alpha"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textSize"
+        app:layout_constraintTop_toBottomOf="@+id/popupSeekBar2" />
+
+    <Button
+        android:id="@+id/btnRemovePain"
+        android:layout_width="78dp"
+        android:layout_height="59dp"
+        android:background="@drawable/button_style"
+        android:text="@string/remove_pain"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:layout_marginHorizontal="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/popupSeekBar2" />
 
 </android.support.constraint.ConstraintLayout>

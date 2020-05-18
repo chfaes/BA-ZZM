@@ -25,7 +25,6 @@ public class MainActivity extends AppCompatActivity {
     private TextView tvAttemptsInfo;
     private TextView tvTest;
     private Button btnLogin;
-    private Button btnTest;
     private int counter = 3;
     private List<User> userList;
 
@@ -47,18 +46,10 @@ public class MainActivity extends AppCompatActivity {
         tvAttemptsInfo = (TextView) findViewById(R.id.tvAttempts);
 
         btnLogin = (Button) findViewById(R.id.btnLogin);
-        btnTest = (Button) findViewById(R.id.btnTest);
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 validate(etUsername.getText().toString(), etPassword.getText().toString());
-            }
-        });
-        btnTest.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                //Zitrone: Testactivity: Open testing page
-                startActivity(new Intent(MainActivity.this, TestActivity.class));
             }
         });
     }

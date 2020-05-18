@@ -35,9 +35,6 @@
         <activity android:name=".Activities.PatientSelectionActivity"
             android:screenOrientation="landscape">
         </activity>
-        <activity android:name=".Activities.TestActivity"
-            android:screenOrientation="landscape">
-        </activity>
         <!-- Indicates that app requires ARCore ("AR Required"). Causes the Google
          Play Store to download and install Google Play Services for AR along
          with the app. For an "AR Optional" app, specify "optional" instead of
