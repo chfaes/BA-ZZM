@@ -100,6 +100,8 @@ public class PsychosocialFragment extends Fragment implements ReasonDialog.Reaso
         db = new DatabaseHelper(getContext());
         rlBefore = view.findViewById(R.id.rlBefore);
         rlAfter = view.findViewById(R.id.rlAfter);
+        rlBefore.setTag("1");
+        rlAfter.setTag("2");
 
         btnPainBefore = view.findViewById(R.id.btnPainBefore);
         btnPainBefore.setOnTouchListener(new ChoiceTouchListener());
@@ -270,8 +272,13 @@ public class PsychosocialFragment extends Fragment implements ReasonDialog.Reaso
 
                     break;
                 case MotionEvent.ACTION_UP:
-                    Log.d("Log", "Zitrone " + X);
-                    if (view.getTag()!=null){psychoSocialAfterOfPatient.setCoordinates(view.getTag().toString(), layoutParams.leftMargin, layoutParams.topMargin);}
+                    //Tag == 1 is the "before"-side, Tag == 2 the "after".
+                    Log.d("Log", "Zitrone"+((View) view.getParent()).getTag());
+                    if(((View) view.getParent()).getTag()=="1"){
+                        if (view.getTag()!=null){psychoSocialBeforeOfPatient.setCoordinates(view.getTag().toString(), layoutParams.leftMargin, layoutParams.topMargin);}
+                    }else{
+                        if (view.getTag()!=null){psychoSocialAfterOfPatient.setCoordinates(view.getTag().toString(), layoutParams.leftMargin, layoutParams.topMargin);}
+                    }
                     savePositions();
                     setPsychoSocialBefore();
                     setPsychoSocialAfter();
@@ -614,7 +621,12 @@ public class PsychosocialFragment extends Fragment implements ReasonDialog.Reaso
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String str = input.getText().toString();
-                        psychoSocialBeforeOfPatient.setText(clickedItem.getTag().toString(), str);
+                        Log.d("Log", "Zitrone Melone "+((View) clickedItem.getParent()).getTag());
+                        if(((View) clickedItem.getParent()).getTag()=="1"){
+                            psychoSocialBeforeOfPatient.setText(clickedItem.getTag().toString(), str);
+                        }else{
+                            psychoSocialAfterOfPatient.setText(clickedItem.getTag().toString(), str);
+                        }
                         updatePsychoSocialText(clickedItem, str);
                     }
                 });
@@ -650,9 +662,16 @@ public class PsychosocialFragment extends Fragment implements ReasonDialog.Reaso
     private void updatePsychosocialColor(View clickedButton) {
         // Separate method for dynamically generated buttons: Flips the colour in the class itself,
         // then sets the button colour of the current button that we clicked on.
+        Log.d("Log", "Zitrone Orange "+((View) clickedButton.getParent()).getTag());
         if (clickedButton.getTag() != null){
-            psychoSocialBeforeOfPatient.flipColour(clickedButton.getTag().toString());
-            setButtonColor((Button) clickedButton, psychoSocialBeforeOfPatient.getByTagAndIndex(clickedButton.getTag().toString(), 3));
+            if(((View) clickedButton.getParent()).getTag()=="1"){
+                psychoSocialBeforeOfPatient.flipColour(clickedButton.getTag().toString());
+                setButtonColor((Button) clickedButton, psychoSocialBeforeOfPatient.getByTagAndIndex(clickedButton.getTag().toString(), 3));
+            }else{
+                psychoSocialAfterOfPatient.flipColour(clickedButton.getTag().toString());
+                setButtonColor((Button) clickedButton, psychoSocialAfterOfPatient.getByTagAndIndex(clickedButton.getTag().toString(), 3));
+            }
+
         }
         //.......................
         if (clickedButton.getParent().equals(rlBefore)) {
@@ -791,7 +810,15 @@ public class PsychosocialFragment extends Fragment implements ReasonDialog.Reaso
     private void updatePsychosocialSize(View clickedItem, int size) {
         // Separate method for dynamically added buttons
         if (clickedItem.getTag()!=null){
-            psychoSocialBeforeOfPatient.setSize(clickedItem.getTag().toString(), size);
+            //Zitrone
+            Log.d("Log", "Zitrone Banane "+((View) clickedItem.getParent()).getTag());
+            if(((View) clickedItem.getParent()).getTag()=="1"){
+                psychoSocialBeforeOfPatient.setSize(clickedItem.getTag().toString(), size);
+            }else{
+                psychoSocialAfterOfPatient.setSize(clickedItem.getTag().toString(), size);
+            }
+
+
         }
         //..........................
         switch (clickedItem.getId()) {

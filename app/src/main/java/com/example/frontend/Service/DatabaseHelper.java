@@ -239,6 +239,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "    event_ypos   int NOT NULL, " +
                 "    event_color  int NOT NULL, " +
                 "    event_size   int NOT NULL, " +
+                "    dynamic_buttons   string NOT NULL, " +
+                "    dynamic_texts   string NOT NULL, " +
                 "    FOREIGN KEY (patient_id) REFERENCES Patient (id) ON DELETE CASCADE " +
                 ")");
         db.execSQL("CREATE TABLE ImprovementReason " +
@@ -2360,6 +2362,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put("event_color", psychoSocialAfter.getEvent_color());
         values.put("event_size", psychoSocialAfter.getEvent_size());
 
+        values.put("dynamic_buttons", psychoSocialAfter.getValues_encoded());
+        values.put("dynamic_texts", psychoSocialAfter.getTexts_encoded());
+
         // Inserting Row
         db.insert("PsychoSocialAfter", null, values);
 
@@ -2397,6 +2402,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         psychoSocialAfter.setEvent_ypos(Integer.parseInt(cursor.getString(18)));
         psychoSocialAfter.setEvent_color(Integer.parseInt(cursor.getString(19)));
         psychoSocialAfter.setEvent_size(Integer.parseInt(cursor.getString(20)));
+        psychoSocialAfter.setValues_encoded(cursor.getString(21));
+        psychoSocialAfter.setTexts_encoded(cursor.getString(22));
 
         // return psychoSocialAfter
         return psychoSocialAfter;
@@ -2435,6 +2442,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 psychoSocialAfter.setEvent_ypos(Integer.parseInt(cursor.getString(18)));
                 psychoSocialAfter.setEvent_color(Integer.parseInt(cursor.getString(19)));
                 psychoSocialAfter.setEvent_size(Integer.parseInt(cursor.getString(20)));
+                psychoSocialAfter.setValues_encoded(cursor.getString(21));
+                psychoSocialAfter.setTexts_encoded(cursor.getString(22));
                 // Adding psychoSocialAfter to list
                 psychoSocialAfterList.add(psychoSocialAfter);
             } while (cursor.moveToNext());
@@ -2474,6 +2483,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put("event_ypos", psychoSocialAfter.getEvent_ypos());
         values.put("event_color", psychoSocialAfter.getEvent_color());
         values.put("event_size", psychoSocialAfter.getEvent_size());
+
+        values.put("dynamic_buttons", psychoSocialAfter.getValues_encoded());
+        values.put("dynamic_texts", psychoSocialAfter.getTexts_encoded());
 
         // updating row
         return db.update("PsychoSocialAfter", values, "patient_id = ?",
