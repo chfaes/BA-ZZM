@@ -24,7 +24,7 @@ public abstract class PainSuperclass implements Serializable {
     private String values_encoded;
     private String testString; //Zitrone
     private  ArrayList<String> pain_list = new ArrayList<String>(Arrays.asList("pulsating",
-            "pulling", "numb", "stinging", "burning", "tingling", "pins and needles", "dull"));
+            "pulling", "numb", "stinging", "burning", "tingling", "pins and needles", "dull", "electric", "pressing"));
 
     public abstract int getPatient_id();
 
@@ -81,6 +81,14 @@ public abstract class PainSuperclass implements Serializable {
     public abstract boolean isNumb();
 
     public abstract void setNumb(boolean numb);
+
+    public abstract boolean isElectric();
+
+    public abstract void setElectric(boolean electric);
+
+    public abstract boolean isPressing();
+
+    public abstract void setPressing(boolean pressing);
 
     public abstract String getComment();
 

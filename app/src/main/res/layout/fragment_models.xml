@@ -36,7 +36,7 @@
                 android:drawableLeft="@drawable/ic_model"
                 android:drawablePadding="10dp"
                 android:paddingHorizontal="30dp"
-                android:text="@string/EMB3D"
+                android:text="@string/models3d"
                 android:textAllCaps="false" />
             <TextView
                 android:layout_width="match_parent"

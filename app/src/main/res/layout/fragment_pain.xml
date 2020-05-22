@@ -212,6 +212,34 @@
                 app:layout_constraintVertical_bias="0.0"
                 tools:layout_editor_absoluteX="0dp" />
 
+            <pl.droidsonroids.gif.GifImageView
+                android:id="@+id/fragment_pain_gif09"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:adjustViewBounds="true"
+                android:background="@android:color/transparent"
+                android:padding="1dp"
+                android:src="@drawable/pain_gif_empty"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivLocationTeeth"
+                app:layout_constraintVertical_bias="0.0"
+                tools:layout_editor_absoluteX="0dp" />
+
+            <pl.droidsonroids.gif.GifImageView
+                android:id="@+id/fragment_pain_gif10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:adjustViewBounds="true"
+                android:background="@android:color/transparent"
+                android:padding="1dp"
+                android:src="@drawable/pain_gif_empty"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivLocationTeeth"
+                app:layout_constraintVertical_bias="0.0"
+                tools:layout_editor_absoluteX="0dp" />
+
             <ImageView
                 android:id="@+id/ivLocationFaceRight"
                 android:layout_width="match_parent"
@@ -296,6 +324,16 @@
                         android:textAllCaps="false" />
 
                     <Button
+                        android:id="@+id/btnElectric"
+                        android:layout_width="150dp"
+                        android:layout_height="32dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/button_selector_effect"
+                        android:text="@string/electric"
+                        android:textAllCaps="false" />
+
+                    <Button
                         android:id="@+id/btnPulling"
                         android:layout_width="150dp"
                         android:layout_height="32dp"
@@ -339,6 +377,16 @@
                         android:layout_weight="1"
                         android:background="@drawable/button_selector_effect"
                         android:text="@string/burning"
+                        android:textAllCaps="false" />
+
+                    <Button
+                        android:id="@+id/btnPressing"
+                        android:layout_width="150dp"
+                        android:layout_height="32dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/button_selector_effect"
+                        android:text="@string/pressing"
                         android:textAllCaps="false" />
 
                     <Button

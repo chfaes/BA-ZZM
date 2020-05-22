@@ -20,6 +20,8 @@ public class PainCurrent extends PainSuperclass {
     private boolean pinsneedles;
     private boolean tingling;
     private boolean numb;
+    private boolean electric;
+    private boolean pressing;
     private String comment;
 
 
@@ -41,6 +43,7 @@ public class PainCurrent extends PainSuperclass {
         this.pinsneedles = pinsneedles;
         this.tingling = tingling;
         this.numb = numb;
+        this.electric = electric;
         this.comment = comment;
     }
 
@@ -160,6 +163,22 @@ public class PainCurrent extends PainSuperclass {
 
     public void setNumb(boolean numb) {
         this.numb = numb;
+    }
+
+    public boolean isElectric() {
+        return electric;
+    }
+
+    public void setElectric(boolean electric) {
+        this.electric = electric;
+    }
+
+    public boolean isPressing() {
+        return pressing;
+    }
+
+    public void setPressing(boolean pressing) {
+        this.pressing = pressing;
     }
 
     public String getComment() {

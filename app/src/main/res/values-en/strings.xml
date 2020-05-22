@@ -126,6 +126,8 @@
     <string name="pinsandneedles">pins and needles</string>
     <string name="tingling">tingling</string>
     <string name="numb">numb</string>
+    <string name="electric">electric</string>
+    <string name="pressing">pressing</string>
 
     <string name="no_pain">No Pain</string>
     <string name="unbearable_pain">Unbearable Pain</string>

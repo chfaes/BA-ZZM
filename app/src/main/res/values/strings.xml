@@ -141,6 +141,8 @@
     <string name="pinsandneedles">kribbelnd</string>
     <string name="tingling">prickelnd</string>
     <string name="numb">taub</string>
+    <string name="electric">elektrisch</string>
+    <string name="pressing">drückend</string>
 
     <string name="no_pain">Kein Schmerz</string>
     <string name="unbearable_pain">Unerträglicher Schmerz</string>

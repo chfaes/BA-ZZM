@@ -13,6 +13,7 @@ import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Browser;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -73,6 +74,8 @@ public class PainFragment extends Fragment {
     private pl.droidsonroids.gif.GifImageView pain_gif_06;
     private pl.droidsonroids.gif.GifImageView pain_gif_07;
     private pl.droidsonroids.gif.GifImageView pain_gif_08;
+    private pl.droidsonroids.gif.GifImageView pain_gif_09;
+    private pl.droidsonroids.gif.GifImageView pain_gif_10;
     private int openedLocationImage;
     private String addPainItem;
     RadioGroup rgBeginningCurrent;
@@ -90,6 +93,8 @@ public class PainFragment extends Fragment {
     Button btnTingling;
     Button btnPinsandneedles;
     Button btnNumb;
+    Button btnElectric;
+    Button btnPressing;
     Button btnAddNewRB;
     Button btn3d;
 
@@ -134,7 +139,11 @@ public class PainFragment extends Fragment {
     private View.OnClickListener onClickOpen3d = new View.OnClickListener(){
         @Override
         public void onClick(View view){
-            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://192.168.43.51/"));
+            //This URL format inputs Username and Password automatically.
+            //zzm.ifi.uzh.ch can be accessed manually any time, but username "webuser" and password
+            //"Suach8qu" would then have to be entered manually as well.
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://webuser:Suach8qu@zzm.ifi.uzh.ch/"));
+
             startActivity(browserIntent);
         }
     };
@@ -198,6 +207,12 @@ public class PainFragment extends Fragment {
                 case R.id.btnNumb:
                     painOfPatient.setNumb(!painOfPatient.isNumb());
                     break;
+                case R.id.btnElectric:
+                    painOfPatient.setElectric(!painOfPatient.isElectric());
+                    break;
+                case R.id.btnPressing:
+                    painOfPatient.setPressing(!painOfPatient.isPressing());
+                    break;
             }
             updatePainDisplay(painOfPatient);
         }
@@ -252,6 +267,8 @@ public class PainFragment extends Fragment {
         btnTingling = view.findViewById(R.id.btnTingling);
         btnPinsandneedles = view.findViewById(R.id.btnPinsandneedles);
         btnNumb = view.findViewById(R.id.btnNumb);
+        btnElectric = view.findViewById(R.id.btnElectric);
+        btnPressing = view.findViewById(R.id.btnPressing);
         btnAddNewRB = view.findViewById(R.id.BtnAddNew);
         btn3d = view.findViewById(R.id.Btn3d);
         pain_gif_01 = view.findViewById(R.id.fragment_pain_gif01);
@@ -262,6 +279,8 @@ public class PainFragment extends Fragment {
         pain_gif_06 = view.findViewById(R.id.fragment_pain_gif06);
         pain_gif_07 = view.findViewById(R.id.fragment_pain_gif07);
         pain_gif_08 = view.findViewById(R.id.fragment_pain_gif08);
+        pain_gif_09 = view.findViewById(R.id.fragment_pain_gif09);
+        pain_gif_10 = view.findViewById(R.id.fragment_pain_gif10);
 
         btnDull.setOnClickListener(onQualityClickListener);
         btnPulling.setOnClickListener(onQualityClickListener);
@@ -271,6 +290,8 @@ public class PainFragment extends Fragment {
         btnTingling.setOnClickListener(onQualityClickListener);
         btnPinsandneedles.setOnClickListener(onQualityClickListener);
         btnNumb.setOnClickListener(onQualityClickListener);
+        btnElectric.setOnClickListener(onQualityClickListener);
+        btnPressing.setOnClickListener(onQualityClickListener);
 
         btnAddNewRB.setOnClickListener(onClickAddNewRB);
         btn3d.setOnClickListener(onClickOpen3d);
@@ -366,6 +387,8 @@ public class PainFragment extends Fragment {
         pain_gif_06.setImageResource(R.drawable.pain_gif_empty);
         pain_gif_07.setImageResource(R.drawable.pain_gif_empty);
         pain_gif_08.setImageResource(R.drawable.pain_gif_empty);
+        pain_gif_09.setImageResource(R.drawable.pain_gif_empty);
+        pain_gif_10.setImageResource(R.drawable.pain_gif_empty);
         if (painObject.isPulsating()) {
             pain_gif_01.setImageResource(R.drawable.pain_gif_01);
         }
@@ -389,6 +412,12 @@ public class PainFragment extends Fragment {
         }
         if (painObject.isNumb()) {
             pain_gif_08.setImageResource(R.drawable.pain_gif_08);
+        }
+        if (painObject.isElectric()) {
+            pain_gif_09.setImageResource(R.drawable.pain_gif_09);
+        }
+        if (painObject.isPressing()) {
+            pain_gif_10.setImageResource(R.drawable.pain_gif_10);
         }
 
     }
@@ -445,6 +474,8 @@ public class PainFragment extends Fragment {
         painOfPatient.setPinsneedles(false);
         painOfPatient.setTingling(false);
         painOfPatient.setNumb(false);
+        painOfPatient.setElectric(false);
+        painOfPatient.setPressing(false);
         painOfPatient.setComment("");
     }
 
@@ -582,6 +613,7 @@ public class PainFragment extends Fragment {
         }
 
         //Set all gifs, create gif array
+        Log.d("Log", "Zitrone 1");
         myDialog.setContentView(R.layout.popup_image_pain_positions);
         pl.droidsonroids.gif.GifImageView popup_gif_01 = myDialog.findViewById(R.id.popup_pain_gif01);
         pl.droidsonroids.gif.GifImageView popup_gif_02 = myDialog.findViewById(R.id.popup_pain_gif02);
@@ -591,11 +623,13 @@ public class PainFragment extends Fragment {
         pl.droidsonroids.gif.GifImageView popup_gif_06 = myDialog.findViewById(R.id.popup_pain_gif06);
         pl.droidsonroids.gif.GifImageView popup_gif_07 = myDialog.findViewById(R.id.popup_pain_gif07);
         pl.droidsonroids.gif.GifImageView popup_gif_08 = myDialog.findViewById(R.id.popup_pain_gif08);
+        pl.droidsonroids.gif.GifImageView popup_gif_09 = myDialog.findViewById(R.id.popup_pain_gif09);
+        pl.droidsonroids.gif.GifImageView popup_gif_10 = myDialog.findViewById(R.id.popup_pain_gif10);
         ArrayList<pl.droidsonroids.gif.GifImageView> popup_gif_list = new ArrayList<>(Arrays.asList(
                 popup_gif_01, popup_gif_02, popup_gif_03, popup_gif_04, popup_gif_05, popup_gif_06,
-                popup_gif_07, popup_gif_08));
+                popup_gif_07, popup_gif_08, popup_gif_09, popup_gif_10));
         addPainItem = "none";
-
+        Log.d("Log", "Zitrone 2");
         //Initialize Buttons
         SeekBar popupSeekBar;
         SeekBar popupSeekBar2;
@@ -611,7 +645,7 @@ public class PainFragment extends Fragment {
         btnRemovePain = myDialog.findViewById(R.id.btnRemovePain);
         btnFoto = myDialog.findViewById(R.id.btnTakePicture);
         Photography = myDialog.findViewById(R.id.painPhoto);
-
+        Log.d("Log", "Zitrone 3");
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -653,7 +687,7 @@ public class PainFragment extends Fragment {
                 popupMenu.show();
             }
         });
-
+        Log.d("Log", "Zitrone 4");
         //Camera Button
         btnFoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -692,7 +726,7 @@ public class PainFragment extends Fragment {
                 return true;
             }
         });
-
+        Log.d("Log", "Zitrone 5");
         // Update all view coordinates before opening the popup; update Photography if exists.
 
         ArrayList temp = painOfPatient.getPainList();
@@ -707,7 +741,7 @@ public class PainFragment extends Fragment {
             Photography.setImageBitmap(painOfPatient.getPhoto());
             Photography.setVisibility(View.VISIBLE);
         }
-
+        Log.d("Log", "Zitrone 6");
         myDialog.show();
     }
 
@@ -788,6 +822,12 @@ public class PainFragment extends Fragment {
         if (painOfPatient.isNumb()) {
             selectDeselectView(btnNumb);
         }
+        if (painOfPatient.isElectric()) {
+            selectDeselectView(btnElectric);
+        }
+        if (painOfPatient.isPressing()) {
+            selectDeselectView(btnPressing);
+        }
         updatePainDisplay(painOfPatient);
     }
 
@@ -800,6 +840,8 @@ public class PainFragment extends Fragment {
         btnPulsating.setSelected(false);
         btnStinging.setSelected(false);
         btnTingling.setSelected(false);
+        btnElectric.setSelected(false);
+        btnPressing.setSelected(false);
 
         btnDull.setTextColor(Color.BLACK);
         btnBurning.setTextColor(Color.BLACK);
@@ -809,6 +851,8 @@ public class PainFragment extends Fragment {
         btnStinging.setTextColor(Color.BLACK);
         btnTingling.setTextColor(Color.BLACK);
         btnPulsating.setTextColor(Color.BLACK);
+        btnElectric.setTextColor(Color.BLACK);
+        btnPressing.setTextColor(Color.BLACK);
 
     }
 
@@ -906,6 +950,8 @@ public class PainFragment extends Fragment {
         pain.setPinsneedles(false);
         pain.setTingling(false);
         pain.setNumb(false);
+        pain.setElectric(false);
+        pain.setPressing(false);
         pain.setComment("");
 
         return pain;

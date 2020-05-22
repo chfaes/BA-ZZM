@@ -122,6 +122,8 @@
     <string name="pinsandneedles">fourmillement</string>
     <string name="tingling">picotement</string>
     <string name="numb">engourdie</string>
+    <string name="electric">électrique</string>
+    <string name="pressing">oppressant</string>
 
     <string name="no_pain">Aucune douleur</string>
     <string name="unbearable_pain">Douleur insupportable</string>

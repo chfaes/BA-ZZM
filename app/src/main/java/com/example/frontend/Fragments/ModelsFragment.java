@@ -127,13 +127,11 @@ public class ModelsFragment extends Fragment {
         btnAnomalous.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://192.168.0.95/"));
+                //This URL format inputs Username and Password automatically.
+                //zzm.ifi.uzh.ch can be accessed manually any time, but username "webuser" and password
+                //"Suach8qu" would then have to be entered manually as well.
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://webuser:Suach8qu@zzm.ifi.uzh.ch/"));
                 startActivity(browserIntent);
-                /*
-                Intent i = getActivity()
-                        .getPackageManager()
-                        .getLaunchIntentForPackage("com.transformandlighting.emb3d");
-                startActivity(i);*/
             }
         });
 

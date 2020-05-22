@@ -16,5 +16,9 @@
         android:title="@string/pinsandneedles"/>
     <item android:id="@+id/item8"
         android:title="@string/numb"/>
+    <item android:id="@+id/item9"
+        android:title="@string/electric"/>
+    <item android:id="@+id/item10"
+        android:title="@string/pressing"/>
 
 </menu>

@@ -615,7 +615,7 @@ public class PsychosocialFragment extends Fragment implements ReasonDialog.Reaso
                 AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                 builder.setTitle("Text");
                 final EditText input = new EditText(view.getContext());
-                input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                input.setInputType(InputType.TYPE_CLASS_TEXT);//| InputType.TYPE_TEXT_VARIATION_PASSWORD
                 builder.setView(input);
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override

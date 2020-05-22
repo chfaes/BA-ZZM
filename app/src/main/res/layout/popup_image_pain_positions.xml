@@ -207,6 +207,38 @@
         app:layout_constraintTop_toTopOf="@+id/ivDisplay"
         app:layout_constraintVertical_bias="0.0" />
 
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/popup_pain_gif09"
+        android:layout_width="160dp"
+        android:layout_height="120dp"
+        android:layout_marginBottom="152dp"
+        android:adjustViewBounds="true"
+        android:background="#00000000"
+        android:padding="1dp"
+        android:src="@drawable/pain_gif_09_small"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ivDisplay"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/popup_pain_gif10"
+        android:layout_width="160dp"
+        android:layout_height="120dp"
+        android:layout_marginBottom="152dp"
+        android:adjustViewBounds="true"
+        android:background="#00000000"
+        android:padding="1dp"
+        android:src="@drawable/pain_gif_10_small"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ivDisplay"
+        app:layout_constraintVertical_bias="0.0" />
+
     <SeekBar
         android:id="@+id/popupSeekBar"
         android:layout_width="100dp"
