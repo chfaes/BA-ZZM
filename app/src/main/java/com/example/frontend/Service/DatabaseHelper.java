@@ -104,7 +104,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS WebsiteType");
         db.execSQL("DROP TABLE IF EXISTS PatientWebsite");
         db.execSQL("DROP TABLE IF EXISTS PainBeginning");
-        db.execSQL("DROP TABLE IF EXISTS PainCurrent");
+        //db.execSQL("DROP TABLE IF EXISTS PainCurrent");
         db.execSQL("DROP TABLE IF EXISTS Pain");
 
         // Create tables again
@@ -315,7 +315,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "    spatial_information string, " +
                 "    FOREIGN KEY (patient_id) REFERENCES Patient (id) ON DELETE CASCADE " +
                 ")");
-        db.execSQL("CREATE TABLE PainCurrent " +
+        /*db.execSQL("CREATE TABLE PainCurrent " +
                 "( " +
                 "    patient_id int  PRIMARY KEY, " +
                 "    intensity int, " +
@@ -335,7 +335,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "    test_string string, " +
                 "    spatial_information string, " +
                 "    FOREIGN KEY (patient_id) REFERENCES Patient (id) ON DELETE CASCADE " +
-                ")");
+                ")");*/
         db.execSQL("CREATE TABLE Pain " +
                 "( " +
                 "    patient_id int, " +

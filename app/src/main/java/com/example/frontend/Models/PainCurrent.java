@@ -5,8 +5,8 @@ import android.util.Base64;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class PainCurrent extends PainSuperclass {
-    private int patient_id;
+public class PainCurrent implements Serializable {
+    /*private int patient_id;
     private int intensity;
     private String location_teeth;
     private String location_face_left;
@@ -190,5 +190,5 @@ public class PainCurrent extends PainSuperclass {
     }
 
 
-
+*/
 }

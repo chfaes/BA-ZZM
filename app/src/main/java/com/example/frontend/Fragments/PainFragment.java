@@ -41,7 +41,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.frontend.Models.PainBeginning;
-import com.example.frontend.Models.PainSuperclass;
 import com.example.frontend.R;
 import com.example.frontend.Service.DatabaseHelper;
 
@@ -375,7 +374,7 @@ public class PainFragment extends Fragment {
         }
     }
 
-    private void updatePainDisplay(PainSuperclass painObject){
+    private void updatePainDisplay(PainBeginning painObject){
         //Updates the gifs to match the current selection of pain qualities. Note that
         //there is no distinction between "pins and needles" and "tingling" (both equal
         //to gif06).
@@ -745,7 +744,7 @@ public class PainFragment extends Fragment {
         myDialog.show();
     }
 
-    private void updatePainPopup(pl.droidsonroids.gif.GifImageView view, float x, float y, float z, float t, String name, PainSuperclass pain_type){
+    private void updatePainPopup(pl.droidsonroids.gif.GifImageView view, float x, float y, float z, float t, String name, PainBeginning pain_type){
         //Resets the Coordinates of a gif view. If a coordinate is = -1.0, it will by default not be updated.
         //If the pain does not exist yet, the gif is set to invisible.
         //80 and 160 is arbitrary, it adjusts the gif's position a bit to the upper left.

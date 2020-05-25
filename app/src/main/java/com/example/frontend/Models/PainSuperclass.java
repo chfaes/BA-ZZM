@@ -16,8 +16,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public abstract class PainSuperclass implements Serializable {
-    //This class is here to encompass PainBeginning and PainCurrent such that
-    //objects of either type can be passed as "PainSuperclass" arguments to functions.
     private static final long serialVersionUID = -5066376132252162292L; //dirty fix: copied the value from the error message; couldn't decode properly.
     private ProxyBitmap Photography;
     private Map<String, ArrayList<Float>> values = new HashMap();

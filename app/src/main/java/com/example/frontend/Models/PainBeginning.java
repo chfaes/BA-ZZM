@@ -1,12 +1,16 @@
 package com.example.frontend.Models;
 
+import android.graphics.Bitmap;
 import android.util.Base64;
+import android.util.Log;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
-public class PainBeginning extends PainSuperclass {
+public class PainBeginning implements Serializable {
     private int patient_id;
     private int intensity;
     private String location_teeth;
@@ -24,10 +28,17 @@ public class PainBeginning extends PainSuperclass {
     private boolean electric;
     private boolean pressing;
     private String comment;
+    private static final long serialVersionUID = -5066376132252162292L; //dirty fix: copied the value from the error message; couldn't decode properly.
+    private ProxyBitmap Photography;
+    private Map<String, ArrayList<Float>> values = new HashMap();
+    private String values_encoded;
+    private String testString; //Zitrone
+    private  ArrayList<String> pain_list = new ArrayList<String>(Arrays.asList("pulsating",
+            "pulling", "numb", "stinging", "burning", "tingling", "pins and needles", "dull", "electric", "pressing"));
 
     public PainBeginning() {
     }
-
+/*
     public PainBeginning(int patient_id, int intensity, String location_teeth, String location_face_left, String location_face_right, String pain_pattern, boolean dull, boolean pulling, boolean stinging, boolean pulsating, boolean burning, boolean pinsneedles, boolean tingling, boolean numb, String comment) {
         this.patient_id = patient_id;
         this.intensity = intensity;
@@ -44,7 +55,7 @@ public class PainBeginning extends PainSuperclass {
         this.tingling = tingling;
         this.numb = numb;
         this.comment = comment;
-    }
+    }*/
 
     public int getPatient_id() {
         return patient_id;
@@ -187,4 +198,48 @@ public class PainBeginning extends PainSuperclass {
     public void setComment(String comment) {
         this.comment = comment;
     }
+
+    public void setPhoto(Bitmap bmp){
+        Photography = new ProxyBitmap(bmp);
+    }
+
+    public Bitmap getPhoto(){
+        return Photography.getBitmap();
+    }
+
+    public boolean existsPhoto(){
+        return Photography!=null;
+    }
+
+    public void setPainCoordinates(Float x, Float y, Float z, Float t, String painType){
+        //Stores the x, y, z and t coordinates of a pain type in the hashmap.
+        ArrayList<Float> templist = new ArrayList<>(Arrays.asList((float) x, y, z, t));
+        values.put(painType, templist);
+        //encoding();
+    }
+
+    public void deletePainCoordinates(String painType){
+        Log.d("Log", "Zitrone Mandarine "+ painType);
+        values.remove(painType);
+    }
+
+    public ArrayList getPainCoordinates(String painType){
+        //returns [-1.0, -1.0, -1.0, -1.0] if painType does not exist in the hashmap.
+        //decoding();
+        ArrayList<Float> templist = new ArrayList<>(Arrays.asList((float) -1.0f, -1.0f, -1.0f, -1.0f));
+        if (values.get(painType) != null ){
+            templist.clear();
+            templist = values.get(painType);
+        }
+        return templist;
+    }
+
+    public boolean painIsSet(String painType){
+        //checks if painType is part of the hashmap
+        return values.get(painType) != null;
+    }
+
+    public ArrayList getPainList(){return pain_list;}
+
+
 }
