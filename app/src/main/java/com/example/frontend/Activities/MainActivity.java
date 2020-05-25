@@ -75,9 +75,8 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         if (!userFound){
-            //Zitrone: counter auskommentiert. Ggf. ganz entfernen.
-            //counter--;
-            tvAttemptsInfo.setText("Anzahl übriger Versuche: " + counter + ". Momentan gibts unendlich viele Versuche. Siehe MainActivity.java.");
+            counter--;
+            tvAttemptsInfo.setText("Anzahl übriger Versuche: " + counter);
             if (counter == 0) {
                 btnLogin.setEnabled(false);
             }
