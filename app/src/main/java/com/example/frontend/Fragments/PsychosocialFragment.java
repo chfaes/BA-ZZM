@@ -273,7 +273,6 @@ public class PsychosocialFragment extends Fragment implements ReasonDialog.Reaso
                     break;
                 case MotionEvent.ACTION_UP:
                     //Tag == 1 is the "before"-side, Tag == 2 the "after".
-                    Log.d("Log", "Zitrone"+((View) view.getParent()).getTag());
                     if(((View) view.getParent()).getTag()=="1"){
                         if (view.getTag()!=null){psychoSocialBeforeOfPatient.setCoordinates(view.getTag().toString(), layoutParams.leftMargin, layoutParams.topMargin);}
                     }else{
@@ -621,7 +620,6 @@ public class PsychosocialFragment extends Fragment implements ReasonDialog.Reaso
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String str = input.getText().toString();
-                        Log.d("Log", "Zitrone Melone "+((View) clickedItem.getParent()).getTag());
                         if(((View) clickedItem.getParent()).getTag()=="1"){
                             psychoSocialBeforeOfPatient.setText(clickedItem.getTag().toString(), str);
                         }else{
@@ -662,7 +660,6 @@ public class PsychosocialFragment extends Fragment implements ReasonDialog.Reaso
     private void updatePsychosocialColor(View clickedButton) {
         // Separate method for dynamically generated buttons: Flips the colour in the class itself,
         // then sets the button colour of the current button that we clicked on.
-        Log.d("Log", "Zitrone Orange "+((View) clickedButton.getParent()).getTag());
         if (clickedButton.getTag() != null){
             if(((View) clickedButton.getParent()).getTag()=="1"){
                 psychoSocialBeforeOfPatient.flipColour(clickedButton.getTag().toString());
@@ -810,8 +807,6 @@ public class PsychosocialFragment extends Fragment implements ReasonDialog.Reaso
     private void updatePsychosocialSize(View clickedItem, int size) {
         // Separate method for dynamically added buttons
         if (clickedItem.getTag()!=null){
-            //Zitrone
-            Log.d("Log", "Zitrone Banane "+((View) clickedItem.getParent()).getTag());
             if(((View) clickedItem.getParent()).getTag()=="1"){
                 psychoSocialBeforeOfPatient.setSize(clickedItem.getTag().toString(), size);
             }else{

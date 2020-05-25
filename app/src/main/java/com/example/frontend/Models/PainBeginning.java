@@ -31,31 +31,11 @@ public class PainBeginning implements Serializable {
     private static final long serialVersionUID = -5066376132252162292L; //dirty fix: copied the value from the error message; couldn't decode properly.
     private ProxyBitmap Photography;
     private Map<String, ArrayList<Float>> values = new HashMap();
-    private String values_encoded;
-    private String testString; //Zitrone
     private  ArrayList<String> pain_list = new ArrayList<String>(Arrays.asList("pulsating",
             "pulling", "numb", "stinging", "burning", "tingling", "pins and needles", "dull", "electric", "pressing"));
 
     public PainBeginning() {
     }
-/*
-    public PainBeginning(int patient_id, int intensity, String location_teeth, String location_face_left, String location_face_right, String pain_pattern, boolean dull, boolean pulling, boolean stinging, boolean pulsating, boolean burning, boolean pinsneedles, boolean tingling, boolean numb, String comment) {
-        this.patient_id = patient_id;
-        this.intensity = intensity;
-        this.location_teeth = location_teeth;
-        this.location_face_left = location_face_left;
-        this.location_face_right = location_face_right;
-        this.pain_pattern = pain_pattern;
-        this.dull = dull;
-        this.pulling = pulling;
-        this.stinging = stinging;
-        this.pulsating = pulsating;
-        this.burning = burning;
-        this.pinsneedles = pinsneedles;
-        this.tingling = tingling;
-        this.numb = numb;
-        this.comment = comment;
-    }*/
 
     public int getPatient_id() {
         return patient_id;
@@ -215,17 +195,14 @@ public class PainBeginning implements Serializable {
         //Stores the x, y, z and t coordinates of a pain type in the hashmap.
         ArrayList<Float> templist = new ArrayList<>(Arrays.asList((float) x, y, z, t));
         values.put(painType, templist);
-        //encoding();
     }
 
     public void deletePainCoordinates(String painType){
-        Log.d("Log", "Zitrone Mandarine "+ painType);
         values.remove(painType);
     }
 
     public ArrayList getPainCoordinates(String painType){
         //returns [-1.0, -1.0, -1.0, -1.0] if painType does not exist in the hashmap.
-        //decoding();
         ArrayList<Float> templist = new ArrayList<>(Arrays.asList((float) -1.0f, -1.0f, -1.0f, -1.0f));
         if (values.get(painType) != null ){
             templist.clear();

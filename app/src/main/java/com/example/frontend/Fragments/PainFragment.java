@@ -612,7 +612,6 @@ public class PainFragment extends Fragment {
         }
 
         //Set all gifs, create gif array
-        Log.d("Log", "Zitrone 1");
         myDialog.setContentView(R.layout.popup_image_pain_positions);
         pl.droidsonroids.gif.GifImageView popup_gif_01 = myDialog.findViewById(R.id.popup_pain_gif01);
         pl.droidsonroids.gif.GifImageView popup_gif_02 = myDialog.findViewById(R.id.popup_pain_gif02);
@@ -628,7 +627,6 @@ public class PainFragment extends Fragment {
                 popup_gif_01, popup_gif_02, popup_gif_03, popup_gif_04, popup_gif_05, popup_gif_06,
                 popup_gif_07, popup_gif_08, popup_gif_09, popup_gif_10));
         addPainItem = "none";
-        Log.d("Log", "Zitrone 2");
         //Initialize Buttons
         SeekBar popupSeekBar;
         SeekBar popupSeekBar2;
@@ -644,7 +642,6 @@ public class PainFragment extends Fragment {
         btnRemovePain = myDialog.findViewById(R.id.btnRemovePain);
         btnFoto = myDialog.findViewById(R.id.btnTakePicture);
         Photography = myDialog.findViewById(R.id.painPhoto);
-        Log.d("Log", "Zitrone 3");
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -686,7 +683,7 @@ public class PainFragment extends Fragment {
                 popupMenu.show();
             }
         });
-        Log.d("Log", "Zitrone 4");
+
         //Camera Button
         btnFoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -725,9 +722,8 @@ public class PainFragment extends Fragment {
                 return true;
             }
         });
-        Log.d("Log", "Zitrone 5");
-        // Update all view coordinates before opening the popup; update Photography if exists.
 
+        // Update all view coordinates before opening the popup; update Photography if exists.
         ArrayList temp = painOfPatient.getPainList();
         for (int i = 0; i < temp.size(); i++) {
             float x = Float.parseFloat(painOfPatient.getPainCoordinates(temp.get(i).toString()).get(0).toString());
@@ -740,7 +736,7 @@ public class PainFragment extends Fragment {
             Photography.setImageBitmap(painOfPatient.getPhoto());
             Photography.setVisibility(View.VISIBLE);
         }
-        Log.d("Log", "Zitrone 6");
+
         myDialog.show();
     }
 
@@ -753,7 +749,6 @@ public class PainFragment extends Fragment {
         view.setScaleX((z/33) + 0.5f);
         view.setScaleY((z/33) + 0.5f);
         view.setAlpha((t * 0.008f) + 0.2f);
-        Log.d("Log", "Zitrone Melone "+ t);
         if (pain_type.painIsSet(name)){
             view.setVisibility(View.VISIBLE);
             ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) view.getLayoutParams();

@@ -7,7 +7,6 @@ import com.example.frontend.Models.ExerciseType;
 import com.example.frontend.Models.ImprovementReason;
 import com.example.frontend.Models.Note;
 import com.example.frontend.Models.PainBeginning;
-import com.example.frontend.Models.PainCurrent;
 import com.example.frontend.Models.Patient;
 import com.example.frontend.Models.PatientDiagnosis;
 import com.example.frontend.Models.PatientDocument;
@@ -304,16 +303,4 @@ public interface JsonPlaceHolderApi {
     @GET("pain/beginning/exists/{patient_id}")
     Call<Boolean> existsPainBeginning(@Path("patient_id") int patient_id);
 
-
-    @POST("pain/current")
-    Call<ResponseBody> createPainCurrent(@Body PainCurrent painCurrent);
-
-    @PUT("pain/current/{patient_id}")
-    Call<ResponseBody> updatePainCurrent(@Path("patient_id") int patient_id, @Body PainCurrent painCurrent);
-
-    @GET("pain/current/{patient_id}")
-    Call<PainCurrent> getPainCurrent(@Path("patient_id") int patient_id);
-
-    @GET("pain/current/exists/{patient_id}")
-    Call<Boolean> existsPainCurrent(@Path("patient_id") int patient_id);
 }
