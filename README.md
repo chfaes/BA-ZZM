@@ -1,2 +1,2 @@
 # BA-ZZM
-Repository for my Bachelor's Thesis.
+Repository for the Android app of my bachelor's thesis.
