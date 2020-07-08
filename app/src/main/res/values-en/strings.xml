@@ -117,6 +117,7 @@
     <string name="pain_location">Pain Location</string>
     <string name="pain_intensity">Pain Intensity</string>
     <string name="pain_pattern">Pain Pattern</string>
+    <string name="pain_causes">Pain Triggers</string>
 
     <string name="dull">dull</string>
     <string name="pulling">pulling</string>

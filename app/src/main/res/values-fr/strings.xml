@@ -113,6 +113,7 @@
     <string name="pain_location">Localisation de la douleur</string>
     <string name="pain_intensity">Intensité de la douleur</string>
     <string name="pain_pattern">Schéma douloureux</string>
+    <string name="pain_causes">déclencheurs de la douleur</string>
 
     <string name="dull">viscérale</string>
     <string name="pulling">tiraillement</string>

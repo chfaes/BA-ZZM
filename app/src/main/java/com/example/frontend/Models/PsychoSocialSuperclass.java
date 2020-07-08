@@ -64,7 +64,6 @@ public abstract class PsychoSocialSuperclass implements Serializable {
     }
 
     public int getByTagAndIndex(String tag, int idx){
-        //0 for x, 1 for y, 2 for size and 3 for colour.
         decoding(0);
         return (int) values.get(tag).get(idx);
     }

@@ -132,6 +132,7 @@
     <string name="pain_location">Schmerzlokalisation</string>
     <string name="pain_intensity">Schmerzintensität</string>
     <string name="pain_pattern">Schmerzmuster</string>
+    <string name="pain_causes">Schmerzauslöser</string>
 
     <string name="dull">dumpf</string>
     <string name="pulling">ziehend</string>

@@ -132,6 +132,7 @@
     <string name="pain_location">Расположение боли</string>
     <string name="pain_intensity">Интенсивность боли</string>
     <string name="pain_pattern">Закономерность боли</string>
+    <string name="pain_causes">болевые триггеры</string>
 
     <string name="dull">тупая</string>
     <string name="pulling">тянущая</string>

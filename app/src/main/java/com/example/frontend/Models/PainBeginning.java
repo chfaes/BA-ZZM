@@ -28,6 +28,7 @@ public class PainBeginning implements Serializable {
     private boolean electric;
     private boolean pressing;
     private String comment;
+    private String pain_trigger;
     private static final long serialVersionUID = -5066376132252162292L; //dirty fix: copied the value from the error message; couldn't decode properly.
     private ProxyBitmap Photography;
     private Map<String, ArrayList<Float>> values = new HashMap();
@@ -177,6 +178,14 @@ public class PainBeginning implements Serializable {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public String getPain_trigger() {
+        return pain_trigger;
+    }
+
+    public void setPain_trigger(String pain_trigger) {
+        this.pain_trigger = pain_trigger;
     }
 
     public void setPhoto(Bitmap bmp){

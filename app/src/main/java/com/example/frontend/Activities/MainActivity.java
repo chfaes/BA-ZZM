@@ -66,12 +66,12 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             } else {
                 userFound = false;
-                //Zitrone: Dieser Block ermöglicht den schnellen Login während der Testphase.
+                /*Zitrone: Dieser Block ermöglicht den schnellen Login während der Testphase.
                 Globals g = Globals.getInstance();
                 g.setUser(user);
                 Intent intent = new Intent(MainActivity.this, PatientSelectionActivity.class);
                 intent.putExtra("usernameKey", etUsername.getText().toString());
-                startActivity(intent);
+                startActivity(intent);*/
             }
         }
         if (!userFound){

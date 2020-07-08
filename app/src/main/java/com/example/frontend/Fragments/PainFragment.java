@@ -103,6 +103,7 @@ public class PainFragment extends Fragment {
     private ImageView ivAttNoFreeInt;
 
     private EditText etComment;
+    private EditText etPain_trigger;
 
     boolean firstTimeOpen = true;
 
@@ -242,6 +243,7 @@ public class PainFragment extends Fragment {
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         db = new DatabaseHelper(getContext());
         etComment = view.findViewById(R.id.etComment);
+        etPain_trigger = view.findViewById(R.id.etCauses);
         etComment.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -257,6 +259,24 @@ public class PainFragment extends Fragment {
             public void afterTextChanged(Editable editable) {
 
             }
+
+        });
+        etPain_trigger.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                painOfPatient.setPain_trigger(etPain_trigger.getText().toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+
         });
         btnDull = view.findViewById(R.id.btnDull);
         btnPulling = view.findViewById(R.id.btnPulling);
@@ -476,6 +496,7 @@ public class PainFragment extends Fragment {
         painOfPatient.setElectric(false);
         painOfPatient.setPressing(false);
         painOfPatient.setComment("");
+        painOfPatient.setPain_trigger("");
     }
 
     public byte[] bitmapToByte(Bitmap drawing) {
@@ -772,6 +793,7 @@ public class PainFragment extends Fragment {
         ivLocationFaceRight.setImageBitmap(bmFaceRight);
         seekBar.setProgress(painOfPatient.getIntensity());
         etComment.setText(painOfPatient.getComment());
+        etPain_trigger.setText(painOfPatient.getPain_trigger());
 
         deselectPattern();
         if (painOfPatient.getPain_pattern() != null && !painOfPatient.getPain_pattern().isEmpty()) {
@@ -947,6 +969,7 @@ public class PainFragment extends Fragment {
         pain.setElectric(false);
         pain.setPressing(false);
         pain.setComment("");
+        pain.setPain_trigger("");
 
         return pain;
     }
